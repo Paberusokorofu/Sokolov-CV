@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pavel Sokolov — IT Project Manager. Portfolio. Moscow. sokolov-pm.ru">
+  <title>Pavel Sokolov — IT Project Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <nav class="nav" aria-label="Primary">
+      <a href="#cases" data-i18n="nav_cases">Кейсы</a>
+      <a href="#approach" data-i18n="nav_approach">Подход</a>
+      <a href="#stack" data-i18n="nav_stack">Стек</a>
+      <a href="#courses" data-i18n="nav_courses">Курсы</a>
+      <a href="#contact" data-i18n="nav_contact">Контакты</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" class="lang__btn is-active" data-set-lang="ru" aria-pressed="true">RU</button>
+      <button type="button" class="lang__btn" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <p class="hero__meta" data-i18n="city">Москва</p>
+    <h1 class="hero__name">Pavel Sokolov</h1>
+    <p class="hero__role" data-i18n="role">IT Project Manager / руководитель IT-проектов</p>
+    <p class="hero__lead" data-i18n="lead">
+      Портфолио delivery: 0-цикл, параллельный портфель, Lean/BPMN и прикладные ML/RAG-инициативы.
+      Линейно — команда аналитиков; разработку и QA координирую на уровне проекта.
+    </p>
+    <div class="hero__actions">
+      <a class="btn" href="#cases" data-i18n="cta_cases">Смотреть кейсы</a>
+      <a class="btn btn--ghost" href="CV%20Sokolov%20Pavel.pdf" data-i18n="cta_pdf">Скачать PDF</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section section--cases" id="cases" aria-labelledby="cases-title">
+      <h2 id="cases-title" data-i18n="cases_title">Кейсы</h2>
+      <p class="section__intro" data-i18n="cases_intro">АО «НБИ» · руководитель IT-проектов · 08.2022 — 08.2026</p>
+
+      <article class="case case--featured">
+        <p class="case__tag" data-i18n="tag_delivery">Delivery</p>
+        <h3 data-i18n="case1_title">0-цикл и портфель</h3>
+        <p data-i18n="case1_body">
+          Закрыл 2 проекта с нуля (0-цикл) до подписания актов. Портфель — 4 проекта параллельно
+          (3,5–60 тыс. чел.-ч., бюджеты до 1 млрд руб.). Полный цикл: ТЗ, команда, реализация,
+          приёмка, релиз, закрывающие акты. Линейное руководство командой аналитиков;
+          разработку и QA координировал на уровне проекта (сроки, зависимости, релизы) —
+          без линейного подчинения.
+        </p>
+      </article>
+
+      <article class="case">
+        <p class="case__tag" data-i18n="tag_process">Процессы</p>
+        <h3 data-i18n="case2_title">BPMN и Lean: −18% времени на доставку</h3>
+        <p data-i18n="case2_body">
+          Автоматизация доставки по BPMN (Jira, Confluence, Redmine) — −18% фактического времени (Lean).
+          Релизный контур нескольких команд: план итераций, окна релизов, контроль этапов;
+          гибрид Agile / Scrum / Kanban и Waterfall (DoR/DoD, daily, демо, ретро, метрики потока).
+          Календарное планирование в MS Project.
+        </p>
+      </article>
+
+      <article class="case">
+        <p class="case__tag" data-i18n="tag_ml">ML / LLM</p>
+        <h3 data-i18n="case3_title">RAG / LLM и прогноз электропотребления</h3>
+        <p data-i18n="case3_body">
+          RAG / LLM на базе знаний 10 ГБ. ML-прогноз электропотребления (Python, точность 78% за год).
+        </p>
+        <p>
+          <a href="https://github.com/Paberusokorofu/energy-predict" rel="noopener noreferrer" target="_blank">github.com/Paberusokorofu/energy-predict</a>
+        </p>
+      </article>
+    </section>
+
+    <section class="section" id="approach" aria-labelledby="approach-title">
+      <h2 id="approach-title" data-i18n="approach_title">Подход</h2>
+      <p data-i18n="approach_body">
+        Delivery полного цикла. Стейкхолдеры и риски: бэклог и зависимости с Product Manager и Tech Lead;
+        эскалация блокеров (критичная информация за 1 неделю вместо 3 месяцев); переговоры с ЛПР и заказчиками.
+        Домены: госсектор, 44-ФЗ, банк, нефтегаз, энергетика. Английский B2. PMP (PMI) — в процессе.
+      </p>
+    </section>
+
+    <section class="section" id="stack" aria-labelledby="stack-title">
+      <h2 id="stack-title" data-i18n="stack_title">Стек</h2>
+      <ul class="tags" aria-label="Tools">
+        <li>Jira</li>
+        <li>Confluence</li>
+        <li data-i18n="tag_bitrix">Битрикс24</li>
+        <li>MS Project</li>
+        <li>BPMN</li>
+        <li>Redmine</li>
+        <li>draw.io</li>
+        <li>Figma</li>
+        <li>Agile / Scrum / Kanban</li>
+        <li>Waterfall</li>
+        <li>Lean Six Sigma</li>
+        <li>PMBOK</li>
+        <li>SAP</li>
+        <li data-i18n="tag_1c">1С</li>
+        <li>Python</li>
+        <li>MS SQL</li>
+      </ul>
+    </section>
+
+    <section class="section" id="courses" aria-labelledby="courses-title">
+      <h2 id="courses-title" data-i18n="courses_title">Курсы</h2>
+      <ul class="list">
+        <li data-i18n="course_pmp">Project Management Professional (PMP), PMI — в процессе</li>
+        <li data-i18n="course_ss">Six Sigma Green Belt, Simplilearn (Lean management)</li>
+        <li>
+          <span data-i18n="course_ml">Google Machine Learning Crash Course —</span>
+          <a href="https://g.dev/Paberusokorofu" rel="noopener noreferrer" target="_blank" data-i18n="course_badges">badges на g.dev</a>
+        </li>
+        <li data-i18n="course_android">Android Studio User, Google</li>
+        <li>
+          Google Developer Program —
+          <a href="https://g.dev/Paberusokorofu" rel="noopener noreferrer" target="_blank">g.dev/Paberusokorofu</a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title" data-i18n="contact_title">Контакты</h2>
+      <ul class="contacts" aria-label="Contacts">
+        <li><a href="mailto:pavelsokolov.ba@gmail.com">pavelsokolov.ba@gmail.com</a></li>
+        <li><a href="https://t.me/Sokolov_Pavel_1" rel="noopener noreferrer" target="_blank">Telegram</a></li>
+        <li><a href="tel:+79258273482">+7 (925) 827-34-82</a></li>
+        <li><a href="https://github.com/Paberusokorofu/energy-predict" rel="noopener noreferrer" target="_blank">GitHub · energy-predict</a></li>
+        <li><a href="https://g.dev/Paberusokorofu" rel="noopener noreferrer" target="_blank">g.dev</a></li>
+      </ul>
+      <p class="hint" data-i18n="pdf_hint">PDF: положите <code>CV Sokolov Pavel.pdf</code> рядом с <code>index.html</code> при деплое.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Pavel Sokolov · IT Project Manager · <span data-i18n="city">Москва</span></p>
+    <p class="footer__domain">sokolov-pm.ru</p>
+  </footer>
+
+  <script src="i18n.js"></script>
+</body>
+</html>
