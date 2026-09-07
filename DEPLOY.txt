@@ -1,38 +1,27 @@
-Целевой домен: sokolov-pm.ru
-Хостинг: GitHub Pages (ещё не подключено). Покупку домена делает USER.
+Целевой домен: sokolov-pm.ru (КУПЛЕН USER)
+Хостинг: GitHub Pages — репозиторий https://github.com/Paberusokorofu/Sokolov-CV
+GitHub username: Paberusokorofu
 
-=== Локальный просмотр ===
-Открыть в браузере:
-  index.html
-Или:
-  run.bat
-  start index.html
+=== Сейчас (после покупки домена) ===
+1. DNS у регистратора — см. ниже.
+2. GitHub → Sokolov-CV → Settings → Pages:
+   - Source: Deploy from a branch
+   - Branch: main / (root)
+   - Custom domain: sokolov-pm.ru
+   - После пропагации DNS: Enforce HTTPS
+3. В корне репо файл CNAME: sokolov-pm.ru
 
-=== Деплой (порядок) ===
-1. USER: подтвердить GitHub username (кандидат: Paberusokorofu).
-2. USER: создать публичный репозиторий (например portfolio).
-3. USER/AGENT: залить содержимое корня репо (или /docs).
-4. USER/AGENT: скопировать CV Sokolov Pavel.pdf рядом с index.html; проверить ссылку «Скачать PDF».
-5. USER: Settings → Pages → Source: Deploy from a branch (main / root или /docs).
-6. В репозитории добавить файл CNAME (одна строка):
-     sokolov-pm.ru
-7. USER: купить домен sokolov-pm.ru у регистратора.
-8. USER: DNS у регистратора (см. ниже).
-9. USER: Settings → Pages → Custom domain: sokolov-pm.ru → Enforce HTTPS после выдачи сертификата.
-10. Не коммитить/пушить без явной просьбы USER.
+=== DNS у регистратора ===
+A @ → 185.199.108.153
+A @ → 185.199.109.153
+A @ → 185.199.110.153
+A @ → 185.199.111.153
+CNAME www → Paberusokorofu.github.io
 
-=== DNS для GitHub Pages (apex sokolov-pm.ru) ===
-A-записи для @ (sokolov-pm.ru) → IP GitHub Pages:
-  185.199.108.153
-  185.199.109.153
-  185.199.110.153
-  185.199.111.153
+Удали старые A/CNAME на парковку регистратора, если мешают.
 
-CNAME для www:
-  www  →  <GITHUB_USERNAME>.github.io
+=== Локально ===
+run.bat или index.html
 
-TTL: 300–3600 по желанию регистратора.
-После смены DNS подождать пропагацию (минуты–сутки), затем включить HTTPS в Pages.
-
-Проверка: dig/nslookup A sokolov-pm.ru и CNAME www.sokolov-pm.ru.
-Актуальные IP GitHub: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site
+=== PDF ===
+Положить CV Sokolov Pavel.pdf рядом с index.html (ссылка «Скачать PDF»).
