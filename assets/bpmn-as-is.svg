@@ -1,27 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" role="img" aria-labelledby="t1">
-  <title id="t1">F5=:0 AS-IS</title>
-  <rect width="960" height="320" fill="#0b1220"/>
-  <text x="480" y="42" text-anchor="middle" fill="#e7eef8" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="600">F5=:0 AS-IS</text>
-  <circle cx="56" cy="160" r="12" fill="none" stroke="#64ffda" stroke-width="2"/>
-  <line x1="68" y1="160" x2="118" y2="160" stroke="#64ffda" stroke-width="2"/>
-  <rect x="118" y="118" width="200" height="84" rx="10" fill="#121a2b" stroke="#64ffda" stroke-width="2"/>
-  <text x="218" y="155" text-anchor="middle" fill="#e7eef8" font-family="Segoe UI, Arial, sans-serif" font-size="15">0:@KB85 ?@>5:B0</text>
-  <text x="218" y="178" text-anchor="middle" fill="#9aa8bd" font-family="Segoe UI, Arial, sans-serif" font-size="12">?> D0:BC 7025@H5=8O</text>
-  <line x1="318" y1="160" x2="368" y2="160" stroke="#64ffda" stroke-width="2" marker-end="url(#a)"/>
-  <rect x="368" y="118" width="220" height="84" rx="10" fill="#121a2b" stroke="#64ffda" stroke-width="2"/>
-  <text x="478" y="155" text-anchor="middle" fill="#e7eef8" font-family="Segoe UI, Arial, sans-serif" font-size="15"> CG=0O >F5=:0  </text>
-  <text x="478" y="178" text-anchor="middle" fill="#9aa8bd" font-family="Segoe UI, Arial, sans-serif" font-size="12">?>A;5 70:@KB8O @01>B</text>
-  <line x1="588" y1="160" x2="638" y2="160" stroke="#64ffda" stroke-width="2" marker-end="url(#a)"/>
-  <rect x="638" y="118" width="220" height="84" rx="10" fill="#121a2b" stroke="#e8c47c" stroke-width="2"/>
-  <text x="748" y="155" text-anchor="middle" fill="#e7eef8" font-family="Segoe UI, Arial, sans-serif" font-size="15">!C1J5:B82=K9 @57C;LB0B</text>
-  <text x="748" y="178" text-anchor="middle" fill="#9aa8bd" font-family="Segoe UI, Arial, sans-serif" font-size="12"><0;> 40==KE 4;O @5H5=89</text>
-  <line x1="858" y1="160" x2="908" y2="160" stroke="#64ffda" stroke-width="2"/>
-  <circle cx="920" cy="160" r="12" fill="none" stroke="#64ffda" stroke-width="2"/>
-  <circle cx="920" cy="160" r="7" fill="none" stroke="#64ffda" stroke-width="2"/>
-  <text x="480" y="280" text-anchor="middle" fill="#9aa8bd" font-family="Consolas, monospace" font-size="12">@>1;5<0: >F5=:0 ?5@A>=0;0 157 ?@>7@0G=KE <5B@8:</text>
+  <title id="t1">Оценка AS-IS</title>
+  <rect width="960" height="320" fill="#f6f7f9"/>
+  <text x="480" y="42" text-anchor="middle" fill="#0f172a" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="600">Оценка AS-IS</text>
+  <circle cx="56" cy="160" r="12" fill="none" stroke="#0f766e" stroke-width="2"/>
+  <line x1="68" y1="160" x2="118" y2="160" stroke="#0f766e" stroke-width="2"/>
+  <rect x="118" y="118" width="200" height="84" rx="10" fill="#ffffff" stroke="#0f766e" stroke-width="2"/>
+  <text x="218" y="155" text-anchor="middle" fill="#0f172a" font-family="Segoe UI, Arial, sans-serif" font-size="15">Закрытие проекта</text>
+  <text x="218" y="178" text-anchor="middle" fill="#5b6b7c" font-family="Segoe UI, Arial, sans-serif" font-size="12">по факту завершения</text>
+  <line x1="318" y1="160" x2="368" y2="160" stroke="#0f766e" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="368" y="118" width="220" height="84" rx="10" fill="#ffffff" stroke="#0f766e" stroke-width="2"/>
+  <text x="478" y="155" text-anchor="middle" fill="#0f172a" font-family="Segoe UI, Arial, sans-serif" font-size="15">Ручная оценка РП</text>
+  <text x="478" y="178" text-anchor="middle" fill="#5b6b7c" font-family="Segoe UI, Arial, sans-serif" font-size="12">после закрытия работ</text>
+  <line x1="588" y1="160" x2="638" y2="160" stroke="#0f766e" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="638" y="118" width="220" height="84" rx="10" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+  <text x="748" y="155" text-anchor="middle" fill="#0f172a" font-family="Segoe UI, Arial, sans-serif" font-size="15">Субъективный результат</text>
+  <text x="748" y="178" text-anchor="middle" fill="#5b6b7c" font-family="Segoe UI, Arial, sans-serif" font-size="12">мало данных для решений</text>
+  <line x1="858" y1="160" x2="908" y2="160" stroke="#0f766e" stroke-width="2"/>
+  <circle cx="920" cy="160" r="12" fill="none" stroke="#0f766e" stroke-width="2"/>
+  <circle cx="920" cy="160" r="7" fill="none" stroke="#0f766e" stroke-width="2"/>
+  <text x="480" y="280" text-anchor="middle" fill="#5b6b7c" font-family="Consolas, monospace" font-size="12">Проблема: оценка персонала без прозрачных метрик</text>
   <defs>
     <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#64ffda"/>
+      <path d="M0,0 L6,3 L0,6 Z" fill="#0f766e"/>
     </marker>
   </defs>
 </svg>

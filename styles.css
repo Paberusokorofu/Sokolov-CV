@@ -1,13 +1,14 @@
 :root {
-  --bg: #0b1220;
-  --bg-elev: #121a2b;
-  --bg-soft: #182235;
-  --ink: #e7eef8;
-  --muted: #9aa8bd;
-  --line: #2a3850;
-  --accent: #64ffda;
-  --accent-dim: rgba(100, 255, 218, 0.12);
-  --warn: #e8c47c;
+  --bg: #f6f7f9;
+  --bg-elev: #ffffff;
+  --bg-soft: #eef1f5;
+  --ink: #0f172a;
+  --muted: #5b6b7c;
+  --line: #d5dce6;
+  --accent: #0f766e;
+  --accent-dim: rgba(15, 118, 110, 0.1);
+  --accent-ink: #ffffff;
+  --warn: #b45309;
   --max-aside: 22rem;
   --max-aside-focus: 13.5rem;
   --font: "IBM Plex Sans", "Segoe UI", sans-serif;
@@ -25,7 +26,7 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -50,8 +51,8 @@ body {
   font-size: clamp(0.98rem, 0.92rem + 0.25vw, 1.08rem);
   line-height: 1.6;
   background:
-    radial-gradient(900px 420px at 0% 0%, #14304a 0%, transparent 55%),
-    radial-gradient(700px 380px at 100% 10%, #1a2740 0%, transparent 50%),
+    radial-gradient(900px 480px at 0% 0%, rgba(15, 118, 110, 0.07) 0%, transparent 55%),
+    radial-gradient(720px 400px at 100% 8%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
     var(--bg);
 }
 
@@ -69,7 +70,7 @@ a:hover {
   left: -999px;
   top: 0;
   background: var(--accent);
-  color: #041018;
+  color: var(--accent-ink);
   padding: 0.5rem 0.75rem;
   z-index: 100;
 }
@@ -387,8 +388,9 @@ body.is-job-focus .aside__role {
 
 .job:hover,
 .job:focus-visible {
-  border-color: #3d5373;
+  border-color: var(--accent);
   outline: none;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
 .job.is-active {
@@ -413,7 +415,7 @@ body.is-job-focus .aside__role {
   height: 0.35rem;
   margin: 0 0 0.75rem;
   border-radius: 999px;
-  background: #243249;
+  background: var(--bg-soft);
   position: relative;
   overflow: hidden;
 }
@@ -423,7 +425,7 @@ body.is-job-focus .aside__role {
   position: absolute;
   inset: 0 auto 0 calc(var(--start) * 1%);
   width: calc(var(--span) * 1%);
-  background: linear-gradient(90deg, #3d8f7c, var(--accent));
+  background: linear-gradient(90deg, #14b8a6, var(--accent));
   border-radius: inherit;
 }
 
@@ -488,17 +490,19 @@ body.is-job-focus .aside__role {
 }
 
 .chip-row--soft li {
-  border-color: #3a3340;
-  color: #d7c9b4;
+  border-color: #c9d4c8;
+  color: #3f5a4a;
+  background: #f2f7f4;
 }
 
 .job-linked {
   position: relative;
   min-width: 0;
   padding: 0.85rem 0.9rem 0.95rem;
-  border: 1px solid #3d8f7c;
+  border: 1px solid var(--accent);
   border-radius: var(--radius);
-  background: var(--bg-soft);
+  background: var(--bg-elev);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
   animation: rise 0.35s var(--ease) both;
 }
 
@@ -533,7 +537,8 @@ body.is-job-focus .aside__role {
   padding: 0.65rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: #0e1624;
+  background: var(--bg-elev);
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.03);
 }
 
 .job-linked__story:has(.job-linked__photos[hidden]) {
@@ -557,7 +562,7 @@ body.is-job-focus .aside__role {
   border-radius: var(--radius);
   padding: 0;
   margin: 0;
-  background: #0a1018;
+  background: var(--bg-soft);
   cursor: zoom-in;
   overflow: hidden;
   width: 100%;
@@ -646,7 +651,7 @@ body.is-job-focus .aside__role {
   padding: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: #0a1018;
+  background: var(--bg-soft);
   cursor: zoom-in;
   overflow: hidden;
   transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
@@ -751,7 +756,7 @@ body.is-job-focus .aside__role {
   padding: 0.55rem 0.95rem;
   border-radius: var(--radius);
   background: var(--accent);
-  color: #041018;
+  color: var(--accent-ink);
   font-weight: 600;
   text-decoration: none;
 }
@@ -833,7 +838,7 @@ body.is-job-focus .aside__role {
 }
 
 .lightbox::backdrop {
-  background: rgba(4, 8, 16, 0.82);
+  background: rgba(15, 23, 42, 0.45);
   backdrop-filter: blur(4px);
 }
 
@@ -855,8 +860,8 @@ body.is-job-focus .aside__role {
   z-index: 2;
   appearance: none;
   border: 0;
-  background: rgba(8, 14, 24, 0.75);
-  color: var(--ink);
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
   width: 2rem;
   height: 2rem;
   border-radius: 999px;
@@ -877,7 +882,7 @@ body.is-job-focus .aside__role {
 }
 
 .archive::backdrop {
-  background: rgba(4, 8, 16, 0.72);
+  background: rgba(15, 23, 42, 0.4);
   backdrop-filter: blur(3px);
 }
 
