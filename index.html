@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -28,134 +28,116 @@
           <a href="#cases" data-nav="cases" data-i18n="nav_cases">Кейсы</a>
           <a href="#education" data-nav="education" data-i18n="nav_education">Обучение</a>
           <a href="#contact" data-nav="contact" data-i18n="nav_contact">Контакты</a>
-        </nav>
+    </nav>
 
-        <figure class="avatar" data-avatar aria-hidden="true">
-          <svg class="avatar__svg" viewBox="0 0 260 280" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <clipPath id="avatar-screen-clip">
-                <rect x="68" y="108" width="124" height="72" rx="3"/>
-              </clipPath>
-              <linearGradient id="avatar-desk" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#d2b48c"/>
-                <stop offset="100%" stop-color="#b08968"/>
-              </linearGradient>
-              <linearGradient id="avatar-skin" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#f0d0b0"/>
-                <stop offset="100%" stop-color="#e0b892"/>
-              </linearGradient>
-            </defs>
-
-            <rect x="8" y="8" width="244" height="200" rx="16" fill="#eef3f8"/>
-
-            <g class="avatar__torso">
-              <ellipse cx="130" cy="198" rx="52" ry="28" fill="#1f2937"/>
-              <path d="M86 178 Q130 158 174 178 L180 210 Q130 198 80 210 Z" fill="#4d6b3c"/>
-              <path d="M92 176 Q130 162 168 176 L170 198 Q130 188 90 198 Z" fill="#3f5a32"/>
-            </g>
-
-            <g class="avatar__laptop">
-              <rect x="64" y="104" width="132" height="80" rx="5" fill="#334155"/>
-              <g clip-path="url(#avatar-screen-clip)">
-                <g class="avatar__scene is-active" data-scene="0">
-                  <rect x="68" y="108" width="124" height="72" fill="#0f172a"/>
-                  <rect x="76" y="116" width="108" height="12" rx="2" fill="#1e293b"/>
-                  <rect class="avatar__check-pop" x="80" y="119" width="7" height="6" rx="1" fill="#22c55e"/>
-                  <line class="avatar__strike" x1="92" y1="122" x2="172" y2="122" stroke="#94a3b8" stroke-width="2"/>
-                  <rect x="76" y="134" width="108" height="12" rx="2" fill="#1e293b"/>
-                  <rect x="80" y="137" width="7" height="6" rx="1" fill="#64748b"/>
-                  <rect x="76" y="152" width="108" height="12" rx="2" fill="#1e293b"/>
-                  <rect x="80" y="155" width="7" height="6" rx="1" fill="#64748b"/>
+        <figure class="avatar avatar--robot" data-avatar aria-hidden="true">
+          <div class="avatar__stage">
+            <div class="avatar__fx" data-avatar-fx>
+              <svg class="avatar__fx-svg" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+                <g class="avatar__fx-scene is-active" data-fx="0">
+                  <rect width="160" height="100" fill="#04101a"/>
+                  <rect x="16" y="22" width="128" height="14" rx="2" fill="#0b3d3a"/>
+                  <rect x="20" y="26" width="10" height="6" rx="1" fill="#64ffda"/>
+                  <line x1="36" y1="29" x2="130" y2="29" stroke="#2dd4bf" stroke-width="2"/>
+                  <rect x="16" y="44" width="128" height="14" rx="2" fill="#0b3d3a"/>
+                  <rect x="20" y="48" width="10" height="6" rx="1" fill="#64ffda"/>
+                  <rect x="16" y="66" width="128" height="14" rx="2" fill="#123"/>
                 </g>
-                <g class="avatar__scene" data-scene="1">
-                  <rect x="68" y="108" width="124" height="72" fill="#020617"/>
-                  <rect x="80" y="122" width="72" height="8" rx="2" fill="#0f766e" class="avatar__gantt"/>
-                  <rect x="88" y="138" width="54" height="8" rx="2" fill="#14b8a6"/>
-                  <rect x="76" y="154" width="88" height="8" rx="2" fill="#5eead4" class="avatar__gantt avatar__gantt--slow"/>
+                <g class="avatar__fx-scene" data-fx="1">
+                  <rect width="160" height="100" fill="#020617"/>
+                  <rect x="20" y="28" width="90" height="10" rx="2" fill="#0f766e" class="avatar__fx-gantt"/>
+                  <rect x="30" y="48" width="70" height="10" rx="2" fill="#14b8a6"/>
+                  <rect x="18" y="68" width="110" height="10" rx="2" fill="#5eead4" class="avatar__fx-gantt"/>
                 </g>
-                <g class="avatar__scene" data-scene="2">
-                  <rect x="68" y="108" width="124" height="72" fill="#f8fafc"/>
-                  <g transform="translate(0 168)">
-                    <rect class="avatar__bar" x="84" y="-40" width="14" height="40" fill="#0f766e"/>
-                    <rect class="avatar__bar avatar__bar--2" x="108" y="-52" width="14" height="52" fill="#14b8a6"/>
-                    <rect class="avatar__bar avatar__bar--3" x="132" y="-34" width="14" height="34" fill="#0d9488"/>
-                    <rect class="avatar__bar avatar__bar--4" x="156" y="-46" width="14" height="46" fill="#5eead4"/>
+                <g class="avatar__fx-scene" data-fx="2">
+                  <rect width="160" height="100" fill="#031820"/>
+                  <g transform="translate(0 90)">
+                    <rect class="avatar__fx-bar" x="28" y="-50" width="16" height="50" fill="#0f766e"/>
+                    <rect class="avatar__fx-bar avatar__fx-bar--2" x="56" y="-62" width="16" height="62" fill="#14b8a6"/>
+                    <rect class="avatar__fx-bar avatar__fx-bar--3" x="84" y="-40" width="16" height="40" fill="#2dd4bf"/>
+                    <rect class="avatar__fx-bar avatar__fx-bar--4" x="112" y="-56" width="16" height="56" fill="#5eead4"/>
                   </g>
-                  <line x1="78" y1="168" x2="182" y2="168" stroke="#94a3b8" stroke-width="1"/>
                 </g>
-                <g class="avatar__scene" data-scene="3">
-                  <rect x="68" y="108" width="124" height="72" fill="#ffffff"/>
-                  <path class="avatar__curve" d="M80 160 Q110 158 130 132 T182 118" fill="none" stroke="#0f766e" stroke-width="2.5"/>
-                  <circle cx="130" cy="132" r="3.2" fill="#b45309"/>
+                <g class="avatar__fx-scene" data-fx="3">
+                  <rect width="160" height="100" fill="#020617"/>
+                  <path class="avatar__fx-curve" d="M20 78 Q50 78 70 45 T140 28" fill="none" stroke="#64ffda" stroke-width="3"/>
+                  <circle cx="70" cy="45" r="4" fill="#fbbf24"/>
                 </g>
-                <g class="avatar__scene" data-scene="4">
-                  <rect x="68" y="108" width="124" height="72" fill="#f1f5f9"/>
-                  <text x="88" y="130" fill="#0f172a" font-size="12" font-family="Consolas, monospace">Σ w = 1</text>
-                  <text x="88" y="148" fill="#0f766e" font-size="12" font-family="Consolas, monospace">ROI ↑</text>
-                  <text class="avatar__formula" x="88" y="166" fill="#64748b" font-size="11" font-family="Consolas, monospace">P(A|B)</text>
+                <g class="avatar__fx-scene" data-fx="4">
+                  <rect width="160" height="100" fill="#04101a"/>
+                  <rect x="24" y="20" width="30" height="60" rx="3" fill="#0b3d3a" stroke="#64ffda"/>
+                  <rect x="64" y="20" width="30" height="60" rx="3" fill="#123" stroke="#64748b"/>
+                  <rect class="avatar__fx-card" x="104" y="20" width="30" height="60" rx="3" fill="#134e4a" stroke="#14b8a6"/>
                 </g>
-                <g class="avatar__scene" data-scene="5">
-                  <rect x="68" y="108" width="124" height="72" fill="#0b1220"/>
-                  <rect x="78" y="118" width="30" height="46" rx="3" fill="#1e293b" stroke="#0f766e"/>
-                  <rect x="116" y="118" width="30" height="46" rx="3" fill="#1e293b" stroke="#64748b"/>
-                  <rect class="avatar__card" x="154" y="118" width="30" height="46" rx="3" fill="#134e4a" stroke="#14b8a6"/>
-                  <circle cx="93" cy="132" r="4" fill="#22c55e"/>
-                  <circle cx="131" cy="132" r="4" fill="#eab308"/>
+              </svg>
+            </div>
+            <svg class="avatar__svg" viewBox="0 0 48 56" width="240" height="280" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+              <!-- wall -->
+              <rect width="48" height="36" fill="#1a2332"/>
+              <rect x="0" y="0" width="2" height="36" fill="#243044"/>
+              <rect x="6" y="0" width="2" height="36" fill="#243044"/>
+              <rect x="12" y="0" width="2" height="36" fill="#243044"/>
+              <rect x="18" y="0" width="2" height="36" fill="#243044"/>
+              <rect x="24" y="0" width="2" height="36" fill="#243044"/>
+              <rect x="30" y="0" width="2" height="36" fill="#243044"/>
+              <rect x="36" y="0" width="2" height="36" fill="#243044"/>
+              <rect x="42" y="0" width="2" height="36" fill="#243044"/>
+              <!-- desk -->
+              <rect y="36" width="48" height="20" fill="#2a3344"/>
+              <rect y="36" width="48" height="2" fill="#3d4b63"/>
+              <!-- coffee -->
+              <g class="avatar__coffee">
+                <rect x="38" y="30" width="6" height="6" fill="#e2e8f0"/>
+                <rect x="39" y="31" width="4" height="4" fill="#7c4a2d"/>
+                <rect class="avatar__steam avatar__steam--1" x="40" y="26" width="1" height="3" fill="#94a3b8"/>
+                <rect class="avatar__steam avatar__steam--2" x="42" y="25" width="1" height="4" fill="#94a3b8"/>
+              </g>
+              <!-- robot body -->
+              <rect x="16" y="22" width="16" height="14" fill="#64748b"/>
+              <rect x="17" y="23" width="14" height="4" fill="#94a3b8"/>
+              <rect x="18" y="28" width="12" height="2" fill="#0f766e"/>
+              <rect x="14" y="24" width="3" height="10" fill="#475569"/>
+              <rect x="31" y="24" width="3" height="10" fill="#475569"/>
+              <!-- robot head -->
+              <g class="avatar__head">
+                <rect x="17" y="8" width="14" height="14" fill="#94a3b8"/>
+                <rect x="18" y="9" width="12" height="12" fill="#cbd5e1"/>
+                <!-- antenna -->
+                <rect x="23" y="4" width="2" height="4" fill="#64748b"/>
+                <rect class="avatar__antenna" x="22" y="2" width="4" height="3" fill="#64ffda"/>
+                <!-- visor / eyes -->
+                <rect x="19" y="12" width="10" height="5" fill="#0f172a"/>
+                <rect class="avatar__pupil" x="20" y="13" width="3" height="3" fill="#64ffda"/>
+                <rect class="avatar__pupil" x="26" y="13" width="3" height="3" fill="#64ffda"/>
+                <!-- smile plate -->
+                <rect x="21" y="18" width="6" height="2" fill="#475569"/>
+              </g>
+              <!-- laptop lid BACK to viewer -->
+              <g class="avatar__laptop">
+                <rect x="10" y="26" width="28" height="16" fill="#475569"/>
+                <rect x="11" y="27" width="26" height="12" fill="#64748b"/>
+                <rect x="20" y="30" width="8" height="5" fill="#334155"/>
+                <rect x="9" y="40" width="30" height="3" fill="#334155"/>
+                <!-- terminal glow spill under lid edge -->
+                <rect class="avatar__glow" x="12" y="38" width="24" height="2" fill="#64ffda"/>
+                <g class="avatar__sticky">
+                  <rect x="24" y="28" width="11" height="8" fill="#fde047"/>
+                  <text class="avatar__sticky-text" x="29.5" y="33.5" text-anchor="middle" fill="#713f12" font-size="2.2" font-family="Segoe UI, sans-serif" font-weight="700">напиши мне</text>
                 </g>
               </g>
-              <rect x="68" y="108" width="124" height="72" rx="3" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
-              <rect x="48" y="182" width="164" height="12" rx="2" fill="#475569"/>
-              <rect x="110" y="185" width="40" height="4" rx="1" fill="#64748b"/>
-            </g>
-
-            <g class="avatar__head">
-              <rect x="118" y="96" width="24" height="16" rx="6" fill="url(#avatar-skin)"/>
-              <ellipse cx="130" cy="70" rx="34" ry="38" fill="url(#avatar-skin)"/>
-              <path d="M100 58 Q130 28 160 58 Q155 44 130 40 Q105 44 100 58 Z" fill="#c47a4a"/>
-              <path d="M108 55 Q115 42 124 48" fill="#c47a4a"/>
-              <path d="M152 55 Q145 42 136 48" fill="#c47a4a"/>
-              <path d="M108 82 Q130 102 152 82 Q148 98 130 102 Q112 98 108 82 Z" fill="#c47a4a"/>
-              <g class="avatar__glasses">
-                <rect x="104" y="60" width="22" height="15" rx="3" fill="rgba(255,255,255,0.2)" stroke="#111827" stroke-width="2"/>
-                <rect x="134" y="60" width="22" height="15" rx="3" fill="rgba(255,255,255,0.2)" stroke="#111827" stroke-width="2"/>
-                <line x1="126" y1="67" x2="134" y2="67" stroke="#111827" stroke-width="2"/>
-                <line x1="104" y1="67" x2="98" y2="64" stroke="#111827" stroke-width="2"/>
-                <line x1="156" y1="67" x2="162" y2="64" stroke="#111827" stroke-width="2"/>
+              <!-- typing hands / claws -->
+              <g class="avatar__hand avatar__hand--l">
+                <rect x="12" y="41" width="7" height="4" fill="#94a3b8"/>
+                <rect x="12" y="44" width="2" height="2" fill="#64748b"/>
+                <rect x="15" y="44" width="2" height="2" fill="#64748b"/>
               </g>
-              <g class="avatar__eye avatar__eye--l">
-                <ellipse cx="115" cy="67" rx="5" ry="5.5" fill="#fff"/>
-                <circle class="avatar__pupil" cx="115" cy="67" r="2.3" fill="#1e293b"/>
+              <g class="avatar__hand avatar__hand--r">
+                <rect x="29" y="41" width="7" height="4" fill="#94a3b8"/>
+                <rect x="29" y="44" width="2" height="2" fill="#64748b"/>
+                <rect x="32" y="44" width="2" height="2" fill="#64748b"/>
               </g>
-              <g class="avatar__eye avatar__eye--r">
-                <ellipse cx="145" cy="67" rx="5" ry="5.5" fill="#fff"/>
-                <circle class="avatar__pupil" cx="145" cy="67" r="2.3" fill="#1e293b"/>
-              </g>
-              <path d="M124 84 Q130 88 136 84" fill="none" stroke="#b07a5a" stroke-width="1.8" stroke-linecap="round"/>
-            </g>
-
-            <g class="avatar__arms">
-              <g class="avatar__arm-left">
-                <path d="M95 190 Q78 205 108 214" fill="none" stroke="#e0b892" stroke-width="11" stroke-linecap="round"/>
-                <circle cx="110" cy="214" r="6" fill="#e0b892"/>
-              </g>
-              <g class="avatar__arm-right">
-                <path d="M165 190 Q188 204 152 214" fill="none" stroke="#e0b892" stroke-width="11" stroke-linecap="round"/>
-                <circle cx="150" cy="214" r="6" fill="#e0b892"/>
-              </g>
-              <g class="avatar__arm-wave">
-                <path d="M168 186 Q198 160 214 132" fill="none" stroke="#e0b892" stroke-width="11" stroke-linecap="round"/>
-                <circle cx="216" cy="128" r="8" fill="#e0b892"/>
-              </g>
-            </g>
-
-            <ellipse cx="130" cy="236" rx="110" ry="22" fill="url(#avatar-desk)"/>
-            <rect x="20" y="222" width="220" height="18" rx="3" fill="#c4a574"/>
-
-            <g class="avatar__sticky">
-              <rect x="158" y="126" width="62" height="44" rx="2" fill="#fde047" stroke="#ca8a04" stroke-width="1" transform="rotate(-7 189 148)"/>
-              <text class="avatar__sticky-text" x="189" y="150" text-anchor="middle" fill="#713f12" font-size="8.5" font-family="Segoe UI, sans-serif" font-weight="700" transform="rotate(-7 189 148)">напиши мне</text>
-            </g>
-          </svg>
+            </svg>
+          </div>
         </figure>
 
         <ul class="socials" aria-label="Profiles">
@@ -191,11 +173,17 @@
           </li>
         </ul>
 
-        <div class="lang" role="group" aria-label="Language">
-          <button type="button" class="lang__btn is-active" data-set-lang="ru" aria-pressed="true">RU</button>
-          <button type="button" class="lang__btn" data-set-lang="en" aria-pressed="false">EN</button>
-        </div>
+    <div class="aside__tools">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" class="lang__btn is-active" data-set-lang="ru" aria-pressed="true">RU</button>
+        <button type="button" class="lang__btn" data-set-lang="en" aria-pressed="false">EN</button>
       </div>
+      <div class="theme" role="group" aria-label="Theme">
+        <button type="button" class="theme__btn is-active" data-set-theme="light" aria-pressed="true" title="Light">☀</button>
+        <button type="button" class="theme__btn" data-set-theme="dark" aria-pressed="false" title="Dark">☾</button>
+      </div>
+    </div>
+  </div>
     </aside>
 
     <main class="main" id="content">
@@ -247,7 +235,7 @@
                   <li data-i18n="soft_hybrid">Гибрид Agile / Waterfall</li>
                 </ul>
               </div>
-            </article>
+      </article>
 
             <article class="job" role="listitem" data-job="sibintek" data-from="2022" data-to="2022" data-cases="change-sap" data-detail="job_sib_detail" tabindex="0" aria-selected="false">
               <div class="job__bar" style="--start: 80; --span: 2;" title="04.2022 — 07.2022"></div>
@@ -272,7 +260,7 @@
                   <li data-i18n="soft_docs">Проектная документация</li>
                 </ul>
               </div>
-            </article>
+      </article>
 
             <article class="job" role="listitem" data-job="otr" data-from="2021" data-to="2022" data-cases="proj-admin" data-detail="job_otr_detail" tabindex="0" aria-selected="false">
               <div class="job__bar" style="--start: 74; --span: 6;" title="02.2021 — 04.2022"></div>
@@ -288,8 +276,8 @@
               <div class="job__skills">
                 <p class="job__skills-label" data-i18n="hard_label">Hard</p>
                 <ul class="chip-row">
-                  <li>Jira</li>
-                  <li>Confluence</li>
+        <li>Jira</li>
+        <li>Confluence</li>
                 </ul>
                 <p class="job__skills-label" data-i18n="soft_label">Soft</p>
                 <ul class="chip-row chip-row--soft">
@@ -465,7 +453,7 @@
                   <li data-i18n="soft_team5">Линейное руководство · 5 чел.</li>
                   <li data-i18n="soft_client">Клиентская работа</li>
                   <li data-i18n="soft_result">Ориентация на результат</li>
-                </ul>
+      </ul>
               </div>
             </article>
 
@@ -488,7 +476,7 @@
             </div>
           </aside>
         </div>
-      </section>
+    </section>
 
       <section class="section" id="education" aria-labelledby="education-title">
         <h2 id="education-title" data-i18n="education_title">Обучение</h2>
@@ -508,37 +496,37 @@
           <li>
             <strong>Six Sigma Green Belt</strong>
             <span>Simplilearn · Lean</span>
-          </li>
-          <li>
+        </li>
+        <li>
             <strong>Google Machine Learning Crash Course</strong>
             <a href="https://g.dev/Paberusokorofu" rel="noopener noreferrer" target="_blank">g.dev badges</a>
-          </li>
-        </ul>
-      </section>
+        </li>
+      </ul>
+    </section>
 
-      <section class="section" id="contact" aria-labelledby="contact-title">
-        <h2 id="contact-title" data-i18n="contact_title">Контакты</h2>
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title" data-i18n="contact_title">Контакты</h2>
         <div class="contact-grid">
           <ul class="contacts">
             <li data-i18n="city">Москва · м. Беломорская</li>
-            <li><a href="mailto:pavelsokolov.ba@gmail.com">pavelsokolov.ba@gmail.com</a></li>
+        <li><a href="mailto:pavelsokolov.ba@gmail.com">pavelsokolov.ba@gmail.com</a></li>
             <li><a href="https://t.me/Sokolov_Pavel_1" rel="noopener noreferrer" target="_blank">Telegram · Sokolov_Pavel_1</a></li>
-            <li><a href="tel:+79258273482">+7 (925) 827-34-82</a></li>
+        <li><a href="tel:+79258273482">+7 (925) 827-34-82</a></li>
             <li><a class="btn" href="CV%20Sokolov%20Pavel.pdf" download="CV Sokolov Pavel.pdf" data-i18n="cta_pdf">Скачать PDF</a></li>
-          </ul>
+      </ul>
           <figure class="qr">
             <img src="assets/telegram-qr.png" width="180" height="180" alt="Telegram QR" loading="lazy">
           </figure>
         </div>
-      </section>
+    </section>
 
-      <footer class="footer">
+  <footer class="footer">
         <p class="footer__copy"><span data-i18n="name">Павел Соколов</span> · IT PM · sokolov-pm.ru</p>
         <button type="button" class="tardis" data-open-archive aria-haspopup="dialog" aria-controls="archive-dialog" title="Previous versions">
           <span class="tardis__glyph" aria-hidden="true">▣</span>
           <span class="tardis__label">TARDIS</span>
         </button>
-      </footer>
+  </footer>
     </main>
   </div>
 
@@ -656,6 +644,7 @@
   </template>
 
   <script src="i18n.js"></script>
+  <script src="theme.js"></script>
   <script src="app.js"></script>
   <script src="avatar.js"></script>
 </body>

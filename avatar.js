@@ -4,16 +4,15 @@
 
   const svg = root.querySelector(".avatar__svg");
   const pupils = Array.from(root.querySelectorAll(".avatar__pupil"));
-  const scenes = Array.from(root.querySelectorAll(".avatar__scene"));
   const stickyText = root.querySelector(".avatar__sticky-text");
+  const fxScenes = Array.from(root.querySelectorAll(".avatar__fx-scene"));
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const mobileMq = window.matchMedia("(max-width: 980px)");
 
-  let sceneTimer = null;
-  let trackTimer = null;
-  let stickyTimer = null;
-  let tracking = true;
-  let stickyShown = false;
+  let pointer = { x: 0, y: 0 };
+  let tracking = false;
+  let glanceTimer = null;
+  let fxTimer = null;
 
   function stickyLabel() {
     const lang = document.documentElement.lang || "ru";
@@ -25,55 +24,60 @@
     if (stickyText) stickyText.textContent = stickyLabel();
   }
 
-  function setScene(index) {
-    scenes.forEach((s, i) => s.classList.toggle("is-active", i === index));
-  }
-
-  function nextScene() {
-    if (!scenes.length || mobileMq.matches) return;
-    const current = scenes.findIndex((s) => s.classList.contains("is-active"));
-    let next = Math.floor(Math.random() * scenes.length);
-    if (scenes.length > 1 && next === current) next = (next + 1) % scenes.length;
-    setScene(next);
-  }
-
-  function startScenes() {
-    stopScenes();
-    if (reduceMotion || mobileMq.matches) return;
-    sceneTimer = window.setInterval(nextScene, 4200);
-  }
-
-  function stopScenes() {
-    if (sceneTimer) window.clearInterval(sceneTimer);
-    sceneTimer = null;
-  }
-
-  function onPointerMove(e) {
-    if (!tracking || mobileMq.matches || reduceMotion) return;
-    const rect = svg.getBoundingClientRect();
-    const cx = rect.left + rect.width * 0.5;
-    const cy = rect.top + rect.height * 0.28;
-    const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / (rect.width * 0.55)));
-    const dy = Math.max(-1, Math.min(1, (e.clientY - cy) / (rect.height * 0.55)));
+  function resetPupils() {
     pupils.forEach((p) => {
-      p.style.transform = `translate(${dx * 3.2}px, ${dy * 2.6}px)`;
+      p.style.transform = "translate(0px, 1px)";
     });
   }
 
-  function pulseTracking() {
-    tracking = true;
-    if (trackTimer) window.clearTimeout(trackTimer);
-    trackTimer = window.setTimeout(() => {
-      tracking = Math.random() > 0.35;
-      if (!tracking) {
-        pupils.forEach((p) => {
-          p.style.transform = "translate(0, 0)";
-        });
-        window.setTimeout(() => {
-          tracking = true;
-        }, 1600 + Math.random() * 1200);
-      }
-    }, 2800 + Math.random() * 2200);
+  function aimPupils() {
+    if (!tracking || mobileMq.matches || reduceMotion || !svg) return;
+    const rect = svg.getBoundingClientRect();
+    const cx = rect.left + rect.width * 0.5;
+    const cy = rect.top + rect.height * 0.22;
+    const dx = Math.max(-1, Math.min(1, (pointer.x - cx) / (rect.width * 0.5)));
+    const dy = Math.max(-1, Math.min(1, (pointer.y - cy) / (rect.height * 0.5)));
+    pupils.forEach((p) => {
+      p.style.transform = `translate(${dx * 1.5}px, ${dy * 1.2}px)`;
+    });
+  }
+
+  function nextFx() {
+    if (!fxScenes.length || mobileMq.matches) return;
+    const cur = fxScenes.findIndex((s) => s.classList.contains("is-active"));
+    let next = Math.floor(Math.random() * fxScenes.length);
+    if (fxScenes.length > 1 && next === cur) next = (next + 1) % fxScenes.length;
+    fxScenes.forEach((s, i) => s.classList.toggle("is-active", i === next));
+  }
+
+  function startFx() {
+    stopFx();
+    if (reduceMotion || mobileMq.matches) return;
+    fxTimer = window.setInterval(nextFx, 4500);
+  }
+
+  function stopFx() {
+    if (fxTimer) window.clearInterval(fxTimer);
+    fxTimer = null;
+  }
+
+  function startGlanceCycle() {
+    if (glanceTimer) window.clearInterval(glanceTimer);
+    if (reduceMotion || mobileMq.matches) {
+      tracking = false;
+      resetPupils();
+      return;
+    }
+    glanceTimer = window.setInterval(() => {
+      tracking = true;
+      root.classList.add("is-glancing");
+      aimPupils();
+      window.setTimeout(() => {
+        tracking = false;
+        root.classList.remove("is-glancing");
+        resetPupils();
+      }, 2500);
+    }, 10000);
   }
 
   function nod() {
@@ -84,47 +88,25 @@
     window.setTimeout(() => root.classList.remove("is-nodding"), 900);
   }
 
-  function showSticky() {
-    if (mobileMq.matches || stickyShown) return;
-    stickyShown = true;
-    refreshStickyText();
-    root.classList.add("is-sticky");
-    if (stickyTimer) window.clearTimeout(stickyTimer);
-    stickyTimer = window.setTimeout(() => {
-      root.classList.remove("is-sticky");
-      stickyShown = false;
-    }, 5000);
-  }
-
-  function onScrollEnd(entries) {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) showSticky();
-    });
-  }
-
-  document.addEventListener("pointermove", onPointerMove, { passive: true });
-  document.addEventListener("pointermove", pulseTracking, { passive: true });
-
-  const contact = document.getElementById("contact");
-  const footer = document.querySelector(".footer");
-  const endSpy = new IntersectionObserver(onScrollEnd, {
-    rootMargin: "0px 0px -8% 0px",
-    threshold: 0.35,
-  });
-  if (contact) endSpy.observe(contact);
-  if (footer) endSpy.observe(footer);
+  document.addEventListener(
+    "pointermove",
+    (e) => {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      aimPupils();
+    },
+    { passive: true }
+  );
 
   mobileMq.addEventListener?.("change", () => {
-    if (mobileMq.matches) {
-      stopScenes();
-      root.classList.remove("is-sticky", "is-nodding");
-    } else {
-      startScenes();
-    }
+    startGlanceCycle();
+    startFx();
   });
 
-  startScenes();
+  resetPupils();
   refreshStickyText();
+  startGlanceCycle();
+  startFx();
 
   window.avatarNotify = {
     onJobOpen: nod,
