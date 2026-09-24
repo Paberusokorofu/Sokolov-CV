@@ -173,6 +173,7 @@
     if (focus) document.body.classList.add("is-job-focus");
     attachLinked(jobEl, { open: openLinked || focus });
     renderCases(jobEl);
+    if (typeof window.avatarNotify?.onJobOpen === "function") window.avatarNotify.onJobOpen();
     if (scrollTo && (focus || openLinked)) {
       requestAnimationFrame(() => {
         jobEl.scrollIntoView({ behavior: "smooth", block: "center" });

@@ -30,6 +30,134 @@
           <a href="#contact" data-nav="contact" data-i18n="nav_contact">Контакты</a>
         </nav>
 
+        <figure class="avatar" data-avatar aria-hidden="true">
+          <svg class="avatar__svg" viewBox="0 0 260 280" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="avatar-screen-clip">
+                <rect x="68" y="108" width="124" height="72" rx="3"/>
+              </clipPath>
+              <linearGradient id="avatar-desk" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#d2b48c"/>
+                <stop offset="100%" stop-color="#b08968"/>
+              </linearGradient>
+              <linearGradient id="avatar-skin" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f0d0b0"/>
+                <stop offset="100%" stop-color="#e0b892"/>
+              </linearGradient>
+            </defs>
+
+            <rect x="8" y="8" width="244" height="200" rx="16" fill="#eef3f8"/>
+
+            <g class="avatar__torso">
+              <ellipse cx="130" cy="198" rx="52" ry="28" fill="#1f2937"/>
+              <path d="M86 178 Q130 158 174 178 L180 210 Q130 198 80 210 Z" fill="#4d6b3c"/>
+              <path d="M92 176 Q130 162 168 176 L170 198 Q130 188 90 198 Z" fill="#3f5a32"/>
+            </g>
+
+            <g class="avatar__laptop">
+              <rect x="64" y="104" width="132" height="80" rx="5" fill="#334155"/>
+              <g clip-path="url(#avatar-screen-clip)">
+                <g class="avatar__scene is-active" data-scene="0">
+                  <rect x="68" y="108" width="124" height="72" fill="#0f172a"/>
+                  <rect x="76" y="116" width="108" height="12" rx="2" fill="#1e293b"/>
+                  <rect class="avatar__check-pop" x="80" y="119" width="7" height="6" rx="1" fill="#22c55e"/>
+                  <line class="avatar__strike" x1="92" y1="122" x2="172" y2="122" stroke="#94a3b8" stroke-width="2"/>
+                  <rect x="76" y="134" width="108" height="12" rx="2" fill="#1e293b"/>
+                  <rect x="80" y="137" width="7" height="6" rx="1" fill="#64748b"/>
+                  <rect x="76" y="152" width="108" height="12" rx="2" fill="#1e293b"/>
+                  <rect x="80" y="155" width="7" height="6" rx="1" fill="#64748b"/>
+                </g>
+                <g class="avatar__scene" data-scene="1">
+                  <rect x="68" y="108" width="124" height="72" fill="#020617"/>
+                  <rect x="80" y="122" width="72" height="8" rx="2" fill="#0f766e" class="avatar__gantt"/>
+                  <rect x="88" y="138" width="54" height="8" rx="2" fill="#14b8a6"/>
+                  <rect x="76" y="154" width="88" height="8" rx="2" fill="#5eead4" class="avatar__gantt avatar__gantt--slow"/>
+                </g>
+                <g class="avatar__scene" data-scene="2">
+                  <rect x="68" y="108" width="124" height="72" fill="#f8fafc"/>
+                  <g transform="translate(0 168)">
+                    <rect class="avatar__bar" x="84" y="-40" width="14" height="40" fill="#0f766e"/>
+                    <rect class="avatar__bar avatar__bar--2" x="108" y="-52" width="14" height="52" fill="#14b8a6"/>
+                    <rect class="avatar__bar avatar__bar--3" x="132" y="-34" width="14" height="34" fill="#0d9488"/>
+                    <rect class="avatar__bar avatar__bar--4" x="156" y="-46" width="14" height="46" fill="#5eead4"/>
+                  </g>
+                  <line x1="78" y1="168" x2="182" y2="168" stroke="#94a3b8" stroke-width="1"/>
+                </g>
+                <g class="avatar__scene" data-scene="3">
+                  <rect x="68" y="108" width="124" height="72" fill="#ffffff"/>
+                  <path class="avatar__curve" d="M80 160 Q110 158 130 132 T182 118" fill="none" stroke="#0f766e" stroke-width="2.5"/>
+                  <circle cx="130" cy="132" r="3.2" fill="#b45309"/>
+                </g>
+                <g class="avatar__scene" data-scene="4">
+                  <rect x="68" y="108" width="124" height="72" fill="#f1f5f9"/>
+                  <text x="88" y="130" fill="#0f172a" font-size="12" font-family="Consolas, monospace">Σ w = 1</text>
+                  <text x="88" y="148" fill="#0f766e" font-size="12" font-family="Consolas, monospace">ROI ↑</text>
+                  <text class="avatar__formula" x="88" y="166" fill="#64748b" font-size="11" font-family="Consolas, monospace">P(A|B)</text>
+                </g>
+                <g class="avatar__scene" data-scene="5">
+                  <rect x="68" y="108" width="124" height="72" fill="#0b1220"/>
+                  <rect x="78" y="118" width="30" height="46" rx="3" fill="#1e293b" stroke="#0f766e"/>
+                  <rect x="116" y="118" width="30" height="46" rx="3" fill="#1e293b" stroke="#64748b"/>
+                  <rect class="avatar__card" x="154" y="118" width="30" height="46" rx="3" fill="#134e4a" stroke="#14b8a6"/>
+                  <circle cx="93" cy="132" r="4" fill="#22c55e"/>
+                  <circle cx="131" cy="132" r="4" fill="#eab308"/>
+                </g>
+              </g>
+              <rect x="68" y="108" width="124" height="72" rx="3" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+              <rect x="48" y="182" width="164" height="12" rx="2" fill="#475569"/>
+              <rect x="110" y="185" width="40" height="4" rx="1" fill="#64748b"/>
+            </g>
+
+            <g class="avatar__head">
+              <rect x="118" y="96" width="24" height="16" rx="6" fill="url(#avatar-skin)"/>
+              <ellipse cx="130" cy="70" rx="34" ry="38" fill="url(#avatar-skin)"/>
+              <path d="M100 58 Q130 28 160 58 Q155 44 130 40 Q105 44 100 58 Z" fill="#c47a4a"/>
+              <path d="M108 55 Q115 42 124 48" fill="#c47a4a"/>
+              <path d="M152 55 Q145 42 136 48" fill="#c47a4a"/>
+              <path d="M108 82 Q130 102 152 82 Q148 98 130 102 Q112 98 108 82 Z" fill="#c47a4a"/>
+              <g class="avatar__glasses">
+                <rect x="104" y="60" width="22" height="15" rx="3" fill="rgba(255,255,255,0.2)" stroke="#111827" stroke-width="2"/>
+                <rect x="134" y="60" width="22" height="15" rx="3" fill="rgba(255,255,255,0.2)" stroke="#111827" stroke-width="2"/>
+                <line x1="126" y1="67" x2="134" y2="67" stroke="#111827" stroke-width="2"/>
+                <line x1="104" y1="67" x2="98" y2="64" stroke="#111827" stroke-width="2"/>
+                <line x1="156" y1="67" x2="162" y2="64" stroke="#111827" stroke-width="2"/>
+              </g>
+              <g class="avatar__eye avatar__eye--l">
+                <ellipse cx="115" cy="67" rx="5" ry="5.5" fill="#fff"/>
+                <circle class="avatar__pupil" cx="115" cy="67" r="2.3" fill="#1e293b"/>
+              </g>
+              <g class="avatar__eye avatar__eye--r">
+                <ellipse cx="145" cy="67" rx="5" ry="5.5" fill="#fff"/>
+                <circle class="avatar__pupil" cx="145" cy="67" r="2.3" fill="#1e293b"/>
+              </g>
+              <path d="M124 84 Q130 88 136 84" fill="none" stroke="#b07a5a" stroke-width="1.8" stroke-linecap="round"/>
+            </g>
+
+            <g class="avatar__arms">
+              <g class="avatar__arm-left">
+                <path d="M95 190 Q78 205 108 214" fill="none" stroke="#e0b892" stroke-width="11" stroke-linecap="round"/>
+                <circle cx="110" cy="214" r="6" fill="#e0b892"/>
+              </g>
+              <g class="avatar__arm-right">
+                <path d="M165 190 Q188 204 152 214" fill="none" stroke="#e0b892" stroke-width="11" stroke-linecap="round"/>
+                <circle cx="150" cy="214" r="6" fill="#e0b892"/>
+              </g>
+              <g class="avatar__arm-wave">
+                <path d="M168 186 Q198 160 214 132" fill="none" stroke="#e0b892" stroke-width="11" stroke-linecap="round"/>
+                <circle cx="216" cy="128" r="8" fill="#e0b892"/>
+              </g>
+            </g>
+
+            <ellipse cx="130" cy="236" rx="110" ry="22" fill="url(#avatar-desk)"/>
+            <rect x="20" y="222" width="220" height="18" rx="3" fill="#c4a574"/>
+
+            <g class="avatar__sticky">
+              <rect x="158" y="126" width="62" height="44" rx="2" fill="#fde047" stroke="#ca8a04" stroke-width="1" transform="rotate(-7 189 148)"/>
+              <text class="avatar__sticky-text" x="189" y="150" text-anchor="middle" fill="#713f12" font-size="8.5" font-family="Segoe UI, sans-serif" font-weight="700" transform="rotate(-7 189 148)">напиши мне</text>
+            </g>
+          </svg>
+        </figure>
+
         <ul class="socials" aria-label="Profiles">
           <li>
             <a href="mailto:pavelsokolov.ba@gmail.com" title="Email">
@@ -456,15 +584,15 @@
     </article>
     <article class="case case--process" data-case="bpmn-lean">
       <p class="case__tag">Process</p>
-      <h3 data-i18n="case_bpmn_title">Redmine: оценка и бюджетирование</h3>
-      <p class="case__lead" data-i18n="case_bpmn_body">Субъективные ручные оценки → ТЗ в Redmine → MVP: «Ответственный исполнитель» и «Сложность». Lean/BPMN: −18% времени доставки.</p>
-      <p class="case__story" data-i18n="case_bpmn_story">После анализа процесса: оценки сотрудников проставлялись вручную по факту завершения работ на проекте. Для РП это терпимо, но оценка получалась субъективной.
+      <h3 data-i18n="case_bpmn_title">Redmine: ответственность и онлайн-контроль</h3>
+      <p class="case__lead" data-i18n="case_bpmn_body">Единый ответственный в задаче → метрики по людям → онлайн-бюджет проекта. Триггер в БД + процесс соблюдения.</p>
+      <p class="case__story" data-i18n="case_bpmn_story">Проблема. В Redmine в одну задачу списывалось несколько человек: не было единого ответственного, сложно было видеть и процент готовности, и фактические трудозатраты. Поле «Ответственный исполнитель» формально было, но процесса вокруг него не было — по факту хаос в учёте. Параллельно оценки сотрудников часто ставились вручную и субъективно: РП и РГ не имели прозрачной картины, кого брать на проект и кого развивать.
 
-Предложил собирать оценки автоматически и добавить оценку руководителей групп (РГ) по своим специалистам. Тогда РП понимает, кого брать на проект, а РГ — кого повышать.
+Что сделал. Спроектировал схему назначения «Ответственного исполнителя» и поставил задачу разработке (разработчик не владел Ruby on Rails). Сошлись на решении через триггер в БД: при списании времени в задачу поле заполняется тем, кто списал больше всего часов. Дальше сам отслеживал соблюдение правила, эскалировал на рабочие группы и при необходимости разбирал отклонения в 1:1. В контур также заложили «Сложность» задачи и автоматический сбор метрик — в том числе с оценкой руководителей групп по своим специалистам.
 
-Шаги: поставил ТЗ разработчику и внёс изменения в Redmine — в задачах появились сущности «Ответственный исполнитель» и «Сложность». Оценка персонала стала одной фичей; на её базе собрали MVP онлайн-бюджетирования: РП видит траты по проекту, кто «проседает», среднее время на типовые сущности (парсер, справочник и др.), кроме спец. задач.
+Развитие инициативы. Привязка человека к задаче дала не только ответственность, но и доп. метрики по сотруднику (в т.ч. КПД, время до взятия задачи в работу) и позволила собрать онлайн-бюджет проекта, которого раньше не было: РП видит траты, отклонения и среднее время на типовые сущности.
 
-Итог: концепция утверждена; в прод ушли только «Ответственный исполнитель» и «Сложность». Остальные инициативы остались на уровне MVP.</p>
+Результат. Прозрачный трекинг прогресса задач в спринте, количественные и качественные оценки по людям, инструмент онлайн-мониторинга бюджета. Одна инициатива изменила работу трёх отделов: стало проще видеть отклонения и заранее предупреждать риски срыва обязательств. В деньгах эффект не считали: до этого такого процессного контура просто не существовало.</p>
       <div class="case__media">
         <button type="button" class="case__thumb" data-lightbox="assets/bpmn-as-is.svg" aria-label="BPMN AS-IS">
           <img src="assets/bpmn-as-is.svg" alt="Оценка AS-IS" loading="lazy" width="480" height="160">
@@ -529,5 +657,6 @@
 
   <script src="i18n.js"></script>
   <script src="app.js"></script>
+  <script src="avatar.js"></script>
 </body>
 </html>
