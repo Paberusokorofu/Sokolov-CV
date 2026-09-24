@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Avatar lab — Style D</title>
+  <title>Avatar lab — pixel desk 384×448</title>
   <style>
     :root {
       --bg: #f6f7f9;
       --ink: #0f172a;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
+
     html[data-theme="dark"] {
       --bg: #0b1220;
       --ink: #e7eef8;
     }
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -23,282 +25,2160 @@
       color: var(--ink);
       font-family: "Segoe UI", sans-serif;
     }
+
     .lab {
-      width: min(100% - 2rem, 20rem);
+      width: min(100% - 2rem, 68rem);
+      padding: 2rem 0;
     }
+
+    .lab__layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(15rem, 17rem);
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    /* the picker rides along with the avatar instead of scrolling off */
+    .lab__typing {
+      position: sticky;
+      top: 1rem;
+      min-width: 0;
+    }
+
+    /* only a genuinely narrow window drops the picker under the desk */
+    @media (max-width: 42rem) {
+      .lab__layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .lab__typing {
+        position: static;
+      }
+    }
+
+    /* ---------- typing-mode previews (live animation locked to T2) ---------- */
+
+    .lab__typing-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 0 0 0.6rem;
+      opacity: 0.7;
+    }
+
+    .typing__card {
+      display: block;
+      width: 100%;
+      font: inherit;
+      text-align: left;
+      padding: 0.4rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid currentColor;
+      border-radius: 0.5rem;
+      background: transparent;
+      color: inherit;
+      cursor: default;
+      border-color: currentColor;
+      transition: box-shadow 0.15s linear, opacity 0.15s linear;
+    }
+
+    .typing__card:not(.is-active) {
+      opacity: 1;
+      border-color: color-mix(in srgb, currentColor 40%, transparent);
+    }
+
+    .typing__card:not(.is-active) span,
+    .typing__card:not(.is-active) small {
+      opacity: 0.45;
+    }
+
+    .typing__card.is-active {
+      box-shadow: inset 0 0 0 2px currentColor;
+    }
+
+    .typing__card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 0.25rem;
+      image-rendering: pixelated;
+      background: #151d2b;
+      opacity: 1;
+    }
+
+    .typing__card span {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 0.35rem;
+      opacity: 0.85;
+    }
+
+    .typing__card.is-active span {
+      opacity: 1;
+    }
+
+    .typing__card small {
+      display: block;
+      font-size: 0.68rem;
+      opacity: 0.65;
+    }
+
+    /* ---------- Telegram QR: the notepad on the desk scrolls here and
+       blows it up to 2× for the length of the victory ---------- */
+
+    .lab__qr {
+      margin-top: 5rem;
+      /* the 2× scale is a transform, so reserve the room it will need */
+      padding-bottom: 12rem;
+      text-align: center;
+    }
+
+    .lab__qr-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 0 0 0.75rem;
+      opacity: 0.7;
+    }
+
+    .lab__qr .qr {
+      margin: 0;
+      display: inline-block;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      transition: box-shadow 0.3s linear;
+    }
+
+    .lab__qr .qr img {
+      display: block;
+      image-rendering: pixelated;
+      transform-origin: center top;
+      transition: transform 0.45s var(--ease);
+    }
+
+    /* the ring rides on the image so it hugs the enlarged QR, not the box */
+    .qr.is-zoomed img {
+      transform: scale(2);
+      box-shadow: 0 0 0 2px #22c55e;
+    }
+
     .lab h1 {
       font-size: 1rem;
       font-weight: 600;
       margin: 0 0 1rem;
       text-align: center;
     }
-.avatar {
-  display: block;
-  flex: 0 0 auto;
-  width: 100%;
-  margin: 0.5rem 0 0;
-  line-height: 0;
-}
 
-.avatar__stage {
-  position: relative;
-  width: min(100%, 15rem);
-  margin: 0 auto;
-  aspect-ratio: 48 / 56;
-}
+    .lab__controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: center;
+      margin-top: 1.25rem;
+    }
 
-.avatar__fx {
-  position: absolute;
-  inset: 6% 4% 28%;
-  border-radius: 0.35rem;
-  overflow: hidden;
-  opacity: 0.5;
-  filter: blur(5px);
-  pointer-events: none;
-  z-index: 0;
-}
+    .lab__controls button {
+      font: inherit;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 0.5rem;
+      border: 1px solid currentColor;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      opacity: 0.75;
+    }
 
-.avatar__fx-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
+    .lab__controls button:hover {
+      opacity: 1;
+    }
 
-.avatar__fx-scene {
-  opacity: 0;
-  transition: opacity 0.5s var(--ease);
-}
-
-.avatar__fx-scene.is-active {
-  opacity: 1;
-}
-
-.avatar__fx-gantt {
-  animation: avatar-fx-slide 2.4s ease-in-out infinite alternate;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-bar {
-  transform-box: fill-box;
-  transform-origin: bottom;
-  animation: avatar-fx-bar 1.5s var(--ease) both;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-bar--2 {
-  animation-delay: 0.12s;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-bar--3 {
-  animation-delay: 0.24s;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-bar--4 {
-  animation-delay: 0.36s;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-curve {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: avatar-fx-draw 2s var(--ease) forwards;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-card {
-  animation: avatar-fx-bob 1.8s ease-in-out infinite alternate;
-}
-
-.avatar__svg {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: auto;
-  display: block;
-  overflow: visible;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-}
-
-.avatar__pupil {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.15s steps(2, end);
-}
-
-.avatar__head {
-  transform-origin: 24px 14px;
-  transform-box: view-box;
-}
-
-.avatar.is-nodding .avatar__head {
-  animation: avatar-nod 0.85s steps(4, end);
-}
-
-.avatar.is-glancing .avatar__head {
-  animation: avatar-glance 0.35s steps(2, end) both;
-}
-
-.avatar.is-glancing .avatar__pupil {
-  filter: drop-shadow(0 0 2px #64ffda);
-}
-
-.avatar__antenna {
-  animation: avatar-antenna 1.4s steps(2, end) infinite;
-}
-
-.avatar__glow {
-  opacity: 0.55;
-  animation: avatar-glow 1.8s steps(3, end) infinite;
-}
-
-.avatar__sticky {
-  opacity: 1;
-}
-
-.avatar__hand--l {
-  animation: avatar-type-l 0.45s steps(2, end) infinite;
-}
-
-.avatar__hand--r {
-  animation: avatar-type-r 0.38s steps(2, end) infinite;
-  animation-delay: 0.12s;
-}
-
-.avatar__steam {
-  opacity: 0.55;
-}
-
-.avatar__steam--1 {
-  animation: avatar-steam 1.6s steps(3, end) infinite;
-}
-
-.avatar__steam--2 {
-  animation: avatar-steam 1.9s steps(3, end) infinite 0.25s;
-}
-
-.avatar__steam--3 {
-  animation: avatar-steam 1.4s steps(3, end) infinite 0.45s;
-}
+    .lab__controls button.is-active {
+      box-shadow: inset 0 0 0 1px currentColor;
+      opacity: 1;
+      font-weight: 600;
+    }
 
 
+    /* ==========================================================
+       avatar — pixel man at a desk
+       ========================================================== */
+
+    .avatar {
+      display: block;
+      flex: 0 0 auto;
+      width: 100%;
+      margin: 0.5rem 0 0;
+      line-height: 0;
+      /* hover sparkles: dark pixels by day, bright ones at night.
+         The halo is the opposite tone so they read on any background. */
+      --spark-core: #111827;
+      --spark-halo: rgba(248, 250, 252, 0.95);
+      /* red by day, white wine at night */
+      --wine-top: #b91c1c;
+      --wine-body: #7f1d1d;
+      --wine-deep: #651616;
+      --wine-bubble: #e8a3a3;
+      --wine-bubble-hi: #f6cfcf;
+    }
+
+    html[data-theme="dark"] .avatar {
+      --spark-core: #fff7cc;
+      --spark-halo: rgba(8, 14, 26, 0.95);
+      --wine-top: #f6f2e2;
+      --wine-body: #e2dcc6;
+      --wine-deep: #c9c2a8;
+      --wine-bubble: #fffdf3;
+      --wine-bubble-hi: #ffffff;
+    }
+
+    .avatar__stage {
+      position: relative;
+      width: min(100%, 22rem);
+      margin: 0 auto;
+      aspect-ratio: 384 / 448;
+    }
+
+    .avatar__svg {
+      position: relative;
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    /* ---------- glasses lenses + dashboard FX clipped into them ---------- */
+
+    .avatar__lens-fx {
+      opacity: 0.85;
+      filter: blur(0.6px);
+    }
+
+    .avatar__fx-scene {
+      opacity: 0;
+      transition: opacity 0.5s var(--ease);
+    }
+
+    .avatar__fx-scene.is-active {
+      opacity: 1;
+    }
+
+    .avatar__fx-scene.is-active .avatar__fx-scan {
+      animation: avatar-fx-scan 2.6s steps(8, end) infinite;
+    }
+
+    .avatar__fx-scene.is-active .avatar__fx-gantt {
+      animation: avatar-fx-slide 2.4s ease-in-out infinite alternate;
+    }
+
+    .avatar__fx-scene.is-active .avatar__fx-bar {
+      transform-box: fill-box;
+      transform-origin: bottom;
+      animation: avatar-fx-bar 1.5s var(--ease) both;
+    }
+
+    .avatar__fx-scene.is-active .avatar__fx-bar--2 { animation-delay: 0.12s; }
+    .avatar__fx-scene.is-active .avatar__fx-bar--3 { animation-delay: 0.24s; }
+    .avatar__fx-scene.is-active .avatar__fx-bar--4 { animation-delay: 0.36s; }
+
+    .avatar__fx-scene.is-active .avatar__fx-curve {
+      stroke-dasharray: 26;
+      stroke-dashoffset: 26;
+      animation: avatar-fx-draw 2s var(--ease) forwards;
+    }
+
+    .avatar__fx-scene.is-active .avatar__fx-card {
+      animation: avatar-fx-bob 1.8s ease-in-out infinite alternate;
+    }
+
+    .avatar__pupil {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: transform 0.15s steps(2, end);
+    }
+
+    /* ---------- clickable props: transparent hit pad, sparkles on hover ---------- */
+
+    .avatar__hit-group {
+      cursor: pointer;
+    }
+
+    .avatar__hit {
+      fill: transparent;
+      pointer-events: all;
+    }
+
+    .avatar__spark {
+      fill: var(--spark-core);
+      filter: drop-shadow(0 0 1.5px var(--spark-halo)) drop-shadow(0 0 1.5px var(--spark-halo));
+      transform-box: fill-box;
+      transform-origin: center;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .avatar__hit-group:hover .avatar__spark,
+    .avatar__hit-group:focus-visible .avatar__spark {
+      animation: avatar-spark 1.2s steps(3, end) infinite;
+    }
+
+    /* a click answers with a short burst of the same sparkles */
+    .avatar__hit-group.is-hit-flash .avatar__spark {
+      animation: avatar-spark 0.4s steps(3, end) 3;
+    }
+
+    /* ---------- glasses travel between the face and the window sill ----------
+       The folded pair on the sill starts out parked over the face at 2.4×, so
+       one transition carries it down to the sill and back again. */
+
+    .avatar__glasses {
+      opacity: 1;
+      transition: opacity 0.2s linear 0.42s;
+    }
+
+    .avatar.is-glasses-off .avatar__glasses {
+      opacity: 0;
+      transition: opacity 0.16s linear;
+    }
+
+    /* the FX cycle is also cleared in avatar.js, this just kills the running frames */
+    .avatar.is-glasses-off .avatar__fx-scene,
+    .avatar.is-glasses-off .avatar__fx-scene.is-active {
+      opacity: 0;
+    }
+
+    .avatar.is-glasses-off .avatar__fx-scene * {
+      animation: none !important;
+    }
+
+    .avatar__eyes-bare {
+      opacity: 0;
+      transition: opacity 0.3s linear;
+    }
+
+    .avatar.is-glasses-off .avatar__eyes-bare {
+      opacity: 1;
+      transition-delay: 0.22s;
+    }
+
+    .avatar__glasses-off {
+      transform-box: view-box;
+      transform-origin: 83px 231px;
+      transform: translate(109px, -67px) scale(2.4);
+      opacity: 0;
+      transition: transform 0.6s var(--ease), opacity 0.2s linear 0.4s;
+    }
+
+    .avatar.is-glasses-off .avatar__glasses-off {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+      transition: transform 0.6s var(--ease), opacity 0.22s linear 0.04s;
+    }
+
+    /* only the pair you can actually see is clickable */
+    .avatar__glasses-off .avatar__hit { pointer-events: none; }
+    .avatar.is-glasses-off .avatar__glasses-off .avatar__hit { pointer-events: all; }
+    .avatar.is-glasses-off .avatar__hit-group--face .avatar__hit { pointer-events: none; }
+
+    /* ---------- sea: crest rows drift, the surf washes up the sand ---------- */
+
+    .avatar__wave--r1 { animation: avatar-wave-right 9s linear infinite; }
+    .avatar__wave--l1 { animation: avatar-wave-left 12s linear infinite; }
+    .avatar__wave--r2 { animation: avatar-wave-right 15s linear infinite; }
+    .avatar__wave--l2 { animation: avatar-wave-left 19s linear infinite; }
+    .avatar__wave--r3 { animation: avatar-wave-right 24s linear infinite; }
+
+    .avatar__sea-waves {
+      animation: avatar-sea-bob 4.6s ease-in-out infinite alternate;
+    }
+
+    .avatar__surf {
+      animation: avatar-surf 5.4s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    .avatar__surf--night { animation-duration: 6.2s; }
+
+    .avatar__moonrow { animation: avatar-moonrow 3.6s ease-in-out infinite alternate; }
+    .avatar__moonrow--2 { animation-duration: 4.4s; animation-delay: -0.6s; }
+    .avatar__moonrow--3 { animation-duration: 3.1s; animation-delay: -1.2s; }
+    .avatar__moonrow--4 { animation-duration: 5s; animation-delay: -0.4s; }
+    .avatar__moonrow--5 { animation-duration: 4s; animation-delay: -1.8s; }
+    .avatar__moonrow--6 { animation-duration: 5.6s; animation-delay: -1s; }
+
+    /* ---------- window behind the avatar: sea by day, moonlit sea by night ---------- */
+
+    .avatar__window-day,
+    .avatar__window-night {
+      transition: opacity 0.4s linear;
+    }
+
+    .avatar__window-day { opacity: 1; }
+    .avatar__window-night { opacity: 0; }
+
+    html[data-theme="dark"] .avatar__window-day { opacity: 0; }
+    html[data-theme="dark"] .avatar__window-night { opacity: 1; }
+
+    .avatar__star {
+      animation: avatar-star 3.4s steps(2, end) infinite;
+    }
+
+    .avatar__star--2 { animation-duration: 2.6s; animation-delay: 0.7s; }
+    .avatar__star--3 { animation-duration: 4.1s; animation-delay: 1.4s; }
+
+    /* ---------- head / shoulders ---------- */
+
+    .avatar__head {
+      transform-box: view-box;
+      transform-origin: 192px 262px;
+    }
+
+    .avatar__body {
+      transform-box: view-box;
+      transform-origin: 192px 380px;
+    }
+
+    .avatar.is-nodding .avatar__head {
+      animation: avatar-nod 0.9s steps(4, end);
+    }
+
+    /* sigh: shoulders + upper torso rise, head tips back a hair */
+    .avatar.is-sighing .avatar__body {
+      animation: avatar-sigh 1.2s steps(3, end);
+    }
+
+    .avatar.is-sighing .avatar__head {
+      animation: avatar-sigh-head 1.2s steps(3, end);
+    }
+
+    .avatar.is-sighing .avatar__pupil {
+      filter: drop-shadow(0 0 5px #64ffda);
+    }
+
+    /* ---------- desk lamp (LEFT) ---------- */
+
+    .avatar__lamp-rays,
+    .avatar__lamp-led-on {
+      opacity: 0;
+      transition: opacity 0.35s linear;
+    }
+
+    .avatar__lamp-led-off {
+      opacity: 1;
+      transition: opacity 0.35s linear;
+    }
+
+    html[data-theme="dark"] .avatar__lamp-rays {
+      opacity: 0.38;
+    }
+
+    html[data-theme="dark"] .avatar__lamp-led-on {
+      opacity: 1;
+    }
+
+    html[data-theme="dark"] .avatar__lamp-led-off {
+      opacity: 0;
+    }
+
+    /* ---------- arms: shoulder → elbow → hand (always connected) ---------- */
+
+    .avatar__arm--l,
+    .avatar__arm--r,
+    .avatar__elbow,
+    .avatar__hand {
+      transform-box: view-box;
+    }
+
+    .avatar__arm--l { transform-origin: 86px 292px; }
+    .avatar__arm--r { transform-origin: 298px 292px; }
+
+    .avatar__arm--l .avatar__elbow { transform-origin: 88px 406px; }
+    .avatar__arm--r .avatar__elbow { transform-origin: 296px 406px; }
+
+    .avatar__arm--l .avatar__hand { transform-origin: 148px 411px; }
+    .avatar__arm--r .avatar__hand { transform-origin: 236px 411px; }
+
+    /* typing: every finger is driven individually from avatar.js, so the
+       pattern itself changes (random singles, bursts, L→R / R→L sweeps).
+       The finger groups sit inside the hand, so the parent rotations never
+       fight the per-finger transforms. */
+    .avatar__fingers {
+      transform-box: fill-box;
+      transform-origin: top center;
+    }
+
+    .avatar__finger {
+      transform-box: fill-box;
+      transform-origin: top center;
+      transform: translateY(-5px);
+      transition: transform 80ms steps(2, end);
+    }
+
+    .avatar__finger.is-down {
+      transform: translateY(1px);
+    }
+
+    .avatar__key {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: fill 90ms linear, transform 90ms steps(2, end);
+    }
+
+    .avatar__key.is-hit {
+      fill: #c3d2ec;
+      transform: translateY(2px);
+    }
+
+    /* ---------- sip: LEFT arm reaches the mug, lifts it past the monitor ---------- */
+
+    .avatar__mug {
+      transform-box: view-box;
+      transform-origin: 63px 389px;
+    }
+
+    .avatar.is-sipping .avatar__arm--l {
+      animation: avatar-sip-shoulder-l 4.2s linear both;
+    }
+
+    .avatar.is-sipping .avatar__arm--l .avatar__elbow {
+      animation: avatar-sip-elbow-l 4.2s linear both;
+    }
+
+    .avatar.is-sipping .avatar__arm--l .avatar__hand {
+      animation: avatar-sip-hand-l 4.2s linear both;
+    }
+
+    .avatar.is-sipping .avatar__mug {
+      animation: avatar-sip-mug 4.2s linear both;
+    }
+
+    .avatar.is-sipping .avatar__head {
+      animation: avatar-sip-head 4.2s ease-in-out both;
+    }
+
+    .avatar.is-sipping .avatar__fingers--l {
+      animation: avatar-sip-typehide 4.2s steps(1, end) both;
+    }
+
+    .avatar__grip2 {
+      opacity: 0;
+    }
+
+    .avatar.is-sipping .avatar__grip2 {
+      animation: avatar-sip-grip2 4.2s steps(1, end) both;
+    }
+
+    /* ---------- victory (V1): forearms swing up beside the monitor ---------- */
+
+    .avatar.is-cheering .avatar__fingers {
+      animation: none;
+    }
+
+    .avatar.is-cheering .avatar__arm--l {
+      animation: avatar-cheer-shoulder-l 1.8s ease-in-out both;
+    }
+
+    .avatar.is-cheering .avatar__arm--r {
+      animation: avatar-cheer-shoulder-r 1.8s ease-in-out both;
+    }
+
+    .avatar.is-cheering .avatar__arm--l .avatar__elbow {
+      animation: avatar-cheer-elbow-l 1.8s ease-in-out both;
+    }
+
+    .avatar.is-cheering .avatar__arm--r .avatar__elbow {
+      animation: avatar-cheer-elbow-r 1.8s ease-in-out both;
+    }
+
+    .avatar.is-cheering .avatar__body {
+      animation: avatar-cheer-body 1.8s ease-in-out both;
+    }
+
+    .avatar.is-cheering .avatar__head {
+      animation: avatar-cheer-head 1.8s ease-in-out both;
+    }
+
+    .avatar__cheer-fx {
+      opacity: 0;
+    }
+
+    .avatar.is-cheering .avatar__cheer-fx {
+      animation: avatar-cheer-spark 1.8s steps(4, end) both;
+    }
+
+    /* ---------- victory overlays: salute at night, confetti + blowers by day
+       ---------- is-cheer-fx outlives is-cheering so nothing snaps mid-flight */
+
+    .avatar__fireworks,
+    .avatar__cheer-day {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    html[data-theme="dark"] .avatar.is-cheer-fx .avatar__fireworks,
+    html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__cheer-day {
+      opacity: 1;
+    }
+
+    .avatar__fw-trail {
+      transform-box: fill-box;
+      transform-origin: bottom center;
+      opacity: 0;
+    }
+
+    .avatar__fw-burst {
+      transform-box: view-box;
+      opacity: 0;
+    }
+
+    .avatar__fw--1 .avatar__fw-burst { transform-origin: 112px 56px; }
+    .avatar__fw--2 .avatar__fw-burst { transform-origin: 214px 52px; }
+    .avatar__fw--3 .avatar__fw-burst { transform-origin: 268px 78px; }
+
+    html[data-theme="dark"] .avatar.is-cheer-fx .avatar__fw-trail {
+      animation: avatar-fw-trail 1.5s steps(7, end) both;
+    }
+
+    html[data-theme="dark"] .avatar.is-cheer-fx .avatar__fw-burst {
+      animation: avatar-fw-burst 1.5s steps(7, end) both;
+    }
+
+    html[data-theme="dark"] .avatar.is-cheer-fx .avatar__fw--2 .avatar__fw-trail,
+    html[data-theme="dark"] .avatar.is-cheer-fx .avatar__fw--2 .avatar__fw-burst {
+      animation-delay: 0.45s;
+    }
+
+    html[data-theme="dark"] .avatar.is-cheer-fx .avatar__fw--3 .avatar__fw-trail,
+    html[data-theme="dark"] .avatar.is-cheer-fx .avatar__fw--3 .avatar__fw-burst {
+      animation-delay: 0.9s;
+    }
+
+    .avatar__confetti-bit {
+      transform-box: fill-box;
+      transform-origin: center;
+      opacity: 0;
+    }
+
+    html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__confetti-bit {
+      animation-name: avatar-confetti-a;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+    }
+
+    html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__confetti-bit--b {
+      animation-name: avatar-confetti-b;
+    }
+
+    .avatar__horn {
+      transform-box: view-box;
+      opacity: 0;
+    }
+
+    .avatar__horn-tube {
+      transform-box: view-box;
+    }
+
+    .avatar__horn--l .avatar__horn-tube { transform-origin: 12px 205px; }
+    .avatar__horn--r .avatar__horn-tube { transform-origin: 372px 205px; }
+
+    html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn--l {
+      animation: avatar-horn-in-l 2.6s ease-out both;
+    }
+
+    html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn--r {
+      animation: avatar-horn-in-r 2.6s ease-out both;
+    }
+
+    html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn-tube {
+      animation: avatar-horn 2.6s ease-in-out both;
+    }
+
+    html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn--r .avatar__horn-tube {
+      animation-delay: 0.16s;
+    }
+
+    /* ---------- depth: a copy of the monitor face drawn over the shoulders and
+       arms, so nothing behind the screen ever bleeds through it ---------- */
+
+    .avatar__monitor-cover {
+      opacity: 1;
+    }
+
+    /* ---------- sticky note ---------- */
+
+    .avatar__sticky {
+      transform-box: view-box;
+      transform-origin: 236px 292px;
+    }
+
+    .avatar__sticky-curl {
+      opacity: 0;
+    }
+
+    .avatar.is-note-flying .avatar__sticky {
+      animation: avatar-sticky-fly 1.6s cubic-bezier(0.3, 0, 0.7, 1) both;
+    }
+
+    .avatar.is-note-flying .avatar__sticky-curl {
+      animation: avatar-sticky-curl 1.6s steps(2, end) both;
+    }
+
+    .avatar.is-note-gone .avatar__sticky {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .avatar__glow {
+      opacity: 0.55;
+      animation: avatar-glow 1.8s steps(3, end) infinite;
+    }
+
+    /* ---------- coffee steam: rises to the top of the monitor, thinning out ---------- */
+
+    .avatar__steam-group {
+      transition: opacity 0.15s linear;
+    }
+
+    .avatar__steam {
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: bottom center;
+    }
+
+    .avatar__steam--1 { animation: avatar-steam 3.2s steps(20, end) infinite; }
+    .avatar__steam--2 { animation: avatar-steam 3.2s steps(20, end) infinite -0.8s; }
+    .avatar__steam--3 { animation: avatar-steam 3.2s steps(20, end) infinite -1.6s; }
+    .avatar__steam--4 { animation: avatar-steam 3.2s steps(20, end) infinite -2.4s; }
+
+    /* steam is killed the instant the sip starts and stays gone for the whole cup */
+    .avatar.is-sipping .avatar__steam-group {
+      opacity: 0;
+    }
+
+    .avatar.is-sipping .avatar__steam {
+      animation: none;
+      opacity: 0;
+    }
+
+    /* ---------- coffee ↔ wine ---------- */
+
+    .avatar__cup {
+      transition: opacity 0.3s linear;
+    }
+
+    .avatar__cup--wine { opacity: 0; }
+
+    .avatar.is-wine .avatar__cup--coffee { opacity: 0; }
+    .avatar.is-wine .avatar__cup--wine { opacity: 1; }
+
+    /* steam belongs to the coffee only */
+    .avatar.is-wine .avatar__steam-group {
+      opacity: 0;
+    }
+
+    .avatar.is-wine .avatar__steam {
+      animation: none;
+      opacity: 0;
+    }
+
+    .avatar__wine-body { fill: var(--wine-body); }
+    .avatar__wine-top { fill: var(--wine-top); }
+    .avatar__wine-deep { fill: var(--wine-deep); }
+
+    .avatar__bubble,
+    .avatar__fizz {
+      transform-box: fill-box;
+      fill: var(--wine-bubble);
+      opacity: 0;
+    }
+
+    .avatar__bubble--hi,
+    .avatar__fizz--hi {
+      fill: var(--wine-bubble-hi);
+    }
+
+    .avatar.is-wine .avatar__bubble--1 { animation: avatar-bubble-a 2.6s linear infinite; }
+    .avatar.is-wine .avatar__bubble--2 { animation: avatar-bubble-b 3.4s linear infinite -0.9s; }
+    .avatar.is-wine .avatar__bubble--3 { animation: avatar-bubble-a 3s linear infinite -1.8s; }
+    .avatar.is-wine .avatar__bubble--4 { animation: avatar-bubble-b 2.2s linear infinite -0.4s; }
+    .avatar.is-wine .avatar__bubble--5 { animation: avatar-bubble-b 3.8s linear infinite -2.4s; }
+    .avatar.is-wine .avatar__bubble--6 { animation: avatar-bubble-a 3.2s linear infinite -1.3s; }
+
+    /* fizz escaping the rim; the travel matches avatar-steam so the plume
+       tops out at the same height as the coffee steam */
+    .avatar__fizz-group {
+      opacity: 0;
+      transition: opacity 0.2s linear;
+    }
+
+    .avatar.is-wine .avatar__fizz-group { opacity: 1; }
+
+    .avatar.is-wine .avatar__fizz--1 { animation: avatar-fizz-a 3.4s linear infinite; }
+    .avatar.is-wine .avatar__fizz--2 { animation: avatar-fizz-b 3.4s linear infinite -0.55s; }
+    .avatar.is-wine .avatar__fizz--3 { animation: avatar-fizz-a 3.4s linear infinite -1.1s; }
+    .avatar.is-wine .avatar__fizz--4 { animation: avatar-fizz-b 3.4s linear infinite -1.7s; }
+    .avatar.is-wine .avatar__fizz--5 { animation: avatar-fizz-a 3.4s linear infinite -2.25s; }
+    .avatar.is-wine .avatar__fizz--6 { animation: avatar-fizz-b 3.4s linear infinite -2.85s; }
+
+    .avatar.is-sipping .avatar__fizz-group { opacity: 0; }
+
+    .avatar.is-sipping .avatar__fizz {
+      animation: none;
+      opacity: 0;
+    }
+
+    /* ---------- keyframes ---------- */
+
+    @keyframes avatar-sigh {
+      0% { transform: translateY(0); }
+      30% { transform: translateY(-8px); }
+      55% { transform: translateY(-10px); }
+      80% { transform: translateY(-2px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes avatar-sigh-head {
+      0% { transform: translateY(0) rotate(0deg); }
+      30% { transform: translateY(-4px) rotate(-3deg); }
+      60% { transform: translateY(-4px) rotate(-4deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    @keyframes avatar-nod {
+      0%, 100% { transform: rotate(0deg); }
+      35% { transform: translateY(4px) rotate(7deg); }
+      70% { transform: rotate(-2deg); }
+    }
+
+    @keyframes avatar-star {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 0.35; }
+    }
+
+    /* D2 sip — right arm.
+       0–23%   hand lifts off the keys, swings up behind the monitor, comes
+               down onto the mug handle on the right of the desk
+       23–31%  two-finger grip closes
+       31–44%  elbow folds, mug travels up past the monitor to the lips
+       44–62%  drink
+       62–82%  mug back on the desk, grip opens
+       82–100% hand returns to the keyboard
+       Angles are solved from the real joint pivots (shoulder 298,292 /
+       elbow 296,406 / wrist 236,411), so the chain never separates. */
+    @keyframes avatar-sip-shoulder-l {
+      0% { transform: rotate(0deg); }
+      6% { transform: rotate(4deg); }
+      12% { transform: rotate(0deg); }
+      18% { transform: rotate(-6deg); }
+      23% { transform: rotate(-12.5deg); }
+      33% { transform: rotate(-12.5deg); }
+      37% { transform: rotate(-64.2deg); }
+      41% { transform: rotate(-93.3deg); }
+      61% { transform: rotate(-93.3deg); }
+      65% { transform: rotate(-64.2deg); }
+      69% { transform: rotate(-12.5deg); }
+      79% { transform: rotate(-12.5deg); }
+      88% { transform: rotate(-4deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    @keyframes avatar-sip-elbow-l {
+      0% { transform: rotate(0deg); }
+      6% { transform: rotate(-22deg); }
+      12% { transform: rotate(-70deg); }
+      18% { transform: rotate(-124deg); }
+      23% { transform: rotate(-159deg); }
+      33% { transform: rotate(-159deg); }
+      37% { transform: rotate(-103.4deg); }
+      41% { transform: rotate(-45.3deg); }
+      61% { transform: rotate(-45.3deg); }
+      65% { transform: rotate(-103.4deg); }
+      69% { transform: rotate(-159deg); }
+      79% { transform: rotate(-159deg); }
+      88% { transform: rotate(-60deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    /* wrist counter-rotation keeps the hand the right way up while the
+       forearm swings through 160° */
+    @keyframes avatar-sip-hand-l {
+      0% { transform: rotate(0deg); }
+      6% { transform: rotate(20deg); }
+      12% { transform: rotate(68deg); }
+      18% { transform: rotate(120deg); }
+      23% { transform: rotate(156.4deg); }
+      33% { transform: rotate(156.4deg); }
+      37% { transform: rotate(185.6deg); }
+      41% { transform: rotate(173.6deg); }
+      61% { transform: rotate(173.6deg); }
+      65% { transform: rotate(185.6deg); }
+      69% { transform: rotate(156.4deg); }
+      79% { transform: rotate(156.4deg); }
+      88% { transform: rotate(58deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    @keyframes avatar-sip-mug {
+      0%, 33% { transform: translate(0, 0) rotate(0deg); }
+      37% { transform: translate(76.5px, -62.1px) rotate(33deg); }
+      41%, 61% { transform: translate(100.8px, -142.1px) rotate(50deg); }
+      65% { transform: translate(76.5px, -62.1px) rotate(33deg); }
+      69%, 100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    @keyframes avatar-sip-head {
+      0%, 34% { transform: translate(0, 0) rotate(0deg); }
+      41%, 61% { transform: translate(-7px, -2px) rotate(-7deg); }
+      69%, 100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    @keyframes avatar-sip-grip2 {
+      0%, 19% { opacity: 0; }
+      21%, 78% { opacity: 1; }
+      81%, 100% { opacity: 0; }
+    }
+
+    @keyframes avatar-sip-typehide {
+      0%, 5% { opacity: 1; }
+      8%, 88% { opacity: 0; }
+      95%, 100% { opacity: 1; }
+    }
+
+    /* V1 cheer: forearms punch up on the outside of the monitor, elbows stay
+       planted on the desk, shoulders keep both arms attached */
+    @keyframes avatar-cheer-shoulder-l {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(3deg); }
+      45%, 65% { transform: rotate(5deg); }
+      82% { transform: rotate(3deg); }
+    }
+
+    @keyframes avatar-cheer-shoulder-r {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-3deg); }
+      45%, 65% { transform: rotate(-5deg); }
+      82% { transform: rotate(-3deg); }
+    }
+
+    @keyframes avatar-cheer-elbow-l {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-62deg); }
+      45%, 65% { transform: rotate(-105deg); }
+      82% { transform: rotate(-62deg); }
+    }
+
+    @keyframes avatar-cheer-elbow-r {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(62deg); }
+      45%, 65% { transform: rotate(105deg); }
+      82% { transform: rotate(62deg); }
+    }
+
+    @keyframes avatar-cheer-body {
+      0%, 100% { transform: translateY(0); }
+      30%, 76% { transform: translateY(-10px); }
+    }
+
+    @keyframes avatar-cheer-head {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      30% { transform: translateY(-6px) rotate(3deg); }
+      60% { transform: translateY(-6px) rotate(-3deg); }
+      80% { transform: translateY(-4px) rotate(2deg); }
+    }
+
+    @keyframes avatar-cheer-spark {
+      0% { opacity: 0; transform: translateY(8px); }
+      30%, 70% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-14px); }
+    }
+
+    /* peel-off + fly-away: the note lifts on its tape, tears loose, spins away */
+    @keyframes avatar-sticky-fly {
+      0% { transform: rotate(0deg) translate(0, 0); opacity: 1; }
+      14% { transform: rotate(-5deg) translate(0, -3px); opacity: 1; }
+      26% { transform: rotate(9deg) translate(6px, -8px); opacity: 1; }
+      40% { transform: rotate(-4deg) translate(14px, -26px); opacity: 1; }
+      64% { transform: rotate(-22deg) translate(96px, -150px); opacity: 0.9; }
+      100% { transform: rotate(-52deg) translate(300px, -420px); opacity: 0; }
+    }
+
+    @keyframes avatar-sticky-curl {
+      0% { opacity: 0; }
+      12%, 24% { opacity: 1; }
+      32%, 100% { opacity: 0; }
+    }
+
+    /* steam: long travel up to the top edge of the monitor, narrowing and
+       fading out so the loop is seamless */
+    @keyframes avatar-steam {
+      0% { transform: translateY(4px) scale(1, 1); opacity: 0; }
+      10% { transform: translateY(-8px) scale(1, 1); opacity: 0.8; }
+      40% { transform: translateY(-46px) scale(0.82, 0.92); opacity: 0.62; }
+      70% { transform: translateY(-82px) scale(0.58, 0.78); opacity: 0.38; }
+      92% { transform: translateY(-106px) scale(0.36, 0.64); opacity: 0.12; }
+      100% { transform: translateY(-116px) scale(0.3, 0.6); opacity: 0; }
+    }
+
+    @keyframes avatar-glow {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes avatar-fx-scan {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(16px); }
+    }
+
+    @keyframes avatar-fx-slide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(2px); }
+    }
+
+    @keyframes avatar-fx-bar {
+      0% { transform: scaleY(0.1); }
+      100% { transform: scaleY(1); }
+    }
+
+    @keyframes avatar-fx-draw {
+      0% { stroke-dashoffset: 26; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes avatar-fx-bob {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(3px); }
+    }
+
+    @keyframes avatar-spark {
+      0%, 100% { opacity: 0; transform: scale(0.35); }
+      34% { opacity: 1; transform: scale(1); }
+      67% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    /* the crest rows are 400 wide with a 64-unit tile, so one tile of travel loops seamlessly */
+    @keyframes avatar-wave-right {
+      from { transform: translateX(0); }
+      to { transform: translateX(64px); }
+    }
+
+    @keyframes avatar-wave-left {
+      from { transform: translateX(0); }
+      to { transform: translateX(-64px); }
+    }
+
+    @keyframes avatar-sea-bob {
+      from { transform: translateY(0); }
+      to { transform: translateY(2px); }
+    }
+
+    @keyframes avatar-surf {
+      0% { transform: translateY(5px); opacity: 0; }
+      22% { transform: translateY(-2px); opacity: 0.85; }
+      46% { transform: translateY(-4px); opacity: 0.7; }
+      78% { transform: translateY(2px); opacity: 0.25; }
+      100% { transform: translateY(5px); opacity: 0; }
+    }
+
+    @keyframes avatar-moonrow {
+      from { transform: translateX(-3px); }
+      to { transform: translateX(3px); }
+    }
+
+    @keyframes avatar-bubble-a {
+      0% { transform: translate(0, 0); opacity: 0; }
+      14% { opacity: 0.9; }
+      82% { opacity: 0.6; }
+      100% { transform: translate(-3px, -22px); opacity: 0; }
+    }
+
+    @keyframes avatar-fw-trail {
+      0% { transform: translateY(54px) scaleY(0.3); opacity: 0; }
+      8% { opacity: 1; }
+      24% { transform: translateY(8px) scaleY(1); opacity: 1; }
+      30%, 100% { transform: translateY(0) scaleY(0.3); opacity: 0; }
+    }
+
+    @keyframes avatar-fw-burst {
+      0%, 26% { transform: scale(0.1); opacity: 0; }
+      32% { transform: scale(0.45); opacity: 1; }
+      58% { transform: scale(1); opacity: 1; }
+      80% { transform: scale(1.14); opacity: 0.7; }
+      100% { transform: scale(1.3); opacity: 0; }
+    }
+
+    @keyframes avatar-confetti-a {
+      0% { transform: translate(0, -30px) rotate(0deg); opacity: 0; }
+      8% { opacity: 1; }
+      82% { opacity: 1; }
+      100% { transform: translate(-26px, 480px) rotate(320deg); opacity: 0; }
+    }
+
+    @keyframes avatar-confetti-b {
+      0% { transform: translate(0, -30px) rotate(0deg); opacity: 0; }
+      8% { opacity: 1; }
+      82% { opacity: 1; }
+      100% { transform: translate(30px, 480px) rotate(-280deg); opacity: 0; }
+    }
+
+    @keyframes avatar-horn-in-l {
+      0% { transform: translateX(-18px); opacity: 0; }
+      10%, 86% { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(-18px); opacity: 0; }
+    }
+
+    @keyframes avatar-horn-in-r {
+      0% { transform: translateX(18px); opacity: 0; }
+      10%, 86% { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(18px); opacity: 0; }
+    }
+
+    /* the paper tube unrolls, snaps back, unrolls again */
+    @keyframes avatar-horn {
+      0%, 8% { transform: scaleX(0.04); }
+      22% { transform: scaleX(1); }
+      38% { transform: scaleX(0.1); }
+      54% { transform: scaleX(1); }
+      70% { transform: scaleX(0.12); }
+      84% { transform: scaleX(0.92); }
+      100% { transform: scaleX(0.04); }
+    }
+
+    @keyframes avatar-bubble-b {
+      0% { transform: translate(0, 0); opacity: 0; }
+      18% { opacity: 0.85; }
+      80% { opacity: 0.55; }
+      100% { transform: translate(4px, -24px); opacity: 0; }
+    }
+
+    /* -148 from y≈346 tops out at y≈198, the same ceiling the steam reaches */
+    @keyframes avatar-fizz-a {
+      0% { transform: translate(0, 6px); opacity: 0; }
+      12% { opacity: 0.9; }
+      45% { transform: translate(-3px, -58px); opacity: 0.7; }
+      75% { transform: translate(2px, -108px); opacity: 0.4; }
+      100% { transform: translate(-2px, -148px); opacity: 0; }
+    }
+
+    @keyframes avatar-fizz-b {
+      0% { transform: translate(0, 6px); opacity: 0; }
+      14% { opacity: 0.85; }
+      45% { transform: translate(4px, -60px); opacity: 0.65; }
+      75% { transform: translate(-3px, -110px); opacity: 0.35; }
+      100% { transform: translate(3px, -148px); opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .avatar,
+      .avatar * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="lab">
-    <h1>Avatar lab · Style D</h1>
-<figure class="avatar avatar--robot" data-avatar aria-hidden="true">
-          <div class="avatar__stage">
-            <div class="avatar__fx" data-avatar-fx>
-              <svg class="avatar__fx-svg" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
-                <g class="avatar__fx-scene is-active" data-fx="0">
-                  <rect width="160" height="100" fill="#04101a"/>
-                  <rect x="16" y="22" width="128" height="14" rx="2" fill="#0b3d3a"/>
-                  <rect x="20" y="26" width="10" height="6" rx="1" fill="#64ffda"/>
-                  <line x1="36" y1="29" x2="130" y2="29" stroke="#2dd4bf" stroke-width="2"/>
-                  <rect x="16" y="44" width="128" height="14" rx="2" fill="#0b3d3a"/>
-                  <rect x="20" y="48" width="10" height="6" rx="1" fill="#64ffda"/>
-                  <rect x="16" y="66" width="128" height="14" rx="2" fill="#123"/>
+    <h1>Avatar lab · pixel desk 384×448</h1>
+
+    <div class="lab__layout">
+    <div class="lab__main">
+
+    <figure class="avatar" data-avatar data-avatar-lab aria-hidden="true">
+      <div class="avatar__stage">
+        <svg class="avatar__svg" viewBox="0 0 384 448" width="384" height="448" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+          <defs>
+            <clipPath id="avatarLensL">
+              <rect x="140" y="148" width="40" height="32"/>
+            </clipPath>
+            <clipPath id="avatarLensR">
+              <rect x="204" y="148" width="40" height="32"/>
+            </clipPath>
+
+            <!-- sea surface inside the window: wave rows drift through this -->
+            <clipPath id="avatarSea">
+              <rect x="58" y="132" width="268" height="100"/>
+            </clipPath>
+
+            <!-- sky above the transom: the night salute is kept inside the glass -->
+            <clipPath id="avatarSky">
+              <rect x="58" y="32" width="268" height="86"/>
+            </clipPath>
+
+            <!-- the whole frame: confetti drops in from above the top edge -->
+            <clipPath id="avatarScene">
+              <rect width="384" height="448"/>
+            </clipPath>
+
+            <!-- inside of the wine bowl: wine level + bubbles are clipped to it -->
+            <clipPath id="avatarWineBowl">
+              <rect x="11" y="353" width="40" height="7"/>
+              <rect x="14" y="360" width="34" height="8"/>
+              <rect x="18" y="368" width="26" height="7"/>
+              <rect x="23" y="375" width="16" height="6"/>
+              <rect x="27" y="381" width="8" height="5"/>
+            </clipPath>
+
+            <!-- hover sparkles; the rects inherit fill from the <use> that clones them -->
+            <g id="avatarSpark">
+              <rect x="-1" y="-4" width="2" height="9"/>
+              <rect x="-4" y="-1" width="9" height="2"/>
+            </g>
+            <g id="avatarSparkS">
+              <rect x="-1" y="-3" width="2" height="7"/>
+              <rect x="-3" y="-1" width="7" height="2"/>
+            </g>
+
+            <!-- one wave tile = 64 units; the row rect is 400 wide and slides
+                 exactly one tile, so the loop is seamless -->
+            <pattern id="avatarWaveA" width="64" height="3" patternUnits="userSpaceOnUse">
+              <rect width="14" height="3" fill="#bfe7f8"/>
+              <rect x="30" width="8" height="3" fill="#bfe7f8"/>
+            </pattern>
+            <pattern id="avatarWaveB" width="64" height="3" patternUnits="userSpaceOnUse">
+              <rect x="6" width="20" height="3" fill="#a9dcf3"/>
+              <rect x="40" width="10" height="3" fill="#a9dcf3"/>
+            </pattern>
+            <pattern id="avatarWaveC" width="64" height="3" patternUnits="userSpaceOnUse">
+              <rect width="16" height="3" fill="#8fcdea"/>
+              <rect x="26" width="6" height="3" fill="#8fcdea"/>
+              <rect x="44" width="10" height="3" fill="#8fcdea"/>
+            </pattern>
+            <pattern id="avatarWaveD" width="64" height="3" patternUnits="userSpaceOnUse">
+              <rect x="10" width="22" height="3" fill="#7ec0e2"/>
+              <rect x="46" width="8" height="3" fill="#7ec0e2"/>
+            </pattern>
+            <pattern id="avatarWaveNA" width="64" height="3" patternUnits="userSpaceOnUse">
+              <rect width="14" height="3" fill="#2e6c8f"/>
+              <rect x="30" width="8" height="3" fill="#2e6c8f"/>
+            </pattern>
+            <pattern id="avatarWaveNB" width="64" height="3" patternUnits="userSpaceOnUse">
+              <rect x="6" width="20" height="3" fill="#2a5f80"/>
+              <rect x="40" width="10" height="3" fill="#2a5f80"/>
+            </pattern>
+            <pattern id="avatarWaveNC" width="64" height="3" patternUnits="userSpaceOnUse">
+              <rect width="16" height="3" fill="#22506e"/>
+              <rect x="26" width="6" height="3" fill="#22506e"/>
+              <rect x="44" width="10" height="3" fill="#22506e"/>
+            </pattern>
+            <pattern id="avatarWaveND" width="64" height="3" patternUnits="userSpaceOnUse">
+              <rect x="10" width="22" height="3" fill="#1c425c"/>
+              <rect x="46" width="8" height="3" fill="#1c425c"/>
+            </pattern>
+          </defs>
+
+          <!-- ===== striped wall ===== -->
+          <rect width="384" height="412" fill="#151d2b"/>
+          <rect x="16" width="12" height="412" fill="#1d2739"/>
+          <rect x="48" width="12" height="412" fill="#1d2739"/>
+          <rect x="80" width="12" height="412" fill="#1d2739"/>
+          <rect x="112" width="12" height="412" fill="#1d2739"/>
+          <rect x="144" width="12" height="412" fill="#1d2739"/>
+          <rect x="176" width="12" height="412" fill="#1d2739"/>
+          <rect x="208" width="12" height="412" fill="#1d2739"/>
+          <rect x="240" width="12" height="412" fill="#1d2739"/>
+          <rect x="272" width="12" height="412" fill="#1d2739"/>
+          <rect x="304" width="12" height="412" fill="#1d2739"/>
+          <rect x="336" width="12" height="412" fill="#1d2739"/>
+          <rect x="368" width="12" height="412" fill="#1d2739"/>
+          <rect x="36" width="4" height="412" fill="#232f45"/>
+          <rect x="100" width="4" height="412" fill="#232f45"/>
+          <rect x="164" width="4" height="412" fill="#232f45"/>
+          <rect x="228" width="4" height="412" fill="#232f45"/>
+          <rect x="292" width="4" height="412" fill="#232f45"/>
+          <rect x="356" width="4" height="412" fill="#232f45"/>
+          <rect y="398" width="384" height="14" fill="#111825"/>
+
+          <!-- ===== window onto the sea, drawn behind the character ===== -->
+          <g class="avatar__window">
+            <!-- day pane -->
+            <g class="avatar__window-day">
+              <rect x="58" y="32" width="268" height="100" fill="#8ed0ec"/>
+              <rect x="58" y="32" width="268" height="34" fill="#abdff4"/>
+              <rect x="58" y="66" width="268" height="16" fill="#9bd7f0"/>
+              <!-- sun -->
+              <rect x="78" y="48" width="16" height="4" fill="#ffe08a"/>
+              <rect x="74" y="52" width="24" height="4" fill="#ffe08a"/>
+              <rect x="72" y="56" width="28" height="12" fill="#ffe08a"/>
+              <rect x="74" y="68" width="24" height="4" fill="#ffe08a"/>
+              <rect x="78" y="72" width="16" height="4" fill="#ffe08a"/>
+              <rect x="78" y="56" width="16" height="12" fill="#fff5cc"/>
+              <rect x="82" y="52" width="8" height="4" fill="#fff5cc"/>
+              <!-- clouds -->
+              <rect x="276" y="52" width="40" height="8" fill="#eaf6fd"/>
+              <rect x="284" y="46" width="24" height="6" fill="#f6fbfe"/>
+              <rect x="124" y="84" width="34" height="6" fill="#e3f2fb"/>
+              <!-- sea -->
+              <rect x="58" y="132" width="268" height="18" fill="#3a9ccb"/>
+              <rect x="58" y="132" width="268" height="4" fill="#5fb6dd"/>
+              <rect x="58" y="150" width="268" height="24" fill="#2f86b6"/>
+              <rect x="58" y="174" width="268" height="24" fill="#276f9c"/>
+              <rect x="58" y="198" width="268" height="16" fill="#1f5c84"/>
+              <!-- beach -->
+              <rect x="58" y="212" width="268" height="6" fill="#f2f8fb"/>
+              <rect x="58" y="218" width="268" height="14" fill="#e8d5a8"/>
+              <rect x="58" y="218" width="268" height="5" fill="#f2e6c4"/>
+              <rect x="86" y="226" width="16" height="3" fill="#d7c091"/>
+              <rect x="152" y="228" width="22" height="3" fill="#d7c091"/>
+              <rect x="268" y="225" width="20" height="3" fill="#d7c091"/>
+              <!-- sun glitter + white caps, drifting across the swell -->
+              <g clip-path="url(#avatarSea)">
+                <g class="avatar__sea-waves">
+                  <rect class="avatar__wave avatar__wave--r1" x="-6" y="140" width="400" height="3" fill="url(#avatarWaveA)"/>
+                  <rect class="avatar__wave avatar__wave--l1" x="-6" y="156" width="400" height="3" fill="url(#avatarWaveB)"/>
+                  <rect class="avatar__wave avatar__wave--r2" x="-6" y="170" width="400" height="3" fill="url(#avatarWaveC)"/>
+                  <rect class="avatar__wave avatar__wave--l2" x="-6" y="186" width="400" height="3" fill="url(#avatarWaveD)"/>
+                  <rect class="avatar__wave avatar__wave--r3" x="-6" y="202" width="400" height="3" fill="url(#avatarWaveB)"/>
                 </g>
-                <g class="avatar__fx-scene" data-fx="1">
-                  <rect width="160" height="100" fill="#020617"/>
-                  <rect x="20" y="28" width="90" height="10" rx="2" fill="#0f766e" class="avatar__fx-gantt"/>
-                  <rect x="30" y="48" width="70" height="10" rx="2" fill="#14b8a6"/>
-                  <rect x="18" y="68" width="110" height="10" rx="2" fill="#5eead4" class="avatar__fx-gantt"/>
+                <rect class="avatar__surf" x="58" y="213" width="268" height="5" fill="#eef7fb"/>
+              </g>
+            </g>
+
+            <!-- night pane -->
+            <g class="avatar__window-night">
+              <rect x="58" y="32" width="268" height="100" fill="#0e1e3a"/>
+              <rect x="58" y="32" width="268" height="34" fill="#0a1830"/>
+              <rect x="58" y="100" width="268" height="32" fill="#14284a"/>
+              <!-- moon, right pane -->
+              <rect x="290" y="48" width="16" height="4" fill="#dfe8f4"/>
+              <rect x="286" y="52" width="24" height="4" fill="#e8eff8"/>
+              <rect x="284" y="56" width="28" height="12" fill="#eef4fb"/>
+              <rect x="286" y="68" width="24" height="4" fill="#e8eff8"/>
+              <rect x="290" y="72" width="16" height="4" fill="#dfe8f4"/>
+              <rect x="296" y="58" width="6" height="6" fill="#c6d3e4"/>
+              <rect x="290" y="66" width="4" height="4" fill="#c6d3e4"/>
+              <!-- stars -->
+              <rect class="avatar__star" x="66" y="92" width="3" height="3" fill="#f1f5f9"/>
+              <rect class="avatar__star avatar__star--2" x="108" y="44" width="3" height="3" fill="#e2e8f0"/>
+              <rect class="avatar__star avatar__star--3" x="124" y="70" width="4" height="4" fill="#f8fafc"/>
+              <rect class="avatar__star avatar__star--2" x="166" y="40" width="3" height="3" fill="#e2e8f0"/>
+              <rect class="avatar__star" x="204" y="60" width="3" height="3" fill="#f1f5f9"/>
+              <rect class="avatar__star avatar__star--3" x="246" y="44" width="3" height="3" fill="#e2e8f0"/>
+              <rect class="avatar__star" x="282" y="74" width="4" height="4" fill="#f8fafc"/>
+              <rect class="avatar__star avatar__star--2" x="306" y="46" width="3" height="3" fill="#f1f5f9"/>
+              <rect class="avatar__star avatar__star--3" x="316" y="96" width="3" height="3" fill="#e2e8f0"/>
+              <rect class="avatar__star" x="94" y="112" width="3" height="3" fill="#cbd5e1"/>
+              <rect class="avatar__star avatar__star--2" x="292" y="112" width="3" height="3" fill="#cbd5e1"/>
+              <!-- sea -->
+              <rect x="58" y="132" width="268" height="18" fill="#17415f"/>
+              <rect x="58" y="132" width="268" height="4" fill="#27617f"/>
+              <rect x="58" y="150" width="268" height="24" fill="#123650"/>
+              <rect x="58" y="174" width="268" height="24" fill="#0e2c42"/>
+              <rect x="58" y="198" width="268" height="16" fill="#0a2335"/>
+              <!-- beach -->
+              <rect x="58" y="212" width="268" height="6" fill="#4a6272"/>
+              <rect x="58" y="218" width="268" height="14" fill="#4a4436"/>
+              <rect x="58" y="218" width="268" height="5" fill="#5b5443"/>
+              <!-- drifting crests + the moon path rippling under the moon -->
+              <g clip-path="url(#avatarSea)">
+                <g class="avatar__sea-waves">
+                  <rect class="avatar__wave avatar__wave--r1" x="-6" y="140" width="400" height="3" fill="url(#avatarWaveNA)"/>
+                  <rect class="avatar__wave avatar__wave--l1" x="-6" y="156" width="400" height="3" fill="url(#avatarWaveNB)"/>
+                  <rect class="avatar__wave avatar__wave--r2" x="-6" y="170" width="400" height="3" fill="url(#avatarWaveNC)"/>
+                  <rect class="avatar__wave avatar__wave--l2" x="-6" y="186" width="400" height="3" fill="url(#avatarWaveND)"/>
+                  <rect class="avatar__wave avatar__wave--r3" x="-6" y="202" width="400" height="3" fill="url(#avatarWaveNB)"/>
                 </g>
-                <g class="avatar__fx-scene" data-fx="2">
-                  <rect width="160" height="100" fill="#031820"/>
-                  <g transform="translate(0 90)">
-                    <rect class="avatar__fx-bar" x="28" y="-50" width="16" height="50" fill="#0f766e"/>
-                    <rect class="avatar__fx-bar avatar__fx-bar--2" x="56" y="-62" width="16" height="62" fill="#14b8a6"/>
-                    <rect class="avatar__fx-bar avatar__fx-bar--3" x="84" y="-40" width="16" height="40" fill="#2dd4bf"/>
-                    <rect class="avatar__fx-bar avatar__fx-bar--4" x="112" y="-56" width="16" height="56" fill="#5eead4"/>
+                <g class="avatar__moonpath">
+                  <rect class="avatar__moonrow" x="290" y="136" width="16" height="3" fill="#8fb7d4" opacity="0.75"/>
+                  <rect class="avatar__moonrow avatar__moonrow--2" x="288" y="146" width="20" height="3" fill="#7ea8c8" opacity="0.7"/>
+                  <rect class="avatar__moonrow avatar__moonrow--3" x="286" y="158" width="26" height="3" fill="#6d98b9" opacity="0.62"/>
+                  <rect class="avatar__moonrow avatar__moonrow--4" x="284" y="172" width="32" height="3" fill="#5c87a8" opacity="0.55"/>
+                  <rect class="avatar__moonrow avatar__moonrow--5" x="282" y="188" width="38" height="3" fill="#4d7594" opacity="0.48"/>
+                  <rect class="avatar__moonrow avatar__moonrow--6" x="280" y="202" width="44" height="3" fill="#3f6480" opacity="0.4"/>
+                </g>
+                <rect class="avatar__surf avatar__surf--night" x="58" y="213" width="268" height="5" fill="#8fb0c4"/>
+              </g>
+            </g>
+
+            <!-- «победа» at night: a salute goes up outside the glass -->
+            <g class="avatar__fireworks" clip-path="url(#avatarSky)">
+              <g class="avatar__fw avatar__fw--1">
+                <rect class="avatar__fw-trail" x="110" y="58" width="3" height="28" fill="#fde68a"/>
+                <g class="avatar__fw-burst">
+                  <rect x="110" y="54" width="4" height="4" fill="#fffbeb"/>
+                  <rect x="111" y="35" width="3" height="3" fill="#fde68a"/>
+                  <rect x="125" y="41" width="3" height="3" fill="#fde68a"/>
+                  <rect x="131" y="55" width="3" height="3" fill="#fbbf24"/>
+                  <rect x="125" y="69" width="3" height="3" fill="#fde68a"/>
+                  <rect x="111" y="75" width="3" height="3" fill="#fbbf24"/>
+                  <rect x="97" y="69" width="3" height="3" fill="#fde68a"/>
+                  <rect x="91" y="55" width="3" height="3" fill="#fbbf24"/>
+                  <rect x="97" y="41" width="3" height="3" fill="#fde68a"/>
+                  <rect x="111" y="44" width="2" height="2" fill="#fffbeb"/>
+                  <rect x="122" y="55" width="2" height="2" fill="#fffbeb"/>
+                  <rect x="111" y="66" width="2" height="2" fill="#fffbeb"/>
+                  <rect x="100" y="55" width="2" height="2" fill="#fffbeb"/>
+                </g>
+              </g>
+              <g class="avatar__fw avatar__fw--2">
+                <rect class="avatar__fw-trail" x="212" y="54" width="3" height="28" fill="#93c5fd"/>
+                <g class="avatar__fw-burst">
+                  <rect x="212" y="50" width="4" height="4" fill="#eff6ff"/>
+                  <rect x="213" y="33" width="3" height="3" fill="#93c5fd"/>
+                  <rect x="226" y="38" width="3" height="3" fill="#bfdbfe"/>
+                  <rect x="231" y="51" width="3" height="3" fill="#93c5fd"/>
+                  <rect x="226" y="64" width="3" height="3" fill="#bfdbfe"/>
+                  <rect x="213" y="69" width="3" height="3" fill="#93c5fd"/>
+                  <rect x="200" y="64" width="3" height="3" fill="#bfdbfe"/>
+                  <rect x="195" y="51" width="3" height="3" fill="#93c5fd"/>
+                  <rect x="200" y="38" width="3" height="3" fill="#bfdbfe"/>
+                  <rect x="213" y="41" width="2" height="2" fill="#eff6ff"/>
+                  <rect x="222" y="51" width="2" height="2" fill="#eff6ff"/>
+                  <rect x="213" y="61" width="2" height="2" fill="#eff6ff"/>
+                  <rect x="203" y="51" width="2" height="2" fill="#eff6ff"/>
+                </g>
+              </g>
+              <g class="avatar__fw avatar__fw--3">
+                <rect class="avatar__fw-trail" x="266" y="80" width="3" height="26" fill="#f9a8d4"/>
+                <g class="avatar__fw-burst">
+                  <rect x="266" y="76" width="4" height="4" fill="#fdf2f8"/>
+                  <rect x="267" y="61" width="3" height="3" fill="#f9a8d4"/>
+                  <rect x="278" y="66" width="3" height="3" fill="#f472b6"/>
+                  <rect x="283" y="77" width="3" height="3" fill="#f9a8d4"/>
+                  <rect x="278" y="88" width="3" height="3" fill="#f472b6"/>
+                  <rect x="267" y="93" width="3" height="3" fill="#f9a8d4"/>
+                  <rect x="256" y="88" width="3" height="3" fill="#f472b6"/>
+                  <rect x="251" y="77" width="3" height="3" fill="#f9a8d4"/>
+                  <rect x="256" y="66" width="3" height="3" fill="#f472b6"/>
+                  <rect x="267" y="68" width="2" height="2" fill="#fdf2f8"/>
+                  <rect x="276" y="77" width="2" height="2" fill="#fdf2f8"/>
+                  <rect x="267" y="86" width="2" height="2" fill="#fdf2f8"/>
+                  <rect x="258" y="77" width="2" height="2" fill="#fdf2f8"/>
+                </g>
+              </g>
+            </g>
+
+            <!-- frame: sill, jambs, mullion + transom -->
+            <rect x="52" y="26" width="280" height="6" fill="#2c3950"/>
+            <rect x="52" y="26" width="6" height="212" fill="#33425c"/>
+            <rect x="326" y="26" width="6" height="212" fill="#232f44"/>
+            <rect x="52" y="232" width="280" height="6" fill="#33425c"/>
+            <rect x="46" y="236" width="292" height="8" fill="#3b4a66"/>
+            <rect x="46" y="242" width="292" height="4" fill="#26324a"/>
+            <rect x="188" y="32" width="8" height="200" fill="#2c3950"/>
+            <rect x="188" y="32" width="3" height="200" fill="#3b4a66"/>
+            <rect x="58" y="118" width="268" height="8" fill="#2c3950"/>
+            <rect x="58" y="118" width="268" height="3" fill="#3b4a66"/>
+          </g>
+
+          <!-- ===== body: shoulders + head, lifts on sigh ===== -->
+          <g class="avatar__body">
+            <!-- neck -->
+            <rect x="168" y="230" width="48" height="46" fill="#dcae90"/>
+            <rect x="168" y="230" width="48" height="8" fill="#c08f70"/>
+
+            <g class="avatar__head">
+              <!-- ears -->
+              <rect x="114" y="126" width="12" height="30" fill="#e6bd9c"/>
+              <rect x="118" y="134" width="4" height="12" fill="#c98f6d"/>
+              <rect x="258" y="126" width="12" height="30" fill="#e6bd9c"/>
+              <rect x="262" y="134" width="4" height="12" fill="#c98f6d"/>
+
+              <!-- face, tapering to the chin -->
+              <rect x="126" y="84" width="132" height="126" fill="#f0c9a8"/>
+              <rect x="130" y="210" width="124" height="10" fill="#f0c9a8"/>
+              <rect x="138" y="220" width="108" height="10" fill="#efc5a3"/>
+              <rect x="152" y="230" width="80" height="8" fill="#efc5a3"/>
+              <rect x="134" y="96" width="116" height="10" fill="#f7dcc3"/>
+              <rect x="126" y="150" width="8" height="44" fill="#e0b491"/>
+              <rect x="250" y="150" width="8" height="44" fill="#e0b491"/>
+
+              <!-- light blond / platinum hair, slightly spiky crest -->
+              <rect x="132" y="66" width="16" height="4" fill="#f0e8d6"/>
+              <rect x="152" y="62" width="12" height="8" fill="#f0e8d6"/>
+              <rect x="172" y="66" width="12" height="4" fill="#f0e8d6"/>
+              <rect x="192" y="62" width="12" height="8" fill="#f0e8d6"/>
+              <rect x="216" y="66" width="16" height="4" fill="#f0e8d6"/>
+              <rect x="238" y="68" width="12" height="4" fill="#f0e8d6"/>
+              <rect x="122" y="70" width="140" height="26" fill="#d8cdb6"/>
+              <rect x="122" y="70" width="140" height="8" fill="#f0e8d6"/>
+              <rect x="140" y="78" width="8" height="6" fill="#eae0c9"/>
+              <rect x="176" y="78" width="10" height="6" fill="#eae0c9"/>
+              <rect x="214" y="78" width="8" height="6" fill="#eae0c9"/>
+              <rect x="126" y="96" width="20" height="14" fill="#d8cdb6"/>
+              <rect x="238" y="96" width="20" height="14" fill="#d8cdb6"/>
+              <rect x="122" y="96" width="8" height="48" fill="#c6bba3"/>
+              <rect x="254" y="96" width="8" height="48" fill="#c6bba3"/>
+
+              <!-- brows -->
+              <rect x="136" y="128" width="44" height="8" fill="#c6bba3"/>
+              <rect x="204" y="128" width="44" height="8" fill="#c6bba3"/>
+
+              <!-- nose, upper part tucked behind the frame -->
+              <rect x="178" y="176" width="28" height="20" fill="#e8c0a0"/>
+              <rect x="178" y="192" width="28" height="4" fill="#d8a683"/>
+              <rect x="174" y="192" width="4" height="4" fill="#b9805f"/>
+              <rect x="206" y="192" width="4" height="4" fill="#b9805f"/>
+
+              <!-- neat light goatee along the jaw, mouth painted over it -->
+              <rect x="130" y="186" width="14" height="46" fill="#c9bda3"/>
+              <rect x="240" y="186" width="14" height="46" fill="#c9bda3"/>
+              <rect x="138" y="212" width="108" height="22" fill="#d5c9b0"/>
+              <rect x="146" y="212" width="92" height="4" fill="#e4dac4"/>
+              <rect x="152" y="232" width="80" height="8" fill="#c9bda3"/>
+              <rect x="152" y="236" width="80" height="4" fill="#b3a68c"/>
+
+              <!-- mustache -->
+              <rect x="146" y="198" width="92" height="12" fill="#d5c9b0"/>
+              <rect x="146" y="198" width="92" height="4" fill="#e4dac4"/>
+
+              <!-- friendly slight smile -->
+              <rect x="164" y="210" width="4" height="4" fill="#a5644f"/>
+              <rect x="168" y="210" width="48" height="4" fill="#f7f9fb"/>
+              <rect x="216" y="210" width="4" height="4" fill="#a5644f"/>
+              <rect x="168" y="214" width="48" height="4" fill="#9b5c48"/>
+
+              <!-- bare eyes, revealed only once the glasses are off -->
+              <g class="avatar__eyes-bare">
+                <rect x="144" y="152" width="32" height="22" fill="#e3b795"/>
+                <rect x="146" y="154" width="28" height="18" fill="#f7fbfd"/>
+                <rect class="avatar__pupil" x="154" y="154" width="12" height="18" fill="#13333d"/>
+                <rect class="avatar__pupil" x="157" y="158" width="4" height="4" fill="#7fe3cc"/>
+                <rect x="144" y="150" width="32" height="4" fill="#9b7a5e"/>
+                <rect x="208" y="152" width="32" height="22" fill="#e3b795"/>
+                <rect x="210" y="154" width="28" height="18" fill="#f7fbfd"/>
+                <rect class="avatar__pupil" x="218" y="154" width="12" height="18" fill="#13333d"/>
+                <rect class="avatar__pupil" x="221" y="158" width="4" height="4" fill="#7fe3cc"/>
+                <rect x="208" y="150" width="32" height="4" fill="#9b7a5e"/>
+              </g>
+
+              <!-- rectangular glasses -->
+              <g class="avatar__glasses">
+              <rect x="126" y="152" width="10" height="8" fill="#1b232f"/>
+              <rect x="248" y="152" width="10" height="8" fill="#1b232f"/>
+              <rect x="184" y="152" width="16" height="8" fill="#1b232f"/>
+              <rect x="136" y="144" width="48" height="40" fill="#1b232f"/>
+              <rect x="200" y="144" width="48" height="40" fill="#1b232f"/>
+              <rect x="136" y="144" width="48" height="4" fill="#38455a"/>
+              <rect x="200" y="144" width="48" height="4" fill="#38455a"/>
+
+              <!-- LEFT lens: eye + dashboard reflection clipped to the lens -->
+              <g class="avatar__lens avatar__lens--l" clip-path="url(#avatarLensL)">
+                <rect x="140" y="148" width="40" height="32" fill="#0a1f28"/>
+                <rect x="146" y="154" width="28" height="18" fill="#e6f2f1"/>
+                <rect class="avatar__pupil" x="154" y="154" width="12" height="18" fill="#13333d"/>
+                <rect class="avatar__pupil" x="157" y="158" width="4" height="4" fill="#64ffda"/>
+                <g class="avatar__lens-fx">
+                  <g transform="translate(140 148) scale(2)">
+                    <g class="avatar__fx-scene is-active" data-fx="0">
+                      <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                      <rect x="2" y="2" width="16" height="3" fill="#0b3d3a"/>
+                      <rect x="3" y="3" width="2" height="1" fill="#64ffda"/>
+                      <rect x="6" y="3" width="10" height="1" fill="#2dd4bf"/>
+                      <rect x="2" y="6" width="16" height="3" fill="#0b3d3a"/>
+                      <rect x="3" y="7" width="2" height="1" fill="#64ffda"/>
+                      <rect x="6" y="7" width="8" height="1" fill="#2dd4bf"/>
+                      <rect x="2" y="10" width="16" height="3" fill="#0a2430"/>
+                      <rect x="6" y="11" width="6" height="1" fill="#14b8a6"/>
+                      <rect class="avatar__fx-scan" width="20" height="1" fill="#64ffda" opacity="0.22"/>
+                    </g>
+                    <g class="avatar__fx-scene" data-fx="1">
+                      <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                      <rect x="6" width="1" height="16" fill="#1d3b45"/>
+                      <rect x="11" width="1" height="16" fill="#1d3b45"/>
+                      <rect x="16" width="1" height="16" fill="#1d3b45"/>
+                      <rect class="avatar__fx-gantt" x="2" y="3" width="11" height="2" fill="#0f766e"/>
+                      <rect x="4" y="7" width="9" height="2" fill="#14b8a6"/>
+                      <rect class="avatar__fx-gantt" x="3" y="11" width="14" height="2" fill="#5eead4"/>
+                    </g>
+                    <g class="avatar__fx-scene" data-fx="2">
+                      <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                      <rect class="avatar__fx-bar" x="3" y="6" width="3" height="8" fill="#0f766e"/>
+                      <rect class="avatar__fx-bar avatar__fx-bar--2" x="7" y="4" width="3" height="10" fill="#14b8a6"/>
+                      <rect class="avatar__fx-bar avatar__fx-bar--3" x="11" y="8" width="3" height="6" fill="#2dd4bf"/>
+                      <rect class="avatar__fx-bar avatar__fx-bar--4" x="15" y="5" width="3" height="9" fill="#5eead4"/>
+                      <rect x="1" y="14" width="18" height="1" fill="#0f766e"/>
+                    </g>
+                    <g class="avatar__fx-scene" data-fx="3">
+                      <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                      <rect x="1" y="14" width="18" height="1" fill="#0f766e" opacity="0.6"/>
+                      <path class="avatar__fx-curve" d="M2 13 L6 9 L9 11 L13 5 L18 3" fill="none" stroke="#64ffda" stroke-width="1"/>
+                      <rect x="17" y="2" width="2" height="2" fill="#fbbf24"/>
+                    </g>
+                    <g class="avatar__fx-scene" data-fx="4">
+                      <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                      <rect x="2" y="2" width="5" height="12" fill="#0a2a33"/>
+                      <rect x="8" y="2" width="5" height="12" fill="#0a2a33"/>
+                      <rect x="14" y="2" width="5" height="12" fill="#0a2a33"/>
+                      <rect x="3" y="3" width="3" height="2" fill="#2dd4bf"/>
+                      <rect x="3" y="6" width="3" height="2" fill="#14b8a6"/>
+                      <rect class="avatar__fx-card" x="9" y="3" width="3" height="2" fill="#5eead4"/>
+                      <rect x="15" y="3" width="3" height="2" fill="#0f766e"/>
+                    </g>
                   </g>
                 </g>
-                <g class="avatar__fx-scene" data-fx="3">
-                  <rect width="160" height="100" fill="#020617"/>
-                  <path class="avatar__fx-curve" d="M20 78 Q50 78 70 45 T140 28" fill="none" stroke="#64ffda" stroke-width="3"/>
-                  <circle cx="70" cy="45" r="4" fill="#fbbf24"/>
-                </g>
-                <g class="avatar__fx-scene" data-fx="4">
-                  <rect width="160" height="100" fill="#04101a"/>
-                  <rect x="24" y="20" width="30" height="60" rx="3" fill="#0b3d3a" stroke="#64ffda"/>
-                  <rect x="64" y="20" width="30" height="60" rx="3" fill="#123" stroke="#64748b"/>
-                  <rect class="avatar__fx-card" x="104" y="20" width="30" height="60" rx="3" fill="#134e4a" stroke="#14b8a6"/>
-                </g>
-              </svg>
-            </div>
-            <svg class="avatar__svg" viewBox="0 0 48 56" width="240" height="280" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
-              <!-- wall -->
-              <rect width="48" height="36" fill="#1a2332"/>
-              <rect x="0" y="0" width="2" height="36" fill="#243044"/>
-              <rect x="6" y="0" width="2" height="36" fill="#243044"/>
-              <rect x="12" y="0" width="2" height="36" fill="#243044"/>
-              <rect x="18" y="0" width="2" height="36" fill="#243044"/>
-              <rect x="24" y="0" width="2" height="36" fill="#243044"/>
-              <rect x="30" y="0" width="2" height="36" fill="#243044"/>
-              <rect x="36" y="0" width="2" height="36" fill="#243044"/>
-              <rect x="42" y="0" width="2" height="36" fill="#243044"/>
-              <!-- desk -->
-              <rect y="36" width="48" height="20" fill="#2a3344"/>
-              <rect y="36" width="48" height="2" fill="#3d4b63"/>
-              <!-- coffee -->
-              <g class="avatar__coffee">
-                <rect x="38" y="30" width="6" height="6" fill="#e2e8f0"/>
-                <rect x="39" y="31" width="4" height="4" fill="#7c4a2d"/>
-                <rect class="avatar__steam avatar__steam--1" x="40" y="26" width="1" height="3" fill="#94a3b8"/>
-                <rect class="avatar__steam avatar__steam--2" x="42" y="25" width="1" height="4" fill="#94a3b8"/>
+                <rect x="140" y="148" width="12" height="4" fill="#ffffff" opacity="0.2"/>
               </g>
-              <!-- robot body -->
-              <rect x="16" y="22" width="16" height="14" fill="#64748b"/>
-              <rect x="17" y="23" width="14" height="4" fill="#94a3b8"/>
-              <rect x="18" y="28" width="12" height="2" fill="#0f766e"/>
-              <rect x="14" y="24" width="3" height="10" fill="#475569"/>
-              <rect x="31" y="24" width="3" height="10" fill="#475569"/>
-              <!-- robot head -->
-              <g class="avatar__head">
-                <rect x="17" y="8" width="14" height="14" fill="#94a3b8"/>
-                <rect x="18" y="9" width="12" height="12" fill="#cbd5e1"/>
-                <!-- antenna -->
-                <rect x="23" y="4" width="2" height="4" fill="#64748b"/>
-                <rect class="avatar__antenna" x="22" y="2" width="4" height="3" fill="#64ffda"/>
-                <!-- visor / eyes -->
-                <rect x="19" y="12" width="10" height="5" fill="#0f172a"/>
-                <rect class="avatar__pupil" x="20" y="13" width="3" height="3" fill="#64ffda"/>
-                <rect class="avatar__pupil" x="26" y="13" width="3" height="3" fill="#64ffda"/>
-                <!-- smile plate -->
-                <rect x="21" y="18" width="6" height="2" fill="#475569"/>
-              </g>
-              <!-- laptop lid BACK to viewer -->
-              <g class="avatar__laptop">
-                <rect x="10" y="26" width="28" height="16" fill="#475569"/>
-                <rect x="11" y="27" width="26" height="12" fill="#64748b"/>
-                <rect x="20" y="30" width="8" height="5" fill="#334155"/>
-                <rect x="9" y="40" width="30" height="3" fill="#334155"/>
-                <!-- terminal glow spill under lid edge -->
-                <rect class="avatar__glow" x="12" y="38" width="24" height="2" fill="#64ffda"/>
-                <g class="avatar__sticky">
-                  <rect x="24" y="28" width="11" height="8" fill="#fde047"/>
-                  <text class="avatar__sticky-text" x="29.5" y="33.5" text-anchor="middle" fill="#713f12" font-size="2.2" font-family="Segoe UI, sans-serif" font-weight="700">напиши мне</text>
+
+              <!-- RIGHT lens -->
+              <g class="avatar__lens avatar__lens--r" clip-path="url(#avatarLensR)">
+                <rect x="204" y="148" width="40" height="32" fill="#0a1f28"/>
+                <rect x="210" y="154" width="28" height="18" fill="#e6f2f1"/>
+                <rect class="avatar__pupil" x="218" y="154" width="12" height="18" fill="#13333d"/>
+                <rect class="avatar__pupil" x="221" y="158" width="4" height="4" fill="#64ffda"/>
+                <g class="avatar__lens-fx">
+                  <g transform="translate(204 148) scale(2)">
+                    <g class="avatar__fx-scene is-active" data-fx="0">
+                      <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                      <rect x="2" y="2" width="16" height="3" fill="#0b3d3a"/>
+                      <rect x="3" y="3" width="2" height="1" fill="#64ffda"/>
+                      <rect x="6" y="3" width="10" height="1" fill="#2dd4bf"/>
+                      <rect x="2" y="6" width="16" height="3" fill="#0b3d3a"/>
+                      <rect x="3" y="7" width="2" height="1" fill="#64ffda"/>
+                      <rect x="6" y="7" width="8" height="1" fill="#2dd4bf"/>
+                      <rect x="2" y="10" width="16" height="3" fill="#0a2430"/>
+                      <rect x="6" y="11" width="6" height="1" fill="#14b8a6"/>
+                      <rect class="avatar__fx-scan" width="20" height="1" fill="#64ffda" opacity="0.22"/>
+                    </g>
+                    <g class="avatar__fx-scene" data-fx="1">
+                      <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                      <rect x="6" width="1" height="16" fill="#1d3b45"/>
+                      <rect x="11" width="1" height="16" fill="#1d3b45"/>
+                      <rect x="16" width="1" height="16" fill="#1d3b45"/>
+                      <rect class="avatar__fx-gantt" x="2" y="3" width="11" height="2" fill="#0f766e"/>
+                      <rect x="4" y="7" width="9" height="2" fill="#14b8a6"/>
+                      <rect class="avatar__fx-gantt" x="3" y="11" width="14" height="2" fill="#5eead4"/>
+                    </g>
+                    <g class="avatar__fx-scene" data-fx="2">
+                      <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                      <rect class="avatar__fx-bar" x="3" y="6" width="3" height="8" fill="#0f766e"/>
+                      <rect class="avatar__fx-bar avatar__fx-bar--2" x="7" y="4" width="3" height="10" fill="#14b8a6"/>
+                      <rect class="avatar__fx-bar avatar__fx-bar--3" x="11" y="8" width="3" height="6" fill="#2dd4bf"/>
+                      <rect class="avatar__fx-bar avatar__fx-bar--4" x="15" y="5" width="3" height="9" fill="#5eead4"/>
+                      <rect x="1" y="14" width="18" height="1" fill="#0f766e"/>
+                    </g>
+                    <g class="avatar__fx-scene" data-fx="3">
+                      <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                      <rect x="1" y="14" width="18" height="1" fill="#0f766e" opacity="0.6"/>
+                      <path class="avatar__fx-curve" d="M2 13 L6 9 L9 11 L13 5 L18 3" fill="none" stroke="#64ffda" stroke-width="1"/>
+                      <rect x="17" y="2" width="2" height="2" fill="#fbbf24"/>
+                    </g>
+                    <g class="avatar__fx-scene" data-fx="4">
+                      <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                      <rect x="2" y="2" width="5" height="12" fill="#0a2a33"/>
+                      <rect x="8" y="2" width="5" height="12" fill="#0a2a33"/>
+                      <rect x="14" y="2" width="5" height="12" fill="#0a2a33"/>
+                      <rect x="3" y="3" width="3" height="2" fill="#2dd4bf"/>
+                      <rect x="3" y="6" width="3" height="2" fill="#14b8a6"/>
+                      <rect class="avatar__fx-card" x="9" y="3" width="3" height="2" fill="#5eead4"/>
+                      <rect x="15" y="3" width="3" height="2" fill="#0f766e"/>
+                    </g>
+                  </g>
                 </g>
+                <rect x="204" y="148" width="12" height="4" fill="#ffffff" opacity="0.2"/>
               </g>
-              <!-- typing hands / claws -->
+              </g>
+
+              <!-- click target: send the glasses to the window sill -->
+              <g class="avatar__hit-group avatar__hit-group--face" data-lab-hit="glasses">
+                <rect class="avatar__hit" x="124" y="140" width="136" height="48"/>
+                <use class="avatar__spark" href="#avatarSpark" x="192" y="134"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="122" y="138" style="animation-delay: 0.25s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="262" y="138" style="animation-delay: 0.5s"/>
+                <use class="avatar__spark" href="#avatarSpark" x="120" y="190" style="animation-delay: 0.7s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="264" y="190" style="animation-delay: 0.95s"/>
+              </g>
+            </g>
+
+            <!-- white dress shirt -->
+            <rect x="120" y="272" width="144" height="8" fill="#f4f6fa"/>
+            <rect x="104" y="278" width="176" height="8" fill="#f4f6fa"/>
+            <rect x="88" y="284" width="208" height="10" fill="#f4f6fa"/>
+            <rect x="72" y="292" width="240" height="120" fill="#f4f6fa"/>
+            <rect x="72" y="292" width="12" height="120" fill="#dde3ec"/>
+            <rect x="300" y="292" width="12" height="120" fill="#dde3ec"/>
+            <rect x="116" y="292" width="4" height="120" fill="#e7ecf4"/>
+            <rect x="264" y="292" width="4" height="120" fill="#e7ecf4"/>
+            <rect x="88" y="290" width="208" height="4" fill="#ffffff"/>
+
+            <!-- placket + buttons -->
+            <rect x="180" y="280" width="24" height="132" fill="#ffffff"/>
+            <rect x="180" y="280" width="4" height="132" fill="#dde3ec"/>
+            <rect x="200" y="280" width="4" height="132" fill="#dde3ec"/>
+            <rect x="188" y="316" width="8" height="8" fill="#c8d1de"/>
+            <rect x="188" y="352" width="8" height="8" fill="#c8d1de"/>
+            <rect x="188" y="388" width="8" height="8" fill="#c8d1de"/>
+
+            <!-- collar -->
+            <rect x="152" y="260" width="80" height="12" fill="#e9eef5"/>
+            <rect x="152" y="260" width="80" height="4" fill="#ffffff"/>
+            <rect x="150" y="264" width="30" height="14" fill="#ffffff"/>
+            <rect x="156" y="278" width="24" height="10" fill="#ffffff"/>
+            <rect x="164" y="288" width="16" height="8" fill="#f0f3f8"/>
+            <rect x="204" y="264" width="30" height="14" fill="#ffffff"/>
+            <rect x="204" y="278" width="24" height="10" fill="#ffffff"/>
+            <rect x="204" y="288" width="16" height="8" fill="#f0f3f8"/>
+            <rect x="150" y="276" width="30" height="2" fill="#d5dce7"/>
+            <rect x="204" y="276" width="30" height="2" fill="#d5dce7"/>
+          </g>
+
+          <!-- ===== desk ===== -->
+          <rect y="412" width="384" height="36" fill="#2b3446"/>
+          <rect y="412" width="384" height="6" fill="#46536c"/>
+          <rect y="418" width="384" height="4" fill="#37425a"/>
+          <rect y="440" width="384" height="4" fill="#252d3d"/>
+
+          <!-- ===== Luxo Jr–style desk lamp, RIGHT; lit in dark theme.
+                   Beam polygon first, then one thin continuous stem on top ===== -->
+          <g class="avatar__lamp" data-lamp="L2">
+            <polygon class="avatar__lamp-rays" points="326,280 350,280 382,416 294,416" fill="#fde68a"/>
+            <rect x="328" y="404" width="36" height="12" fill="#334155"/>
+            <rect x="328" y="404" width="36" height="3" fill="#475569"/>
+            <!-- ножка: one thickness, one colour, base → shade -->
+            <rect x="334" y="272" width="8" height="136" fill="#64748b"/>
+            <!-- shade: the green pixels are the theme switch -->
+            <g class="avatar__hit-group" data-lab-hit="lamp">
+              <rect x="314" y="268" width="48" height="8" fill="#14532d"/>
+              <rect x="318" y="252" width="40" height="20" fill="#166534"/>
+              <rect x="322" y="244" width="32" height="12" fill="#15803d"/>
+              <rect class="avatar__lamp-led-off" x="326" y="276" width="24" height="4" fill="#365314"/>
+              <rect class="avatar__lamp-led-on" x="326" y="276" width="24" height="4" fill="#fef08a"/>
+              <rect class="avatar__hit" x="312" y="242" width="52" height="40"/>
+              <use class="avatar__spark" href="#avatarSpark" x="338" y="236"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="310" y="250" style="animation-delay: 0.2s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="366" y="252" style="animation-delay: 0.45s"/>
+              <use class="avatar__spark" href="#avatarSpark" x="312" y="284" style="animation-delay: 0.65s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="364" y="282" style="animation-delay: 0.9s"/>
+            </g>
+          </g>
+
+          <!-- ===== monitor (back to viewer) + stand ===== -->
+          <g class="avatar__monitor">
+            <rect x="168" y="392" width="48" height="20" fill="#1e293b"/>
+            <rect x="184" y="360" width="16" height="36" fill="#334155"/>
+            <rect x="180" y="356" width="24" height="8" fill="#475569"/>
+            <rect class="avatar__glow" x="108" y="248" width="168" height="4" fill="#64ffda"/>
+            <rect x="100" y="252" width="184" height="112" fill="#1e293b"/>
+            <rect x="108" y="260" width="168" height="96" fill="#334155"/>
+            <rect x="100" y="252" width="184" height="6" fill="#475569"/>
+            <rect x="100" y="252" width="6" height="112" fill="#475569"/>
+            <rect x="278" y="252" width="6" height="112" fill="#0f172a"/>
+            <rect x="108" y="356" width="168" height="6" fill="#0f172a"/>
+            <rect x="176" y="268" width="32" height="12" fill="#1e293b"/>
+            <rect x="220" y="260" width="20" height="8" fill="#e2e8f0" opacity="0.55"/>
+          </g>
+
+          <!-- ===== keyboard on the desk ===== -->
+          <g class="avatar__keyboard">
+            <rect x="88" y="416" width="208" height="18" fill="#4a566c"/>
+            <rect x="88" y="416" width="208" height="4" fill="#5d6a84"/>
+            <rect x="96" y="420" width="192" height="10" fill="#3f4a5e"/>
+            <rect x="104" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="120" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="136" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="152" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="168" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="184" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="200" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="216" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="232" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="248" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="264" y="421" width="8" height="4" fill="#6b7a96"/>
+            <rect x="140" y="426" width="80" height="3" fill="#6b7a96"/>
+            <!-- one key per finger, dips and lights up on the press -->
+            <g class="avatar__keys">
+              <rect class="avatar__key" data-key="0" x="148" y="420" width="8" height="6" fill="#6b7a96"/>
+              <rect class="avatar__key" data-key="1" x="156" y="420" width="8" height="6" fill="#6b7a96"/>
+              <rect class="avatar__key" data-key="2" x="164" y="420" width="8" height="6" fill="#6b7a96"/>
+              <rect class="avatar__key" data-key="3" x="172" y="420" width="8" height="6" fill="#6b7a96"/>
+              <rect class="avatar__key" data-key="4" x="204" y="420" width="8" height="6" fill="#6b7a96"/>
+              <rect class="avatar__key" data-key="5" x="212" y="420" width="8" height="6" fill="#6b7a96"/>
+              <rect class="avatar__key" data-key="6" x="220" y="420" width="8" height="6" fill="#6b7a96"/>
+              <rect class="avatar__key" data-key="7" x="228" y="420" width="8" height="6" fill="#6b7a96"/>
+            </g>
+            <rect x="88" y="430" width="208" height="4" fill="#2a323f"/>
+          </g>
+
+          <!-- ===== coffee, LEFT of the keyboard; handle faces the hand ===== -->
+          <g class="avatar__coffee">
+            <g class="avatar__steam-group">
+              <g class="avatar__steam avatar__steam--1">
+                <rect x="40" y="344" width="12" height="14" fill="#9fabbe"/>
+                <rect x="34" y="330" width="12" height="14" fill="#9fabbe"/>
+                <rect x="40" y="318" width="12" height="12" fill="#8b96a8"/>
+              </g>
+              <g class="avatar__steam avatar__steam--2">
+                <rect x="26" y="346" width="12" height="12" fill="#9fabbe"/>
+                <rect x="20" y="332" width="12" height="14" fill="#9fabbe"/>
+                <rect x="26" y="320" width="12" height="12" fill="#8b96a8"/>
+              </g>
+              <g class="avatar__steam avatar__steam--3">
+                <rect x="14" y="342" width="12" height="16" fill="#9fabbe"/>
+                <rect x="22" y="328" width="12" height="14" fill="#9fabbe"/>
+                <rect x="14" y="316" width="12" height="12" fill="#8b96a8"/>
+              </g>
+              <g class="avatar__steam avatar__steam--4">
+                <rect x="34" y="348" width="12" height="10" fill="#9fabbe"/>
+                <rect x="42" y="334" width="12" height="14" fill="#9fabbe"/>
+                <rect x="32" y="322" width="12" height="12" fill="#8b96a8"/>
+              </g>
+            </g>
+
+            <!-- fizz off the wine: same travel and top as the coffee steam -->
+            <g class="avatar__fizz-group">
+              <rect class="avatar__fizz avatar__fizz--1" x="20" y="346" width="3" height="3"/>
+              <rect class="avatar__fizz avatar__fizz--2 avatar__fizz--hi" x="30" y="348" width="2" height="2"/>
+              <rect class="avatar__fizz avatar__fizz--3" x="38" y="345" width="3" height="3"/>
+              <rect class="avatar__fizz avatar__fizz--4 avatar__fizz--hi" x="25" y="350" width="2" height="2"/>
+              <rect class="avatar__fizz avatar__fizz--5" x="34" y="344" width="2" height="2"/>
+              <rect class="avatar__fizz avatar__fizz--6 avatar__fizz--hi" x="16" y="349" width="2" height="2"/>
+            </g>
+            <g class="avatar__mug">
+              <g class="avatar__cup avatar__cup--coffee">
+                <!-- handle on the inner (right) side, where the hand arrives -->
+                <rect x="50" y="374" width="26" height="8" fill="#7e8899"/>
+                <rect x="50" y="396" width="26" height="8" fill="#7e8899"/>
+                <rect x="66" y="380" width="10" height="18" fill="#7e8899"/>
+                <rect x="50" y="376" width="24" height="4" fill="#e8eef6"/>
+                <rect x="50" y="398" width="24" height="4" fill="#e8eef6"/>
+                <rect x="68" y="382" width="6" height="14" fill="#e8eef6"/>
+                <!-- body -->
+                <rect x="8" y="362" width="46" height="52" fill="#7e8899"/>
+                <rect x="8" y="364" width="44" height="48" fill="#e8eef6"/>
+                <rect x="44" y="364" width="8" height="48" fill="#f7fafd"/>
+                <rect x="8" y="364" width="10" height="48" fill="#c3ccd9"/>
+                <rect x="12" y="368" width="36" height="10" fill="#6f4128"/>
+                <rect x="12" y="368" width="36" height="4" fill="#8a5734"/>
+                <rect x="8" y="406" width="44" height="6" fill="#aab4c4"/>
+              </g>
+
+              <!-- same footprint as the mug, so the sip choreography still lands -->
+              <g class="avatar__cup avatar__cup--wine">
+                <!-- bowl walls, tapering down to the stem -->
+                <rect x="8" y="350" width="46" height="10" fill="#cfe0ef" opacity="0.5"/>
+                <rect x="11" y="360" width="40" height="8" fill="#cfe0ef" opacity="0.5"/>
+                <rect x="15" y="368" width="32" height="7" fill="#cfe0ef" opacity="0.5"/>
+                <rect x="20" y="375" width="22" height="6" fill="#cfe0ef" opacity="0.5"/>
+                <rect x="25" y="381" width="12" height="5" fill="#cfe0ef" opacity="0.5"/>
+                <!-- wine + bubbles, clipped to the inside of the bowl -->
+                <g clip-path="url(#avatarWineBowl)">
+                  <rect class="avatar__wine-body" x="8" y="366" width="48" height="24"/>
+                  <rect class="avatar__wine-top" x="8" y="366" width="48" height="3"/>
+                  <rect class="avatar__wine-deep" x="8" y="376" width="48" height="12"/>
+                  <rect class="avatar__bubble avatar__bubble--1" x="28" y="382" width="3" height="3"/>
+                  <rect class="avatar__bubble avatar__bubble--2 avatar__bubble--hi" x="32" y="383" width="2" height="2"/>
+                  <rect class="avatar__bubble avatar__bubble--3" x="29" y="384" width="2" height="2"/>
+                  <rect class="avatar__bubble avatar__bubble--4 avatar__bubble--hi" x="31" y="381" width="3" height="3"/>
+                  <rect class="avatar__bubble avatar__bubble--5" x="27" y="384" width="2" height="2"/>
+                  <rect class="avatar__bubble avatar__bubble--6 avatar__bubble--hi" x="33" y="384" width="2" height="2"/>
+                </g>
+                <!-- rim + left-hand glass highlight -->
+                <rect x="8" y="350" width="46" height="3" fill="#f1f6fb" opacity="0.8"/>
+                <rect x="8" y="350" width="3" height="10" fill="#f8fafc" opacity="0.6"/>
+                <rect x="11" y="360" width="3" height="8" fill="#f8fafc" opacity="0.5"/>
+                <rect x="51" y="350" width="3" height="10" fill="#8fa3b8" opacity="0.5"/>
+                <rect x="48" y="360" width="3" height="8" fill="#8fa3b8" opacity="0.45"/>
+                <!-- stem + foot -->
+                <rect x="27" y="386" width="8" height="20" fill="#cfe0ef" opacity="0.55"/>
+                <rect x="27" y="386" width="3" height="20" fill="#f8fafc" opacity="0.5"/>
+                <rect x="13" y="406" width="36" height="6" fill="#cfe0ef" opacity="0.65"/>
+                <rect x="13" y="406" width="36" height="2" fill="#f8fafc" opacity="0.75"/>
+                <rect x="13" y="412" width="36" height="3" fill="#8fa3b8" opacity="0.5"/>
+              </g>
+
+              <!-- click target: coffee ↔ wine -->
+              <g class="avatar__hit-group" data-lab-hit="drink">
+                <rect class="avatar__hit" x="4" y="346" width="76" height="64"/>
+                <use class="avatar__spark" href="#avatarSpark" x="40" y="342"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="6" y="352" style="animation-delay: 0.22s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="78" y="356" style="animation-delay: 0.48s"/>
+                <use class="avatar__spark" href="#avatarSpark" x="4" y="404" style="animation-delay: 0.7s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="80" y="400" style="animation-delay: 0.92s"/>
+              </g>
+            </g>
+          </g>
+
+          <!-- ===== notepad + red ballpoint, front-left of the keyboard ===== -->
+          <g class="avatar__notepad">
+            <rect x="6" y="434" width="66" height="4" fill="#1a2130" opacity="0.5"/>
+            <rect x="4" y="416" width="66" height="20" fill="#c9b894"/>
+            <rect x="4" y="416" width="66" height="16" fill="#f5efdd"/>
+            <rect x="4" y="416" width="66" height="3" fill="#fdf9ee"/>
+            <rect x="4" y="432" width="66" height="2" fill="#e2d7ba"/>
+            <!-- spiral binding down the left edge -->
+            <rect x="4" y="416" width="8" height="20" fill="#8a97ae"/>
+            <rect x="4" y="418" width="8" height="3" fill="#b8c3d4"/>
+            <rect x="4" y="424" width="8" height="3" fill="#b8c3d4"/>
+            <rect x="4" y="430" width="8" height="3" fill="#b8c3d4"/>
+            <!-- margin + ruled lines -->
+            <rect x="15" y="416" width="2" height="16" fill="#dda0a0"/>
+            <rect x="20" y="420" width="32" height="2" fill="#a8bcd8"/>
+            <rect x="20" y="424" width="42" height="2" fill="#a8bcd8"/>
+            <rect x="20" y="428" width="24" height="2" fill="#a8bcd8"/>
+            <!-- red ballpoint lying across the page -->
+            <rect x="12" y="431" width="4" height="5" fill="#7f1d1d"/>
+            <rect x="16" y="430" width="16" height="5" fill="#c81e1e"/>
+            <rect x="16" y="430" width="16" height="2" fill="#ef4444"/>
+            <rect x="32" y="427" width="16" height="5" fill="#c81e1e"/>
+            <rect x="32" y="427" width="16" height="2" fill="#ef4444"/>
+            <rect x="48" y="424" width="12" height="5" fill="#c81e1e"/>
+            <rect x="48" y="424" width="12" height="2" fill="#ef4444"/>
+            <rect x="20" y="428" width="9" height="2" fill="#e5e7eb"/>
+            <rect x="60" y="423" width="5" height="4" fill="#cbd5e1"/>
+            <rect x="65" y="422" width="3" height="3" fill="#94a3b8"/>
+
+            <!-- click target: jump to the Telegram QR and celebrate -->
+            <g class="avatar__hit-group" data-lab-hit="notepad">
+              <rect class="avatar__hit" x="2" y="411" width="70" height="29"/>
+              <use class="avatar__spark" href="#avatarSpark" x="36" y="408"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="2" y="416" style="animation-delay: 0.24s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="74" y="418" style="animation-delay: 0.5s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="8" y="442" style="animation-delay: 0.74s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="66" y="443" style="animation-delay: 0.95s"/>
+            </g>
+          </g>
+
+          <g class="avatar__cheer-fx">
+            <rect x="36" y="212" width="10" height="10" fill="#fde047"/>
+            <rect x="66" y="184" width="6" height="6" fill="#64ffda"/>
+            <rect x="338" y="212" width="10" height="10" fill="#fde047"/>
+            <rect x="312" y="184" width="6" height="6" fill="#64ffda"/>
+          </g>
+
+          <!-- LEFT arm: sleeve → elbow on the desk → forearm → fingers on the keys -->
+          <g class="avatar__arm avatar__arm--l">
+            <rect x="68" y="288" width="36" height="20" fill="#f4f6fa"/>
+            <rect x="68" y="288" width="36" height="4" fill="#ffffff"/>
+            <rect x="76" y="304" width="24" height="100" fill="#f4f6fa"/>
+            <rect x="76" y="304" width="6" height="100" fill="#ffffff"/>
+            <rect x="94" y="304" width="6" height="100" fill="#dde3ec"/>
+            <g class="avatar__elbow">
+              <rect x="68" y="400" width="40" height="18" fill="#f8fafc"/>
+              <rect x="68" y="400" width="40" height="4" fill="#ffffff"/>
+              <rect x="68" y="414" width="40" height="4" fill="#cfd6e2"/>
+              <rect x="100" y="404" width="56" height="16" fill="#eec3a1"/>
+              <rect x="100" y="404" width="56" height="4" fill="#f7dcc3"/>
+              <rect x="100" y="416" width="56" height="4" fill="#d8a683"/>
+              <rect x="120" y="410" width="24" height="2" fill="#e0b491"/>
               <g class="avatar__hand avatar__hand--l">
-                <rect x="12" y="41" width="7" height="4" fill="#94a3b8"/>
-                <rect x="12" y="44" width="2" height="2" fill="#64748b"/>
-                <rect x="15" y="44" width="2" height="2" fill="#64748b"/>
+                <!-- palm -->
+                <rect x="148" y="402" width="28" height="18" fill="#eec3a1"/>
+                <rect x="148" y="402" width="28" height="4" fill="#f7dcc3"/>
+                <rect x="148" y="416" width="28" height="4" fill="#d8a683"/>
+                <!-- thumb -->
+                <rect x="140" y="408" width="10" height="8" fill="#eec3a1"/>
+                <rect x="136" y="412" width="10" height="12" fill="#eec3a1"/>
+                <rect x="136" y="412" width="10" height="3" fill="#f7dcc3"/>
+                <!-- fingers: tips land on the key row, clear of the keyboard edge -->
+                <g class="avatar__fingers avatar__fingers--l">
+                  <rect class="avatar__finger" data-finger="0" x="150" y="415" width="5" height="14" fill="#eec3a1"/>
+                  <rect class="avatar__finger" data-finger="1" x="158" y="413" width="5" height="16" fill="#eec3a1"/>
+                  <rect class="avatar__finger" data-finger="2" x="166" y="415" width="5" height="14" fill="#eec3a1"/>
+                  <rect class="avatar__finger" data-finger="3" x="174" y="417" width="5" height="11" fill="#eec3a1"/>
+                </g>
+                <!-- two-finger grip that closes on the mug handle -->
+                <g class="avatar__grip2">
+                  <rect x="146" y="394" width="8" height="22" fill="#eec3a1"/>
+                  <rect x="146" y="394" width="8" height="3" fill="#f7dcc3"/>
+                  <rect x="136" y="400" width="8" height="20" fill="#eec3a1"/>
+                  <rect x="136" y="400" width="8" height="3" fill="#f7dcc3"/>
+                </g>
               </g>
+            </g>
+          </g>
+
+          <!-- RIGHT arm: same chain, this is the one that drinks -->
+          <g class="avatar__arm avatar__arm--r">
+            <rect x="280" y="288" width="36" height="20" fill="#f4f6fa"/>
+            <rect x="280" y="288" width="36" height="4" fill="#ffffff"/>
+            <rect x="284" y="304" width="24" height="100" fill="#f4f6fa"/>
+            <rect x="284" y="304" width="6" height="100" fill="#ffffff"/>
+            <rect x="302" y="304" width="6" height="100" fill="#dde3ec"/>
+            <g class="avatar__elbow">
+              <rect x="276" y="400" width="40" height="18" fill="#f8fafc"/>
+              <rect x="276" y="400" width="40" height="4" fill="#ffffff"/>
+              <rect x="276" y="414" width="40" height="4" fill="#cfd6e2"/>
+              <rect x="228" y="404" width="56" height="16" fill="#eec3a1"/>
+              <rect x="228" y="404" width="56" height="4" fill="#f7dcc3"/>
+              <rect x="228" y="416" width="56" height="4" fill="#d8a683"/>
+              <rect x="240" y="410" width="24" height="2" fill="#e0b491"/>
               <g class="avatar__hand avatar__hand--r">
-                <rect x="29" y="41" width="7" height="4" fill="#94a3b8"/>
-                <rect x="29" y="44" width="2" height="2" fill="#64748b"/>
-                <rect x="32" y="44" width="2" height="2" fill="#64748b"/>
+                <rect x="208" y="402" width="28" height="18" fill="#eec3a1"/>
+                <rect x="208" y="402" width="28" height="4" fill="#f7dcc3"/>
+                <rect x="208" y="416" width="28" height="4" fill="#d8a683"/>
+                <rect x="234" y="408" width="10" height="8" fill="#eec3a1"/>
+                <rect x="238" y="412" width="10" height="12" fill="#eec3a1"/>
+                <rect x="238" y="412" width="10" height="3" fill="#f7dcc3"/>
+                <g class="avatar__fingers avatar__fingers--r">
+                  <rect class="avatar__finger" data-finger="7" x="230" y="415" width="5" height="14" fill="#eec3a1"/>
+                  <rect class="avatar__finger" data-finger="6" x="222" y="413" width="5" height="16" fill="#eec3a1"/>
+                  <rect class="avatar__finger" data-finger="5" x="214" y="415" width="5" height="14" fill="#eec3a1"/>
+                  <rect class="avatar__finger" data-finger="4" x="206" y="417" width="5" height="11" fill="#eec3a1"/>
+                </g>
               </g>
-            </svg>
-          </div>
-        </figure>
+            </g>
+          </g>
+
+          <!-- ===== monitor face redrawn over the arms: any limb crossing the
+                   screen is occluded instead of floating in front of it ===== -->
+          <g class="avatar__monitor-cover">
+            <rect x="184" y="360" width="16" height="36" fill="#334155"/>
+            <rect x="180" y="356" width="24" height="8" fill="#475569"/>
+            <rect x="100" y="252" width="184" height="112" fill="#1e293b"/>
+            <rect x="108" y="260" width="168" height="96" fill="#334155"/>
+            <rect x="100" y="252" width="184" height="6" fill="#475569"/>
+            <rect x="100" y="252" width="6" height="112" fill="#475569"/>
+            <rect x="278" y="252" width="6" height="112" fill="#0f172a"/>
+            <rect x="108" y="356" width="168" height="6" fill="#0f172a"/>
+            <rect x="176" y="268" width="32" height="12" fill="#1e293b"/>
+            <rect x="220" y="260" width="20" height="8" fill="#e2e8f0" opacity="0.55"/>
+          </g>
+
+          <!-- sticky note lives on the front face of the monitor -->
+          <g class="avatar__sticky">
+            <rect x="196" y="272" width="72" height="40" fill="#fde047"/>
+            <rect x="196" y="272" width="72" height="4" fill="#fef08a"/>
+            <rect x="196" y="308" width="72" height="4" fill="#eab308"/>
+            <rect x="256" y="272" width="12" height="8" fill="#facc15"/>
+            <text class="avatar__sticky-text" x="232" y="298" text-anchor="middle" fill="#713f12" font-size="15" font-family="Segoe UI, sans-serif" font-weight="700">call me</text>
+          </g>
+          <g class="avatar__sticky-curl">
+            <rect x="196" y="304" width="72" height="8" fill="#ca8a04"/>
+            <rect x="196" y="302" width="72" height="2" fill="#fef9c3"/>
+          </g>
+
+          <!-- where the glasses end up once they come off: folded on the window sill -->
+          <g class="avatar__glasses-off">
+            <rect x="60" y="236" width="48" height="3" fill="#1c2434" opacity="0.55"/>
+            <rect x="58" y="230" width="52" height="5" fill="#38455a"/>
+            <rect x="56" y="224" width="26" height="12" fill="#1b232f"/>
+            <rect x="84" y="224" width="26" height="12" fill="#1b232f"/>
+            <rect x="59" y="227" width="20" height="6" fill="#26414c"/>
+            <rect x="87" y="227" width="20" height="6" fill="#26414c"/>
+            <rect x="59" y="227" width="7" height="3" fill="#5b8c99" opacity="0.75"/>
+            <rect x="87" y="227" width="7" height="3" fill="#5b8c99" opacity="0.75"/>
+            <rect x="80" y="226" width="6" height="5" fill="#1b232f"/>
+            <!-- click target: put them back on -->
+            <g class="avatar__hit-group" data-lab-hit="glassesSill">
+              <rect class="avatar__hit" x="52" y="219" width="62" height="26"/>
+              <use class="avatar__spark" href="#avatarSpark" x="83" y="215"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="50" y="222" style="animation-delay: 0.25s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="116" y="224" style="animation-delay: 0.5s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="56" y="247" style="animation-delay: 0.75s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="110" y="247" style="animation-delay: 0.95s"/>
+            </g>
+          </g>
+
+          <!-- «победа» by day: confetti from above + a party blower on each side -->
+          <g class="avatar__cheer-day" clip-path="url(#avatarScene)">
+            <g class="avatar__confetti">
+              <rect class="avatar__confetti-bit" x="26" y="-14" width="5" height="5" fill="#ef4444" style="animation-delay: 0s; animation-duration: 1.9s"/>
+              <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="58" y="-20" width="4" height="7" fill="#22c55e" style="animation-delay: 0.32s; animation-duration: 2.3s"/>
+              <rect class="avatar__confetti-bit" x="92" y="-10" width="6" height="4" fill="#3b82f6" style="animation-delay: 0.62s; animation-duration: 1.7s"/>
+              <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="124" y="-24" width="5" height="5" fill="#fbbf24" style="animation-delay: 0.14s; animation-duration: 2.1s"/>
+              <rect class="avatar__confetti-bit" x="156" y="-12" width="4" height="7" fill="#ec4899" style="animation-delay: 0.48s; animation-duration: 2.4s"/>
+              <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="186" y="-18" width="6" height="4" fill="#a855f7" style="animation-delay: 0.05s; animation-duration: 1.8s"/>
+              <rect class="avatar__confetti-bit" x="214" y="-26" width="5" height="5" fill="#14b8a6" style="animation-delay: 0.7s; animation-duration: 2.2s"/>
+              <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="244" y="-12" width="4" height="7" fill="#ef4444" style="animation-delay: 0.24s; animation-duration: 2s"/>
+              <rect class="avatar__confetti-bit" x="272" y="-20" width="6" height="4" fill="#fbbf24" style="animation-delay: 0.56s; animation-duration: 1.75s"/>
+              <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="300" y="-10" width="5" height="5" fill="#3b82f6" style="animation-delay: 0.38s; animation-duration: 2.35s"/>
+              <rect class="avatar__confetti-bit" x="330" y="-22" width="4" height="7" fill="#22c55e" style="animation-delay: 0.1s; animation-duration: 2.05s"/>
+              <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="356" y="-14" width="6" height="4" fill="#ec4899" style="animation-delay: 0.66s; animation-duration: 1.85s"/>
+              <rect class="avatar__confetti-bit" x="42" y="-30" width="4" height="7" fill="#a855f7" style="animation-delay: 0.8s; animation-duration: 2.15s"/>
+              <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="200" y="-34" width="5" height="5" fill="#f97316" style="animation-delay: 0.9s; animation-duration: 1.95s"/>
+            </g>
+
+            <g class="avatar__horn avatar__horn--l">
+              <rect x="0" y="196" width="12" height="18" fill="#db2777"/>
+              <rect x="0" y="196" width="12" height="4" fill="#f9a8d4"/>
+              <rect x="0" y="210" width="12" height="4" fill="#9d174d"/>
+              <g class="avatar__horn-tube">
+                <rect x="12" y="200" width="58" height="10" fill="#fbbf24"/>
+                <rect x="12" y="200" width="58" height="3" fill="#fde68a"/>
+                <rect x="12" y="207" width="58" height="3" fill="#f59e0b"/>
+                <rect x="26" y="200" width="4" height="10" fill="#f97316"/>
+                <rect x="44" y="200" width="4" height="10" fill="#f97316"/>
+                <rect x="70" y="197" width="7" height="16" fill="#ef4444"/>
+                <rect x="77" y="193" width="4" height="7" fill="#fca5a5"/>
+                <rect x="77" y="203" width="4" height="7" fill="#fca5a5"/>
+                <rect x="81" y="199" width="4" height="5" fill="#ef4444"/>
+              </g>
+            </g>
+
+            <g class="avatar__horn avatar__horn--r">
+              <rect x="372" y="196" width="12" height="18" fill="#db2777"/>
+              <rect x="372" y="196" width="12" height="4" fill="#f9a8d4"/>
+              <rect x="372" y="210" width="12" height="4" fill="#9d174d"/>
+              <g class="avatar__horn-tube">
+                <rect x="314" y="200" width="58" height="10" fill="#fbbf24"/>
+                <rect x="314" y="200" width="58" height="3" fill="#fde68a"/>
+                <rect x="314" y="207" width="58" height="3" fill="#f59e0b"/>
+                <rect x="354" y="200" width="4" height="10" fill="#f97316"/>
+                <rect x="336" y="200" width="4" height="10" fill="#f97316"/>
+                <rect x="307" y="197" width="7" height="16" fill="#ef4444"/>
+                <rect x="303" y="193" width="4" height="7" fill="#fca5a5"/>
+                <rect x="303" y="203" width="4" height="7" fill="#fca5a5"/>
+                <rect x="299" y="199" width="4" height="5" fill="#ef4444"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </figure>
+
+    <div class="lab__controls">
+      <button type="button" class="theme__btn is-active" data-set-theme="light" aria-pressed="true">☀ день</button>
+      <button type="button" class="theme__btn" data-set-theme="dark" aria-pressed="false">☾ ночь</button>
+      <button type="button" data-lab="sigh">вздох</button>
+      <button type="button" data-lab="sip">глоток</button>
+      <button type="button" data-lab="cheer">победа</button>
+      <button type="button" data-lab="nod">кивок</button>
+      <button type="button" data-lab="noteFly">посетитель смотрит</button>
+      <button type="button" data-lab="noteReset">вернуть стикер</button>
+      <button type="button" data-lab="toggleTheme">лампа/тема</button>
+      <button type="button" data-lab="toggleGlasses">очки</button>
+      <button type="button" data-lab="toggleDrink">кофе/вино</button>
+      <button type="button" data-lab="notepad">блокнот → QR</button>
+    </div>
+
+    </div>
+
+    <aside class="lab__typing">
+      <h2 class="lab__typing-title">Режим печати · T2</h2>
+
+      <div class="typing__card is-active" data-typing="T2" aria-current="true">
+        <img src="assets/typing-T2.gif?v=1790277170" alt="T2 Офисный" width="512" height="168" loading="eager" decoding="async">
+        <span>T2 «Офисный»</span>
+        <small>активный режим аватара · средний темп, одиночные + серии по 2–3 пальца</small>
+      </div>
+
+      <div class="typing__card" data-typing="T1">
+        <img src="assets/typing-T1.gif?v=1790277170" alt="" width="512" height="168" loading="lazy" decoding="async">
+        <span>T1 «Спокойный»</span>
+        <small>референс</small>
+      </div>
+
+      <div class="typing__card" data-typing="T3">
+        <img src="assets/typing-T3.gif?v=1790277170" alt="" width="512" height="168" loading="lazy" decoding="async">
+        <span>T3 «Быстрый набор»</span>
+        <small>референс</small>
+      </div>
+
+      <div class="typing__card" data-typing="T4">
+        <img src="assets/typing-T4.gif?v=1790277170" alt="" width="512" height="168" loading="lazy" decoding="async">
+        <span>T4 «Ритмичный»</span>
+        <small>референс</small>
+      </div>
+    </aside>
+    </div>
+
+    <section class="lab__qr">
+      <h2 class="lab__qr-title">Telegram · Sokolov_Pavel_1</h2>
+      <figure class="qr" data-avatar-qr>
+        <img src="assets/telegram-qr.png" width="180" height="180" alt="Telegram QR" loading="lazy">
+      </figure>
+    </section>
   </div>
+
+  <script src="theme.js"></script>
+  <script src="avatar.js?v=1790277170"></script>
   <script>
-  window.I18N = {
-    ru: { avatar_sticky: "напиши мне" },
-    en: { avatar_sticky: "write to me" }
-  };
+    document.querySelectorAll("[data-lab]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const fn = window.avatarLab && window.avatarLab[btn.dataset.lab];
+        if (fn) fn();
+      });
+    });
   </script>
-  <script src="avatar.js"></script>
 </body>
 </html>
