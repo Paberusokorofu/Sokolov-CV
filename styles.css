@@ -35,6 +35,7 @@ html[data-theme="dark"] {
   --body-glow-b: rgba(26, 39, 64, 0.75);
 }
 
+
 *,
 *::before,
 *::after {
@@ -211,312 +212,6 @@ body.is-job-focus .aside__role {
   color: var(--accent);
 }
 
-.avatar {
-  display: block;
-  flex: 0 0 auto;
-  width: 100%;
-  margin: 0.5rem 0 0;
-  line-height: 0;
-}
-
-.avatar__stage {
-  position: relative;
-  width: min(100%, 15rem);
-  margin: 0 auto;
-  aspect-ratio: 48 / 56;
-}
-
-.avatar__fx {
-  position: absolute;
-  inset: 6% 4% 28%;
-  border-radius: 0.35rem;
-  overflow: hidden;
-  opacity: 0.5;
-  filter: blur(5px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.avatar__fx-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.avatar__fx-scene {
-  opacity: 0;
-  transition: opacity 0.5s var(--ease);
-}
-
-.avatar__fx-scene.is-active {
-  opacity: 1;
-}
-
-.avatar__fx-gantt {
-  animation: avatar-fx-slide 2.4s ease-in-out infinite alternate;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-bar {
-  transform-box: fill-box;
-  transform-origin: bottom;
-  animation: avatar-fx-bar 1.5s var(--ease) both;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-bar--2 {
-  animation-delay: 0.12s;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-bar--3 {
-  animation-delay: 0.24s;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-bar--4 {
-  animation-delay: 0.36s;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-curve {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: avatar-fx-draw 2s var(--ease) forwards;
-}
-
-.avatar__fx-scene.is-active .avatar__fx-card {
-  animation: avatar-fx-bob 1.8s ease-in-out infinite alternate;
-}
-
-.avatar__svg {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: auto;
-  display: block;
-  overflow: visible;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-}
-
-.avatar__pupil {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 0.15s steps(2, end);
-}
-
-.avatar__head {
-  transform-origin: 24px 14px;
-  transform-box: view-box;
-}
-
-.avatar.is-nodding .avatar__head {
-  animation: avatar-nod 0.85s steps(4, end);
-}
-
-.avatar.is-glancing .avatar__head {
-  animation: avatar-glance 0.35s steps(2, end) both;
-}
-
-.avatar.is-glancing .avatar__pupil {
-  filter: drop-shadow(0 0 2px #64ffda);
-}
-
-.avatar__antenna {
-  animation: avatar-antenna 1.4s steps(2, end) infinite;
-}
-
-.avatar__glow {
-  opacity: 0.55;
-  animation: avatar-glow 1.8s steps(3, end) infinite;
-}
-
-.avatar__sticky {
-  opacity: 1;
-}
-
-.avatar__hand--l {
-  animation: avatar-type-l 0.45s steps(2, end) infinite;
-}
-
-.avatar__hand--r {
-  animation: avatar-type-r 0.38s steps(2, end) infinite;
-  animation-delay: 0.12s;
-}
-
-.avatar__steam {
-  opacity: 0.55;
-}
-
-.avatar__steam--1 {
-  animation: avatar-steam 1.6s steps(3, end) infinite;
-}
-
-.avatar__steam--2 {
-  animation: avatar-steam 1.9s steps(3, end) infinite 0.25s;
-}
-
-.avatar__steam--3 {
-  animation: avatar-steam 1.4s steps(3, end) infinite 0.45s;
-}
-
-.aside__tools {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.theme {
-  display: inline-flex;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  width: fit-content;
-}
-
-.theme__btn {
-  appearance: none;
-  border: 0;
-  margin: 0;
-  padding: 0.35rem 0.55rem;
-  background: transparent;
-  color: var(--muted);
-  font: inherit;
-  font-size: 0.85rem;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.theme__btn.is-active {
-  background: var(--accent-dim);
-  color: var(--accent);
-}
-
-@keyframes avatar-nod {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(2px);
-  }
-  70% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes avatar-glance {
-  from {
-    transform: translateY(1px);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes avatar-type-l {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(0, -1px);
-  }
-}
-
-@keyframes avatar-type-r {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(1px, -2px);
-  }
-}
-
-@keyframes avatar-steam {
-  0% {
-    transform: translateY(0);
-    opacity: 0.15;
-  }
-  50% {
-    transform: translateY(-3px);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateY(-6px);
-    opacity: 0;
-  }
-}
-
-@keyframes avatar-antenna {
-  0%,
-  100% {
-    fill: #64ffda;
-  }
-  50% {
-    fill: #2dd4bf;
-  }
-}
-
-@keyframes avatar-glow {
-  0%,
-  100% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 0.85;
-  }
-}
-
-@keyframes avatar-fx-slide {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(12px);
-  }
-}
-
-@keyframes avatar-fx-bar {
-  from {
-    transform: scaleY(0.15);
-  }
-  to {
-    transform: scaleY(1);
-  }
-}
-
-@keyframes avatar-fx-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes avatar-fx-bob {
-  from {
-    transform: translateY(6px);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .avatar__hand--l,
-  .avatar__hand--r,
-  .avatar__steam--1,
-  .avatar__steam--2,
-  .avatar__steam--3,
-  .avatar.is-nodding .avatar__head,
-  .avatar.is-glancing .avatar__head,
-  .avatar__antenna,
-  .avatar__glow,
-  .avatar__fx-gantt,
-  .avatar__fx-scene.is-active .avatar__fx-bar,
-  .avatar__fx-scene.is-active .avatar__fx-curve,
-  .avatar__fx-scene.is-active .avatar__fx-card {
-    animation: none !important;
-  }
-}
-
 .socials {
   list-style: none;
   display: flex;
@@ -559,6 +254,40 @@ body.is-job-focus .aside__role {
   overflow: hidden;
   clip: rect(0 0 0 0);
 }
+
+.aside__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.theme {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  width: fit-content;
+}
+
+.theme__btn {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0.35rem 0.55rem;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.theme__btn.is-active {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
 
 .lang {
   display: inline-flex;
@@ -1310,12 +1039,6 @@ body.is-job-focus .aside__role {
 
   .aside__nav a.is-active::before {
     content: "";
-  }
-
-  .avatar {
-    display: block;
-    max-width: 12.5rem;
-    margin: 0.75rem auto 0.25rem;
   }
 
   .socials {

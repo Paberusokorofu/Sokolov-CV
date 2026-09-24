@@ -78,9 +78,9 @@ const I18N = {
     next_job: "След. работа →",
     case_zero_title: "0-цикл и портфель",
     case_zero_body: "2 проекта с нуля до актов. 4 проекта параллельно, бюджеты до 1 млрд руб.",
-    case_bpmn_title: "Redmine: ответственность и онлайн-контроль",
-    case_bpmn_body: "Единый ответственный в задаче → метрики по людям → онлайн-бюджет проекта. Триггер в БД + процесс соблюдения.",
-    case_bpmn_story: "Проблема. В Redmine в одну задачу списывалось несколько человек: не было единого ответственного, сложно было видеть и процент готовности, и фактические трудозатраты. Поле «Ответственный исполнитель» формально было, но процесса вокруг него не было — по факту хаос в учёте. Параллельно оценки сотрудников часто ставились вручную и субъективно: РП и РГ не имели прозрачной картины, кого брать на проект и кого развивать.\n\nЧто сделал. Спроектировал схему назначения «Ответственного исполнителя» и поставил задачу разработке (разработчик не владел Ruby on Rails). Сошлись на решении через триггер в БД: при списании времени в задачу поле заполняется тем, кто списал больше всего часов. Дальше сам отслеживал соблюдение правила, эскалировал на рабочие группы и при необходимости разбирал отклонения в 1:1. В контур также заложили «Сложность» задачи и автоматический сбор метрик — в том числе с оценкой руководителей групп по своим специалистам.\n\nРазвитие инициативы. Привязка человека к задаче дала не только ответственность, но и доп. метрики по сотруднику (в т.ч. КПД, время до взятия задачи в работу) и позволила собрать онлайн-бюджет проекта, которого раньше не было: РП видит траты, отклонения и среднее время на типовые сущности.\n\nРезультат. Прозрачный трекинг прогресса задач в спринте, количественные и качественные оценки по людям, инструмент онлайн-мониторинга бюджета. Одна инициатива изменила работу трёх отделов: стало проще видеть отклонения и заранее предупреждать риски срыва обязательств. В деньгах эффект не считали: до этого такого процессного контура просто не существовало.",
+    case_bpmn_title: "Redmine: оценка и бюджетирование",
+    case_bpmn_body: "Субъективные ручные оценки → ТЗ в Redmine → MVP: «Ответственный исполнитель» и «Сложность». Lean/BPMN: −18% времени доставки.",
+    case_bpmn_story: "После анализа процесса: оценки сотрудников проставлялись вручную по факту завершения работ на проекте. Для РП это терпимо, но оценка получалась субъективной.\n\nПредложил собирать оценки автоматически и добавить оценку руководителей групп (РГ) по своим специалистам. Тогда РП понимает, кого брать на проект, а РГ — кого повышать.\n\nШаги: поставил ТЗ разработчику и внёс изменения в Redmine — в задачах появились сущности «Ответственный исполнитель» и «Сложность». Оценка персонала стала одной фичей; на её базе собрали MVP онлайн-бюджетирования: РП видит траты по проекту, кто «проседает», среднее время на типовые сущности (парсер, справочник и др.), кроме спец. задач.\n\nИтог: концепция утверждена; в прод ушли только «Ответственный исполнитель» и «Сложность». Остальные инициативы остались на уровне MVP.",
     case_rag_title: "RAG 10 ГБ + ML 78%",
     case_rag_body: "База знаний RAG/LLM. Прогноз электропотребления (Python).",
     case_sap_title: "Change management SAP",
@@ -109,7 +109,6 @@ const I18N = {
     edu_pmp: "в процессе · PMBOK",
     contact_title: "Контакты",
     cta_pdf: "Скачать PDF",
-    avatar_sticky: "напиши мне",
     archive_title: "Предыдущие версии сайта",
     archive_v0: "Одностраничник · Literata / cream",
     archive_v1: "Brittany layout + roadmap (зафиксирован)",
@@ -195,9 +194,9 @@ const I18N = {
     next_job: "Next role →",
     case_zero_title: "Zero-cycle & portfolio",
     case_zero_body: "2 projects from scratch to signed acts. 4 in parallel, budgets up to RUB 1bn.",
-    case_bpmn_title: "Redmine: ownership & online control",
-    case_bpmn_body: "Single task owner → people metrics → online project budget. DB trigger + process compliance.",
-    case_bpmn_story: "Problem. In Redmine, several people logged time to the same task: no single owner, hard to see completion % and actual effort. The Responsible owner field existed formally, but there was no process around it — accounting was chaotic. In parallel, people ratings were often manual and subjective, so PMs and group leads lacked a clear view of whom to staff and whom to develop.\n\nWhat I did. Designed an ownership scheme for Responsible owner and briefed development (the developer did not know Ruby on Rails). We settled on a DB trigger: when time is logged, the field is set to whoever logged the most hours. I then tracked rule compliance, escalated to working groups, and ran 1:1s on deviations when needed. We also added task Complexity and automatic metrics — including group-lead ratings of their specialists.\n\nInitiative growth. Binding a person to a task unlocked not only ownership but extra people metrics (incl. efficiency and time-to-pick-up) and an online project budget that did not exist before: PMs see spend, variance, and average time for typical entities.\n\nResult. Transparent sprint progress tracking, quantitative and qualitative people scores, and an online budget monitor. One initiative changed how three departments work: deviations became visible earlier and commitment risks easier to flag. We did not quantify money impact — such a process loop simply did not exist before.",
+    case_bpmn_title: "Redmine: rating & budgeting",
+    case_bpmn_body: "Subjective manual ratings → Redmine spec → MVP fields: Responsible owner and Complexity. Lean/BPMN: −18% delivery time.",
+    case_bpmn_story: "Process analysis showed employee ratings were entered manually after project work closed. Acceptable for a PM day-to-day, but highly subjective.\n\nI proposed automatic rating collection plus group-lead (GL) ratings of their specialists — so PMs know whom to staff and GLs see whom to promote.\n\nSteps: wrote a developer brief and changed Redmine — tasks gained Responsible owner and Complexity. Personnel rating was one feature that unlocked an online project-budgeting MVP: PMs track spend, weak performers, and average time for typical entities (parsers, directories, etc.), excluding special project tasks.\n\nOutcome: the concept was approved; only Responsible owner and Complexity shipped. The rest stayed at MVP.",
     case_rag_title: "RAG 10 GB + ML 78%",
     case_rag_body: "RAG/LLM knowledge base. Electricity-consumption forecast (Python).",
     case_sap_title: "SAP change management",
@@ -226,7 +225,6 @@ const I18N = {
     edu_pmp: "in progress · PMBOK",
     contact_title: "Contact",
     cta_pdf: "Download PDF",
-    avatar_sticky: "write to me",
     archive_title: "Previous site versions",
     archive_v0: "One-pager · Literata / cream",
     archive_v1: "Brittany layout + roadmap (frozen)",
@@ -254,7 +252,6 @@ function applyLang(lang) {
     localStorage.setItem("site-lang", lang);
   } catch (_) {}
   if (typeof window.refreshJobStory === "function") window.refreshJobStory();
-  if (typeof window.avatarNotify?.onLang === "function") window.avatarNotify.onLang(lang);
 }
 
 document.querySelectorAll("[data-set-lang]").forEach((btn) => {
