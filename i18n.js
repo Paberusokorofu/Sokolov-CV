@@ -4,7 +4,6 @@ const I18N = {
     name: "Павел Соколов",
     city: "Москва · м. Беломорская",
     role: "Руководитель IT-проектов",
-    lead: "Выстраиваю успешные процессы со стейкхолдерами проекта, хочу помочь компании стать Lean-ориентированной.",
     nav_about: "Обо мне",
     nav_cases: "Кейсы",
     nav_education: "Обучение",
@@ -121,7 +120,6 @@ const I18N = {
     name: "Pavel Sokolov",
     city: "Moscow · Belomorskaya",
     role: "IT Project Manager",
-    lead: "I build effective processes with project stakeholders and want to help companies become Lean-oriented.",
     nav_about: "About",
     nav_cases: "Cases",
     nav_education: "Education",
@@ -254,6 +252,7 @@ function applyLang(lang) {
     localStorage.setItem("site-lang", lang);
   } catch (_) {}
   if (typeof window.refreshJobStory === "function") window.refreshJobStory();
+  window.avatarNotify?.onLang?.();
 }
 
 document.querySelectorAll("[data-set-lang]").forEach((btn) => {

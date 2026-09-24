@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,650&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="avatar.css">
 </head>
 <body>
   <a class="skip" href="#content" data-i18n="skip">К содержанию</a>
@@ -21,14 +22,944 @@
           <a href="#intro" class="aside__name-link" data-home data-i18n="name">Павел Соколов</a>
         </h1>
         <p class="aside__role" data-i18n="role">Руководитель IT-проектов</p>
-        <p class="aside__lead" data-i18n="lead">Выстраиваю успешные процессы со стейкхолдерами проекта, хочу помочь компании стать Lean-ориентированной.</p>
-
         <nav class="aside__nav" aria-label="Sections">
           <a href="#intro" data-nav="intro" data-i18n="nav_about">Обо мне</a>
           <a href="#cases" data-nav="cases" data-i18n="nav_cases">Кейсы</a>
           <a href="#education" data-nav="education" data-i18n="nav_education">Обучение</a>
           <a href="#contact" data-nav="contact" data-i18n="nav_contact">Контакты</a>
         </nav>
+
+        <figure class="avatar" data-avatar aria-hidden="true">
+        <div class="avatar__stage">
+          <svg class="avatar__svg" viewBox="0 0 384 448" width="384" height="448" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+            <defs>
+              <clipPath id="avatarLensL">
+                <rect x="140" y="148" width="40" height="32"/>
+              </clipPath>
+              <clipPath id="avatarLensR">
+                <rect x="204" y="148" width="40" height="32"/>
+              </clipPath>
+
+              <!-- sea surface inside the window: wave rows drift through this -->
+              <clipPath id="avatarSea">
+                <rect x="58" y="132" width="268" height="100"/>
+              </clipPath>
+
+              <!-- sky above the transom: the night salute is kept inside the glass -->
+              <clipPath id="avatarSky">
+                <rect x="58" y="32" width="268" height="86"/>
+              </clipPath>
+
+              <!-- the whole frame: confetti drops in from above the top edge -->
+              <clipPath id="avatarScene">
+                <rect width="384" height="448"/>
+              </clipPath>
+
+              <!-- inside of the wine bowl: wine level + bubbles are clipped to it -->
+              <clipPath id="avatarWineBowl">
+                <rect x="11" y="353" width="40" height="7"/>
+                <rect x="14" y="360" width="34" height="8"/>
+                <rect x="18" y="368" width="26" height="7"/>
+                <rect x="23" y="375" width="16" height="6"/>
+                <rect x="27" y="381" width="8" height="5"/>
+              </clipPath>
+
+              <!-- hover sparkles; the rects inherit fill from the <use> that clones them -->
+              <g id="avatarSpark">
+                <rect x="-1" y="-4" width="2" height="9"/>
+                <rect x="-4" y="-1" width="9" height="2"/>
+              </g>
+              <g id="avatarSparkS">
+                <rect x="-1" y="-3" width="2" height="7"/>
+                <rect x="-3" y="-1" width="7" height="2"/>
+              </g>
+
+              <!-- one wave tile = 64 units; the row rect is 400 wide and slides
+                   exactly one tile, so the loop is seamless -->
+              <pattern id="avatarWaveA" width="64" height="3" patternUnits="userSpaceOnUse">
+                <rect width="14" height="3" fill="#bfe7f8"/>
+                <rect x="30" width="8" height="3" fill="#bfe7f8"/>
+              </pattern>
+              <pattern id="avatarWaveB" width="64" height="3" patternUnits="userSpaceOnUse">
+                <rect x="6" width="20" height="3" fill="#a9dcf3"/>
+                <rect x="40" width="10" height="3" fill="#a9dcf3"/>
+              </pattern>
+              <pattern id="avatarWaveC" width="64" height="3" patternUnits="userSpaceOnUse">
+                <rect width="16" height="3" fill="#8fcdea"/>
+                <rect x="26" width="6" height="3" fill="#8fcdea"/>
+                <rect x="44" width="10" height="3" fill="#8fcdea"/>
+              </pattern>
+              <pattern id="avatarWaveD" width="64" height="3" patternUnits="userSpaceOnUse">
+                <rect x="10" width="22" height="3" fill="#7ec0e2"/>
+                <rect x="46" width="8" height="3" fill="#7ec0e2"/>
+              </pattern>
+              <pattern id="avatarWaveNA" width="64" height="3" patternUnits="userSpaceOnUse">
+                <rect width="14" height="3" fill="#2e6c8f"/>
+                <rect x="30" width="8" height="3" fill="#2e6c8f"/>
+              </pattern>
+              <pattern id="avatarWaveNB" width="64" height="3" patternUnits="userSpaceOnUse">
+                <rect x="6" width="20" height="3" fill="#2a5f80"/>
+                <rect x="40" width="10" height="3" fill="#2a5f80"/>
+              </pattern>
+              <pattern id="avatarWaveNC" width="64" height="3" patternUnits="userSpaceOnUse">
+                <rect width="16" height="3" fill="#22506e"/>
+                <rect x="26" width="6" height="3" fill="#22506e"/>
+                <rect x="44" width="10" height="3" fill="#22506e"/>
+              </pattern>
+              <pattern id="avatarWaveND" width="64" height="3" patternUnits="userSpaceOnUse">
+                <rect x="10" width="22" height="3" fill="#1c425c"/>
+                <rect x="46" width="8" height="3" fill="#1c425c"/>
+              </pattern>
+            </defs>
+
+            <!-- ===== striped wall ===== -->
+            <rect width="384" height="412" fill="#151d2b"/>
+            <rect x="16" width="12" height="412" fill="#1d2739"/>
+            <rect x="48" width="12" height="412" fill="#1d2739"/>
+            <rect x="80" width="12" height="412" fill="#1d2739"/>
+            <rect x="112" width="12" height="412" fill="#1d2739"/>
+            <rect x="144" width="12" height="412" fill="#1d2739"/>
+            <rect x="176" width="12" height="412" fill="#1d2739"/>
+            <rect x="208" width="12" height="412" fill="#1d2739"/>
+            <rect x="240" width="12" height="412" fill="#1d2739"/>
+            <rect x="272" width="12" height="412" fill="#1d2739"/>
+            <rect x="304" width="12" height="412" fill="#1d2739"/>
+            <rect x="336" width="12" height="412" fill="#1d2739"/>
+            <rect x="368" width="12" height="412" fill="#1d2739"/>
+            <rect x="36" width="4" height="412" fill="#232f45"/>
+            <rect x="100" width="4" height="412" fill="#232f45"/>
+            <rect x="164" width="4" height="412" fill="#232f45"/>
+            <rect x="228" width="4" height="412" fill="#232f45"/>
+            <rect x="292" width="4" height="412" fill="#232f45"/>
+            <rect x="356" width="4" height="412" fill="#232f45"/>
+            <rect y="398" width="384" height="14" fill="#111825"/>
+
+            <!-- ===== window onto the sea, drawn behind the character ===== -->
+            <g class="avatar__window">
+              <!-- day pane -->
+              <g class="avatar__window-day">
+                <rect x="58" y="32" width="268" height="100" fill="#8ed0ec"/>
+                <rect x="58" y="32" width="268" height="34" fill="#abdff4"/>
+                <rect x="58" y="66" width="268" height="16" fill="#9bd7f0"/>
+                <!-- sun -->
+                <rect x="78" y="48" width="16" height="4" fill="#ffe08a"/>
+                <rect x="74" y="52" width="24" height="4" fill="#ffe08a"/>
+                <rect x="72" y="56" width="28" height="12" fill="#ffe08a"/>
+                <rect x="74" y="68" width="24" height="4" fill="#ffe08a"/>
+                <rect x="78" y="72" width="16" height="4" fill="#ffe08a"/>
+                <rect x="78" y="56" width="16" height="12" fill="#fff5cc"/>
+                <rect x="82" y="52" width="8" height="4" fill="#fff5cc"/>
+                <!-- clouds -->
+                <rect x="276" y="52" width="40" height="8" fill="#eaf6fd"/>
+                <rect x="284" y="46" width="24" height="6" fill="#f6fbfe"/>
+                <rect x="124" y="84" width="34" height="6" fill="#e3f2fb"/>
+                <!-- sea -->
+                <rect x="58" y="132" width="268" height="18" fill="#3a9ccb"/>
+                <rect x="58" y="132" width="268" height="4" fill="#5fb6dd"/>
+                <rect x="58" y="150" width="268" height="24" fill="#2f86b6"/>
+                <rect x="58" y="174" width="268" height="24" fill="#276f9c"/>
+                <rect x="58" y="198" width="268" height="16" fill="#1f5c84"/>
+                <!-- beach -->
+                <rect x="58" y="212" width="268" height="6" fill="#f2f8fb"/>
+                <rect x="58" y="218" width="268" height="14" fill="#e8d5a8"/>
+                <rect x="58" y="218" width="268" height="5" fill="#f2e6c4"/>
+                <rect x="86" y="226" width="16" height="3" fill="#d7c091"/>
+                <rect x="152" y="228" width="22" height="3" fill="#d7c091"/>
+                <rect x="268" y="225" width="20" height="3" fill="#d7c091"/>
+                <!-- sun glitter + white caps, drifting across the swell -->
+                <g clip-path="url(#avatarSea)">
+                  <g class="avatar__sea-waves">
+                    <rect class="avatar__wave avatar__wave--r1" x="-6" y="140" width="400" height="3" fill="url(#avatarWaveA)"/>
+                    <rect class="avatar__wave avatar__wave--l1" x="-6" y="156" width="400" height="3" fill="url(#avatarWaveB)"/>
+                    <rect class="avatar__wave avatar__wave--r2" x="-6" y="170" width="400" height="3" fill="url(#avatarWaveC)"/>
+                    <rect class="avatar__wave avatar__wave--l2" x="-6" y="186" width="400" height="3" fill="url(#avatarWaveD)"/>
+                    <rect class="avatar__wave avatar__wave--r3" x="-6" y="202" width="400" height="3" fill="url(#avatarWaveB)"/>
+                  </g>
+                  <rect class="avatar__surf" x="58" y="213" width="268" height="5" fill="#eef7fb"/>
+                </g>
+              </g>
+
+              <!-- night pane -->
+              <g class="avatar__window-night">
+                <rect x="58" y="32" width="268" height="100" fill="#0e1e3a"/>
+                <rect x="58" y="32" width="268" height="34" fill="#0a1830"/>
+                <rect x="58" y="100" width="268" height="32" fill="#14284a"/>
+                <!-- moon, right pane -->
+                <rect x="290" y="48" width="16" height="4" fill="#dfe8f4"/>
+                <rect x="286" y="52" width="24" height="4" fill="#e8eff8"/>
+                <rect x="284" y="56" width="28" height="12" fill="#eef4fb"/>
+                <rect x="286" y="68" width="24" height="4" fill="#e8eff8"/>
+                <rect x="290" y="72" width="16" height="4" fill="#dfe8f4"/>
+                <rect x="296" y="58" width="6" height="6" fill="#c6d3e4"/>
+                <rect x="290" y="66" width="4" height="4" fill="#c6d3e4"/>
+                <!-- stars -->
+                <rect class="avatar__star" x="66" y="92" width="3" height="3" fill="#f1f5f9"/>
+                <rect class="avatar__star avatar__star--2" x="108" y="44" width="3" height="3" fill="#e2e8f0"/>
+                <rect class="avatar__star avatar__star--3" x="124" y="70" width="4" height="4" fill="#f8fafc"/>
+                <rect class="avatar__star avatar__star--2" x="166" y="40" width="3" height="3" fill="#e2e8f0"/>
+                <rect class="avatar__star" x="204" y="60" width="3" height="3" fill="#f1f5f9"/>
+                <rect class="avatar__star avatar__star--3" x="246" y="44" width="3" height="3" fill="#e2e8f0"/>
+                <rect class="avatar__star" x="282" y="74" width="4" height="4" fill="#f8fafc"/>
+                <rect class="avatar__star avatar__star--2" x="306" y="46" width="3" height="3" fill="#f1f5f9"/>
+                <rect class="avatar__star avatar__star--3" x="316" y="96" width="3" height="3" fill="#e2e8f0"/>
+                <rect class="avatar__star" x="94" y="112" width="3" height="3" fill="#cbd5e1"/>
+                <rect class="avatar__star avatar__star--2" x="292" y="112" width="3" height="3" fill="#cbd5e1"/>
+                <!-- sea -->
+                <rect x="58" y="132" width="268" height="18" fill="#17415f"/>
+                <rect x="58" y="132" width="268" height="4" fill="#27617f"/>
+                <rect x="58" y="150" width="268" height="24" fill="#123650"/>
+                <rect x="58" y="174" width="268" height="24" fill="#0e2c42"/>
+                <rect x="58" y="198" width="268" height="16" fill="#0a2335"/>
+                <!-- beach -->
+                <rect x="58" y="212" width="268" height="6" fill="#4a6272"/>
+                <rect x="58" y="218" width="268" height="14" fill="#4a4436"/>
+                <rect x="58" y="218" width="268" height="5" fill="#5b5443"/>
+                <!-- drifting crests + the moon path rippling under the moon -->
+                <g clip-path="url(#avatarSea)">
+                  <g class="avatar__sea-waves">
+                    <rect class="avatar__wave avatar__wave--r1" x="-6" y="140" width="400" height="3" fill="url(#avatarWaveNA)"/>
+                    <rect class="avatar__wave avatar__wave--l1" x="-6" y="156" width="400" height="3" fill="url(#avatarWaveNB)"/>
+                    <rect class="avatar__wave avatar__wave--r2" x="-6" y="170" width="400" height="3" fill="url(#avatarWaveNC)"/>
+                    <rect class="avatar__wave avatar__wave--l2" x="-6" y="186" width="400" height="3" fill="url(#avatarWaveND)"/>
+                    <rect class="avatar__wave avatar__wave--r3" x="-6" y="202" width="400" height="3" fill="url(#avatarWaveNB)"/>
+                  </g>
+                  <g class="avatar__moonpath">
+                    <rect class="avatar__moonrow" x="290" y="136" width="16" height="3" fill="#8fb7d4" opacity="0.75"/>
+                    <rect class="avatar__moonrow avatar__moonrow--2" x="288" y="146" width="20" height="3" fill="#7ea8c8" opacity="0.7"/>
+                    <rect class="avatar__moonrow avatar__moonrow--3" x="286" y="158" width="26" height="3" fill="#6d98b9" opacity="0.62"/>
+                    <rect class="avatar__moonrow avatar__moonrow--4" x="284" y="172" width="32" height="3" fill="#5c87a8" opacity="0.55"/>
+                    <rect class="avatar__moonrow avatar__moonrow--5" x="282" y="188" width="38" height="3" fill="#4d7594" opacity="0.48"/>
+                    <rect class="avatar__moonrow avatar__moonrow--6" x="280" y="202" width="44" height="3" fill="#3f6480" opacity="0.4"/>
+                  </g>
+                  <rect class="avatar__surf avatar__surf--night" x="58" y="213" width="268" height="5" fill="#8fb0c4"/>
+                </g>
+              </g>
+
+              <!-- «победа» at night: a salute goes up outside the glass -->
+              <g class="avatar__fireworks" clip-path="url(#avatarSky)">
+                <g class="avatar__fw avatar__fw--1">
+                  <rect class="avatar__fw-trail" x="110" y="58" width="3" height="28" fill="#fde68a"/>
+                  <g class="avatar__fw-burst">
+                    <rect x="110" y="54" width="4" height="4" fill="#fffbeb"/>
+                    <rect x="111" y="35" width="3" height="3" fill="#fde68a"/>
+                    <rect x="125" y="41" width="3" height="3" fill="#fde68a"/>
+                    <rect x="131" y="55" width="3" height="3" fill="#fbbf24"/>
+                    <rect x="125" y="69" width="3" height="3" fill="#fde68a"/>
+                    <rect x="111" y="75" width="3" height="3" fill="#fbbf24"/>
+                    <rect x="97" y="69" width="3" height="3" fill="#fde68a"/>
+                    <rect x="91" y="55" width="3" height="3" fill="#fbbf24"/>
+                    <rect x="97" y="41" width="3" height="3" fill="#fde68a"/>
+                    <rect x="111" y="44" width="2" height="2" fill="#fffbeb"/>
+                    <rect x="122" y="55" width="2" height="2" fill="#fffbeb"/>
+                    <rect x="111" y="66" width="2" height="2" fill="#fffbeb"/>
+                    <rect x="100" y="55" width="2" height="2" fill="#fffbeb"/>
+                  </g>
+                </g>
+                <g class="avatar__fw avatar__fw--2">
+                  <rect class="avatar__fw-trail" x="212" y="54" width="3" height="28" fill="#93c5fd"/>
+                  <g class="avatar__fw-burst">
+                    <rect x="212" y="50" width="4" height="4" fill="#eff6ff"/>
+                    <rect x="213" y="33" width="3" height="3" fill="#93c5fd"/>
+                    <rect x="226" y="38" width="3" height="3" fill="#bfdbfe"/>
+                    <rect x="231" y="51" width="3" height="3" fill="#93c5fd"/>
+                    <rect x="226" y="64" width="3" height="3" fill="#bfdbfe"/>
+                    <rect x="213" y="69" width="3" height="3" fill="#93c5fd"/>
+                    <rect x="200" y="64" width="3" height="3" fill="#bfdbfe"/>
+                    <rect x="195" y="51" width="3" height="3" fill="#93c5fd"/>
+                    <rect x="200" y="38" width="3" height="3" fill="#bfdbfe"/>
+                    <rect x="213" y="41" width="2" height="2" fill="#eff6ff"/>
+                    <rect x="222" y="51" width="2" height="2" fill="#eff6ff"/>
+                    <rect x="213" y="61" width="2" height="2" fill="#eff6ff"/>
+                    <rect x="203" y="51" width="2" height="2" fill="#eff6ff"/>
+                  </g>
+                </g>
+                <g class="avatar__fw avatar__fw--3">
+                  <rect class="avatar__fw-trail" x="266" y="80" width="3" height="26" fill="#f9a8d4"/>
+                  <g class="avatar__fw-burst">
+                    <rect x="266" y="76" width="4" height="4" fill="#fdf2f8"/>
+                    <rect x="267" y="61" width="3" height="3" fill="#f9a8d4"/>
+                    <rect x="278" y="66" width="3" height="3" fill="#f472b6"/>
+                    <rect x="283" y="77" width="3" height="3" fill="#f9a8d4"/>
+                    <rect x="278" y="88" width="3" height="3" fill="#f472b6"/>
+                    <rect x="267" y="93" width="3" height="3" fill="#f9a8d4"/>
+                    <rect x="256" y="88" width="3" height="3" fill="#f472b6"/>
+                    <rect x="251" y="77" width="3" height="3" fill="#f9a8d4"/>
+                    <rect x="256" y="66" width="3" height="3" fill="#f472b6"/>
+                    <rect x="267" y="68" width="2" height="2" fill="#fdf2f8"/>
+                    <rect x="276" y="77" width="2" height="2" fill="#fdf2f8"/>
+                    <rect x="267" y="86" width="2" height="2" fill="#fdf2f8"/>
+                    <rect x="258" y="77" width="2" height="2" fill="#fdf2f8"/>
+                  </g>
+                </g>
+              </g>
+
+              <!-- frame: sill, jambs, mullion + transom -->
+              <rect x="52" y="26" width="280" height="6" fill="#2c3950"/>
+              <rect x="52" y="26" width="6" height="212" fill="#33425c"/>
+              <rect x="326" y="26" width="6" height="212" fill="#232f44"/>
+              <rect x="52" y="232" width="280" height="6" fill="#33425c"/>
+              <rect x="46" y="236" width="292" height="8" fill="#3b4a66"/>
+              <rect x="46" y="242" width="292" height="4" fill="#26324a"/>
+              <rect x="188" y="32" width="8" height="200" fill="#2c3950"/>
+              <rect x="188" y="32" width="3" height="200" fill="#3b4a66"/>
+              <rect x="58" y="118" width="268" height="8" fill="#2c3950"/>
+              <rect x="58" y="118" width="268" height="3" fill="#3b4a66"/>
+            </g>
+
+            <!-- ===== body: shoulders + head, lifts on sigh ===== -->
+            <g class="avatar__body">
+              <!-- neck -->
+              <rect x="168" y="230" width="48" height="46" fill="#dcae90"/>
+              <rect x="168" y="230" width="48" height="8" fill="#c08f70"/>
+
+              <g class="avatar__head">
+                <!-- ears -->
+                <rect x="114" y="126" width="12" height="30" fill="#e6bd9c"/>
+                <rect x="118" y="134" width="4" height="12" fill="#c98f6d"/>
+                <rect x="258" y="126" width="12" height="30" fill="#e6bd9c"/>
+                <rect x="262" y="134" width="4" height="12" fill="#c98f6d"/>
+
+                <!-- face, tapering to the chin -->
+                <rect x="126" y="84" width="132" height="126" fill="#f0c9a8"/>
+                <rect x="130" y="210" width="124" height="10" fill="#f0c9a8"/>
+                <rect x="138" y="220" width="108" height="10" fill="#efc5a3"/>
+                <rect x="152" y="230" width="80" height="8" fill="#efc5a3"/>
+                <rect x="134" y="96" width="116" height="10" fill="#f7dcc3"/>
+                <rect x="126" y="150" width="8" height="44" fill="#e0b491"/>
+                <rect x="250" y="150" width="8" height="44" fill="#e0b491"/>
+
+                <!-- light blond / platinum hair, slightly spiky crest -->
+                <rect x="132" y="66" width="16" height="4" fill="#f0e8d6"/>
+                <rect x="152" y="62" width="12" height="8" fill="#f0e8d6"/>
+                <rect x="172" y="66" width="12" height="4" fill="#f0e8d6"/>
+                <rect x="192" y="62" width="12" height="8" fill="#f0e8d6"/>
+                <rect x="216" y="66" width="16" height="4" fill="#f0e8d6"/>
+                <rect x="238" y="68" width="12" height="4" fill="#f0e8d6"/>
+                <rect x="122" y="70" width="140" height="26" fill="#d8cdb6"/>
+                <rect x="122" y="70" width="140" height="8" fill="#f0e8d6"/>
+                <rect x="140" y="78" width="8" height="6" fill="#eae0c9"/>
+                <rect x="176" y="78" width="10" height="6" fill="#eae0c9"/>
+                <rect x="214" y="78" width="8" height="6" fill="#eae0c9"/>
+                <rect x="126" y="96" width="20" height="14" fill="#d8cdb6"/>
+                <rect x="238" y="96" width="20" height="14" fill="#d8cdb6"/>
+                <rect x="122" y="96" width="8" height="48" fill="#c6bba3"/>
+                <rect x="254" y="96" width="8" height="48" fill="#c6bba3"/>
+
+                <!-- brows -->
+                <rect x="136" y="128" width="44" height="8" fill="#c6bba3"/>
+                <rect x="204" y="128" width="44" height="8" fill="#c6bba3"/>
+
+                <!-- nose, upper part tucked behind the frame -->
+                <rect x="178" y="176" width="28" height="20" fill="#e8c0a0"/>
+                <rect x="178" y="192" width="28" height="4" fill="#d8a683"/>
+                <rect x="174" y="192" width="4" height="4" fill="#b9805f"/>
+                <rect x="206" y="192" width="4" height="4" fill="#b9805f"/>
+
+                <!-- neat light goatee along the jaw, mouth painted over it -->
+                <rect x="130" y="186" width="14" height="46" fill="#c9bda3"/>
+                <rect x="240" y="186" width="14" height="46" fill="#c9bda3"/>
+                <rect x="138" y="212" width="108" height="22" fill="#d5c9b0"/>
+                <rect x="146" y="212" width="92" height="4" fill="#e4dac4"/>
+                <rect x="152" y="232" width="80" height="8" fill="#c9bda3"/>
+                <rect x="152" y="236" width="80" height="4" fill="#b3a68c"/>
+
+                <!-- mustache -->
+                <rect x="146" y="198" width="92" height="12" fill="#d5c9b0"/>
+                <rect x="146" y="198" width="92" height="4" fill="#e4dac4"/>
+
+                <!-- friendly slight smile -->
+                <rect x="164" y="210" width="4" height="4" fill="#a5644f"/>
+                <rect x="168" y="210" width="48" height="4" fill="#f7f9fb"/>
+                <rect x="216" y="210" width="4" height="4" fill="#a5644f"/>
+                <rect x="168" y="214" width="48" height="4" fill="#9b5c48"/>
+
+                <!-- bare eyes, revealed only once the glasses are off -->
+                <g class="avatar__eyes-bare">
+                  <rect x="144" y="152" width="32" height="22" fill="#e3b795"/>
+                  <rect x="146" y="154" width="28" height="18" fill="#f7fbfd"/>
+                  <rect class="avatar__pupil" x="154" y="154" width="12" height="18" fill="#13333d"/>
+                  <rect class="avatar__pupil" x="157" y="158" width="4" height="4" fill="#7fe3cc"/>
+                  <rect x="144" y="150" width="32" height="4" fill="#9b7a5e"/>
+                  <rect x="208" y="152" width="32" height="22" fill="#e3b795"/>
+                  <rect x="210" y="154" width="28" height="18" fill="#f7fbfd"/>
+                  <rect class="avatar__pupil" x="218" y="154" width="12" height="18" fill="#13333d"/>
+                  <rect class="avatar__pupil" x="221" y="158" width="4" height="4" fill="#7fe3cc"/>
+                  <rect x="208" y="150" width="32" height="4" fill="#9b7a5e"/>
+                </g>
+
+                <!-- rectangular glasses -->
+                <g class="avatar__glasses">
+                <rect x="126" y="152" width="10" height="8" fill="#1b232f"/>
+                <rect x="248" y="152" width="10" height="8" fill="#1b232f"/>
+                <rect x="184" y="152" width="16" height="8" fill="#1b232f"/>
+                <rect x="136" y="144" width="48" height="40" fill="#1b232f"/>
+                <rect x="200" y="144" width="48" height="40" fill="#1b232f"/>
+                <rect x="136" y="144" width="48" height="4" fill="#38455a"/>
+                <rect x="200" y="144" width="48" height="4" fill="#38455a"/>
+
+                <!-- LEFT lens: eye + dashboard reflection clipped to the lens -->
+                <g class="avatar__lens avatar__lens--l" clip-path="url(#avatarLensL)">
+                  <rect x="140" y="148" width="40" height="32" fill="#0a1f28"/>
+                  <rect x="146" y="154" width="28" height="18" fill="#e6f2f1"/>
+                  <rect class="avatar__pupil" x="154" y="154" width="12" height="18" fill="#13333d"/>
+                  <rect class="avatar__pupil" x="157" y="158" width="4" height="4" fill="#64ffda"/>
+                  <g class="avatar__lens-fx">
+                    <g transform="translate(140 148) scale(2)">
+                      <g class="avatar__fx-scene is-active" data-fx="0">
+                        <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                        <rect x="2" y="2" width="16" height="3" fill="#0b3d3a"/>
+                        <rect x="3" y="3" width="2" height="1" fill="#64ffda"/>
+                        <rect x="6" y="3" width="10" height="1" fill="#2dd4bf"/>
+                        <rect x="2" y="6" width="16" height="3" fill="#0b3d3a"/>
+                        <rect x="3" y="7" width="2" height="1" fill="#64ffda"/>
+                        <rect x="6" y="7" width="8" height="1" fill="#2dd4bf"/>
+                        <rect x="2" y="10" width="16" height="3" fill="#0a2430"/>
+                        <rect x="6" y="11" width="6" height="1" fill="#14b8a6"/>
+                        <rect class="avatar__fx-scan" width="20" height="1" fill="#64ffda" opacity="0.22"/>
+                      </g>
+                      <g class="avatar__fx-scene" data-fx="1">
+                        <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                        <rect x="6" width="1" height="16" fill="#1d3b45"/>
+                        <rect x="11" width="1" height="16" fill="#1d3b45"/>
+                        <rect x="16" width="1" height="16" fill="#1d3b45"/>
+                        <rect class="avatar__fx-gantt" x="2" y="3" width="11" height="2" fill="#0f766e"/>
+                        <rect x="4" y="7" width="9" height="2" fill="#14b8a6"/>
+                        <rect class="avatar__fx-gantt" x="3" y="11" width="14" height="2" fill="#5eead4"/>
+                      </g>
+                      <g class="avatar__fx-scene" data-fx="2">
+                        <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                        <rect class="avatar__fx-bar" x="3" y="6" width="3" height="8" fill="#0f766e"/>
+                        <rect class="avatar__fx-bar avatar__fx-bar--2" x="7" y="4" width="3" height="10" fill="#14b8a6"/>
+                        <rect class="avatar__fx-bar avatar__fx-bar--3" x="11" y="8" width="3" height="6" fill="#2dd4bf"/>
+                        <rect class="avatar__fx-bar avatar__fx-bar--4" x="15" y="5" width="3" height="9" fill="#5eead4"/>
+                        <rect x="1" y="14" width="18" height="1" fill="#0f766e"/>
+                      </g>
+                      <g class="avatar__fx-scene" data-fx="3">
+                        <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                        <rect x="1" y="14" width="18" height="1" fill="#0f766e" opacity="0.6"/>
+                        <path class="avatar__fx-curve" d="M2 13 L6 9 L9 11 L13 5 L18 3" fill="none" stroke="#64ffda" stroke-width="1"/>
+                        <rect x="17" y="2" width="2" height="2" fill="#fbbf24"/>
+                      </g>
+                      <g class="avatar__fx-scene" data-fx="4">
+                        <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                        <rect x="2" y="2" width="5" height="12" fill="#0a2a33"/>
+                        <rect x="8" y="2" width="5" height="12" fill="#0a2a33"/>
+                        <rect x="14" y="2" width="5" height="12" fill="#0a2a33"/>
+                        <rect x="3" y="3" width="3" height="2" fill="#2dd4bf"/>
+                        <rect x="3" y="6" width="3" height="2" fill="#14b8a6"/>
+                        <rect class="avatar__fx-card" x="9" y="3" width="3" height="2" fill="#5eead4"/>
+                        <rect x="15" y="3" width="3" height="2" fill="#0f766e"/>
+                      </g>
+                    </g>
+                  </g>
+                  <rect x="140" y="148" width="12" height="4" fill="#ffffff" opacity="0.2"/>
+                </g>
+
+                <!-- RIGHT lens -->
+                <g class="avatar__lens avatar__lens--r" clip-path="url(#avatarLensR)">
+                  <rect x="204" y="148" width="40" height="32" fill="#0a1f28"/>
+                  <rect x="210" y="154" width="28" height="18" fill="#e6f2f1"/>
+                  <rect class="avatar__pupil" x="218" y="154" width="12" height="18" fill="#13333d"/>
+                  <rect class="avatar__pupil" x="221" y="158" width="4" height="4" fill="#64ffda"/>
+                  <g class="avatar__lens-fx">
+                    <g transform="translate(204 148) scale(2)">
+                      <g class="avatar__fx-scene is-active" data-fx="0">
+                        <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                        <rect x="2" y="2" width="16" height="3" fill="#0b3d3a"/>
+                        <rect x="3" y="3" width="2" height="1" fill="#64ffda"/>
+                        <rect x="6" y="3" width="10" height="1" fill="#2dd4bf"/>
+                        <rect x="2" y="6" width="16" height="3" fill="#0b3d3a"/>
+                        <rect x="3" y="7" width="2" height="1" fill="#64ffda"/>
+                        <rect x="6" y="7" width="8" height="1" fill="#2dd4bf"/>
+                        <rect x="2" y="10" width="16" height="3" fill="#0a2430"/>
+                        <rect x="6" y="11" width="6" height="1" fill="#14b8a6"/>
+                        <rect class="avatar__fx-scan" width="20" height="1" fill="#64ffda" opacity="0.22"/>
+                      </g>
+                      <g class="avatar__fx-scene" data-fx="1">
+                        <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                        <rect x="6" width="1" height="16" fill="#1d3b45"/>
+                        <rect x="11" width="1" height="16" fill="#1d3b45"/>
+                        <rect x="16" width="1" height="16" fill="#1d3b45"/>
+                        <rect class="avatar__fx-gantt" x="2" y="3" width="11" height="2" fill="#0f766e"/>
+                        <rect x="4" y="7" width="9" height="2" fill="#14b8a6"/>
+                        <rect class="avatar__fx-gantt" x="3" y="11" width="14" height="2" fill="#5eead4"/>
+                      </g>
+                      <g class="avatar__fx-scene" data-fx="2">
+                        <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                        <rect class="avatar__fx-bar" x="3" y="6" width="3" height="8" fill="#0f766e"/>
+                        <rect class="avatar__fx-bar avatar__fx-bar--2" x="7" y="4" width="3" height="10" fill="#14b8a6"/>
+                        <rect class="avatar__fx-bar avatar__fx-bar--3" x="11" y="8" width="3" height="6" fill="#2dd4bf"/>
+                        <rect class="avatar__fx-bar avatar__fx-bar--4" x="15" y="5" width="3" height="9" fill="#5eead4"/>
+                        <rect x="1" y="14" width="18" height="1" fill="#0f766e"/>
+                      </g>
+                      <g class="avatar__fx-scene" data-fx="3">
+                        <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                        <rect x="1" y="14" width="18" height="1" fill="#0f766e" opacity="0.6"/>
+                        <path class="avatar__fx-curve" d="M2 13 L6 9 L9 11 L13 5 L18 3" fill="none" stroke="#64ffda" stroke-width="1"/>
+                        <rect x="17" y="2" width="2" height="2" fill="#fbbf24"/>
+                      </g>
+                      <g class="avatar__fx-scene" data-fx="4">
+                        <rect width="20" height="16" fill="#04101a" fill-opacity="0.62"/>
+                        <rect x="2" y="2" width="5" height="12" fill="#0a2a33"/>
+                        <rect x="8" y="2" width="5" height="12" fill="#0a2a33"/>
+                        <rect x="14" y="2" width="5" height="12" fill="#0a2a33"/>
+                        <rect x="3" y="3" width="3" height="2" fill="#2dd4bf"/>
+                        <rect x="3" y="6" width="3" height="2" fill="#14b8a6"/>
+                        <rect class="avatar__fx-card" x="9" y="3" width="3" height="2" fill="#5eead4"/>
+                        <rect x="15" y="3" width="3" height="2" fill="#0f766e"/>
+                      </g>
+                    </g>
+                  </g>
+                  <rect x="204" y="148" width="12" height="4" fill="#ffffff" opacity="0.2"/>
+                </g>
+                </g>
+
+                <!-- click target: send the glasses to the window sill -->
+                <g class="avatar__hit-group avatar__hit-group--face" data-lab-hit="glasses">
+                  <rect class="avatar__hit" x="124" y="140" width="136" height="48"/>
+                  <use class="avatar__spark" href="#avatarSpark" x="192" y="134"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="122" y="138" style="animation-delay: 0.25s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="262" y="138" style="animation-delay: 0.5s"/>
+                  <use class="avatar__spark" href="#avatarSpark" x="120" y="190" style="animation-delay: 0.7s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="264" y="190" style="animation-delay: 0.95s"/>
+                </g>
+              </g>
+
+              <!-- white dress shirt -->
+              <rect x="120" y="272" width="144" height="8" fill="#f4f6fa"/>
+              <rect x="104" y="278" width="176" height="8" fill="#f4f6fa"/>
+              <rect x="88" y="284" width="208" height="10" fill="#f4f6fa"/>
+              <rect x="72" y="292" width="240" height="120" fill="#f4f6fa"/>
+              <rect x="72" y="292" width="12" height="120" fill="#dde3ec"/>
+              <rect x="300" y="292" width="12" height="120" fill="#dde3ec"/>
+              <rect x="116" y="292" width="4" height="120" fill="#e7ecf4"/>
+              <rect x="264" y="292" width="4" height="120" fill="#e7ecf4"/>
+              <rect x="88" y="290" width="208" height="4" fill="#ffffff"/>
+
+              <!-- placket + buttons -->
+              <rect x="180" y="280" width="24" height="132" fill="#ffffff"/>
+              <rect x="180" y="280" width="4" height="132" fill="#dde3ec"/>
+              <rect x="200" y="280" width="4" height="132" fill="#dde3ec"/>
+              <rect x="188" y="316" width="8" height="8" fill="#c8d1de"/>
+              <rect x="188" y="352" width="8" height="8" fill="#c8d1de"/>
+              <rect x="188" y="388" width="8" height="8" fill="#c8d1de"/>
+
+              <!-- collar -->
+              <rect x="152" y="260" width="80" height="12" fill="#e9eef5"/>
+              <rect x="152" y="260" width="80" height="4" fill="#ffffff"/>
+              <rect x="150" y="264" width="30" height="14" fill="#ffffff"/>
+              <rect x="156" y="278" width="24" height="10" fill="#ffffff"/>
+              <rect x="164" y="288" width="16" height="8" fill="#f0f3f8"/>
+              <rect x="204" y="264" width="30" height="14" fill="#ffffff"/>
+              <rect x="204" y="278" width="24" height="10" fill="#ffffff"/>
+              <rect x="204" y="288" width="16" height="8" fill="#f0f3f8"/>
+              <rect x="150" y="276" width="30" height="2" fill="#d5dce7"/>
+              <rect x="204" y="276" width="30" height="2" fill="#d5dce7"/>
+            </g>
+
+            <!-- ===== desk ===== -->
+            <rect y="412" width="384" height="36" fill="#2b3446"/>
+            <rect y="412" width="384" height="6" fill="#46536c"/>
+            <rect y="418" width="384" height="4" fill="#37425a"/>
+            <rect y="440" width="384" height="4" fill="#252d3d"/>
+
+            <!-- ===== Luxo Jr–style desk lamp, RIGHT; lit in dark theme.
+                     Beam polygon first, then one thin continuous stem on top ===== -->
+            <g class="avatar__lamp" data-lamp="L2">
+              <polygon class="avatar__lamp-rays" points="326,280 350,280 382,416 294,416" fill="#fde68a"/>
+              <rect x="328" y="404" width="36" height="12" fill="#334155"/>
+              <rect x="328" y="404" width="36" height="3" fill="#475569"/>
+              <!-- ножка: one thickness, one colour, base → shade -->
+              <rect x="334" y="272" width="8" height="136" fill="#64748b"/>
+              <!-- shade: the green pixels are the theme switch -->
+              <g class="avatar__hit-group" data-lab-hit="lamp">
+                <rect x="314" y="268" width="48" height="8" fill="#14532d"/>
+                <rect x="318" y="252" width="40" height="20" fill="#166534"/>
+                <rect x="322" y="244" width="32" height="12" fill="#15803d"/>
+                <rect class="avatar__lamp-led-off" x="326" y="276" width="24" height="4" fill="#365314"/>
+                <rect class="avatar__lamp-led-on" x="326" y="276" width="24" height="4" fill="#fef08a"/>
+                <rect class="avatar__hit" x="312" y="242" width="52" height="40"/>
+                <use class="avatar__spark" href="#avatarSpark" x="338" y="236"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="310" y="250" style="animation-delay: 0.2s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="366" y="252" style="animation-delay: 0.45s"/>
+                <use class="avatar__spark" href="#avatarSpark" x="312" y="284" style="animation-delay: 0.65s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="364" y="282" style="animation-delay: 0.9s"/>
+              </g>
+            </g>
+
+            <!-- ===== monitor (back to viewer) + stand ===== -->
+            <g class="avatar__monitor">
+              <rect x="168" y="392" width="48" height="20" fill="#1e293b"/>
+              <rect x="184" y="360" width="16" height="36" fill="#334155"/>
+              <rect x="180" y="356" width="24" height="8" fill="#475569"/>
+              <rect class="avatar__glow" x="108" y="248" width="168" height="4" fill="#64ffda"/>
+              <rect x="100" y="252" width="184" height="112" fill="#1e293b"/>
+              <rect x="108" y="260" width="168" height="96" fill="#334155"/>
+              <rect x="100" y="252" width="184" height="6" fill="#475569"/>
+              <rect x="100" y="252" width="6" height="112" fill="#475569"/>
+              <rect x="278" y="252" width="6" height="112" fill="#0f172a"/>
+              <rect x="108" y="356" width="168" height="6" fill="#0f172a"/>
+              <rect x="176" y="268" width="32" height="12" fill="#1e293b"/>
+              <rect x="220" y="260" width="20" height="8" fill="#e2e8f0" opacity="0.55"/>
+            </g>
+
+            <!-- ===== keyboard on the desk ===== -->
+            <g class="avatar__keyboard">
+              <rect x="88" y="416" width="208" height="18" fill="#4a566c"/>
+              <rect x="88" y="416" width="208" height="4" fill="#5d6a84"/>
+              <rect x="96" y="420" width="192" height="10" fill="#3f4a5e"/>
+              <rect x="104" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="120" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="136" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="152" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="168" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="184" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="200" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="216" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="232" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="248" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="264" y="421" width="8" height="4" fill="#6b7a96"/>
+              <rect x="140" y="426" width="80" height="3" fill="#6b7a96"/>
+              <!-- one key per finger, dips and lights up on the press -->
+              <g class="avatar__keys">
+                <rect class="avatar__key" data-key="0" x="148" y="420" width="8" height="6" fill="#6b7a96"/>
+                <rect class="avatar__key" data-key="1" x="156" y="420" width="8" height="6" fill="#6b7a96"/>
+                <rect class="avatar__key" data-key="2" x="164" y="420" width="8" height="6" fill="#6b7a96"/>
+                <rect class="avatar__key" data-key="3" x="172" y="420" width="8" height="6" fill="#6b7a96"/>
+                <rect class="avatar__key" data-key="4" x="204" y="420" width="8" height="6" fill="#6b7a96"/>
+                <rect class="avatar__key" data-key="5" x="212" y="420" width="8" height="6" fill="#6b7a96"/>
+                <rect class="avatar__key" data-key="6" x="220" y="420" width="8" height="6" fill="#6b7a96"/>
+                <rect class="avatar__key" data-key="7" x="228" y="420" width="8" height="6" fill="#6b7a96"/>
+              </g>
+              <rect x="88" y="430" width="208" height="4" fill="#2a323f"/>
+            </g>
+
+            <!-- ===== coffee, LEFT of the keyboard; handle faces the hand ===== -->
+            <g class="avatar__coffee">
+              <g class="avatar__steam-group">
+                <g class="avatar__steam avatar__steam--1">
+                  <rect x="40" y="344" width="12" height="14" fill="#9fabbe"/>
+                  <rect x="34" y="330" width="12" height="14" fill="#9fabbe"/>
+                  <rect x="40" y="318" width="12" height="12" fill="#8b96a8"/>
+                </g>
+                <g class="avatar__steam avatar__steam--2">
+                  <rect x="26" y="346" width="12" height="12" fill="#9fabbe"/>
+                  <rect x="20" y="332" width="12" height="14" fill="#9fabbe"/>
+                  <rect x="26" y="320" width="12" height="12" fill="#8b96a8"/>
+                </g>
+                <g class="avatar__steam avatar__steam--3">
+                  <rect x="14" y="342" width="12" height="16" fill="#9fabbe"/>
+                  <rect x="22" y="328" width="12" height="14" fill="#9fabbe"/>
+                  <rect x="14" y="316" width="12" height="12" fill="#8b96a8"/>
+                </g>
+                <g class="avatar__steam avatar__steam--4">
+                  <rect x="34" y="348" width="12" height="10" fill="#9fabbe"/>
+                  <rect x="42" y="334" width="12" height="14" fill="#9fabbe"/>
+                  <rect x="32" y="322" width="12" height="12" fill="#8b96a8"/>
+                </g>
+              </g>
+
+              <!-- fizz off the wine: same travel and top as the coffee steam -->
+              <g class="avatar__fizz-group">
+                <rect class="avatar__fizz avatar__fizz--1" x="20" y="346" width="3" height="3"/>
+                <rect class="avatar__fizz avatar__fizz--2 avatar__fizz--hi" x="30" y="348" width="2" height="2"/>
+                <rect class="avatar__fizz avatar__fizz--3" x="38" y="345" width="3" height="3"/>
+                <rect class="avatar__fizz avatar__fizz--4 avatar__fizz--hi" x="25" y="350" width="2" height="2"/>
+                <rect class="avatar__fizz avatar__fizz--5" x="34" y="344" width="2" height="2"/>
+                <rect class="avatar__fizz avatar__fizz--6 avatar__fizz--hi" x="16" y="349" width="2" height="2"/>
+              </g>
+              <g class="avatar__mug">
+                <g class="avatar__cup avatar__cup--coffee">
+                  <!-- handle on the inner (right) side, where the hand arrives -->
+                  <rect x="50" y="374" width="26" height="8" fill="#7e8899"/>
+                  <rect x="50" y="396" width="26" height="8" fill="#7e8899"/>
+                  <rect x="66" y="380" width="10" height="18" fill="#7e8899"/>
+                  <rect x="50" y="376" width="24" height="4" fill="#e8eef6"/>
+                  <rect x="50" y="398" width="24" height="4" fill="#e8eef6"/>
+                  <rect x="68" y="382" width="6" height="14" fill="#e8eef6"/>
+                  <!-- body -->
+                  <rect x="8" y="362" width="46" height="52" fill="#7e8899"/>
+                  <rect x="8" y="364" width="44" height="48" fill="#e8eef6"/>
+                  <rect x="44" y="364" width="8" height="48" fill="#f7fafd"/>
+                  <rect x="8" y="364" width="10" height="48" fill="#c3ccd9"/>
+                  <rect x="12" y="368" width="36" height="10" fill="#6f4128"/>
+                  <rect x="12" y="368" width="36" height="4" fill="#8a5734"/>
+                  <rect x="8" y="406" width="44" height="6" fill="#aab4c4"/>
+                </g>
+
+                <!-- same footprint as the mug, so the sip choreography still lands -->
+                <g class="avatar__cup avatar__cup--wine">
+                  <!-- bowl walls, tapering down to the stem -->
+                  <rect x="8" y="350" width="46" height="10" fill="#cfe0ef" opacity="0.5"/>
+                  <rect x="11" y="360" width="40" height="8" fill="#cfe0ef" opacity="0.5"/>
+                  <rect x="15" y="368" width="32" height="7" fill="#cfe0ef" opacity="0.5"/>
+                  <rect x="20" y="375" width="22" height="6" fill="#cfe0ef" opacity="0.5"/>
+                  <rect x="25" y="381" width="12" height="5" fill="#cfe0ef" opacity="0.5"/>
+                  <!-- wine + bubbles, clipped to the inside of the bowl -->
+                  <g clip-path="url(#avatarWineBowl)">
+                    <rect class="avatar__wine-body" x="8" y="366" width="48" height="24"/>
+                    <rect class="avatar__wine-top" x="8" y="366" width="48" height="3"/>
+                    <rect class="avatar__wine-deep" x="8" y="376" width="48" height="12"/>
+                    <rect class="avatar__bubble avatar__bubble--1" x="28" y="382" width="3" height="3"/>
+                    <rect class="avatar__bubble avatar__bubble--2 avatar__bubble--hi" x="32" y="383" width="2" height="2"/>
+                    <rect class="avatar__bubble avatar__bubble--3" x="29" y="384" width="2" height="2"/>
+                    <rect class="avatar__bubble avatar__bubble--4 avatar__bubble--hi" x="31" y="381" width="3" height="3"/>
+                    <rect class="avatar__bubble avatar__bubble--5" x="27" y="384" width="2" height="2"/>
+                    <rect class="avatar__bubble avatar__bubble--6 avatar__bubble--hi" x="33" y="384" width="2" height="2"/>
+                  </g>
+                  <!-- rim + left-hand glass highlight -->
+                  <rect x="8" y="350" width="46" height="3" fill="#f1f6fb" opacity="0.8"/>
+                  <rect x="8" y="350" width="3" height="10" fill="#f8fafc" opacity="0.6"/>
+                  <rect x="11" y="360" width="3" height="8" fill="#f8fafc" opacity="0.5"/>
+                  <rect x="51" y="350" width="3" height="10" fill="#8fa3b8" opacity="0.5"/>
+                  <rect x="48" y="360" width="3" height="8" fill="#8fa3b8" opacity="0.45"/>
+                  <!-- stem + foot -->
+                  <rect x="27" y="386" width="8" height="20" fill="#cfe0ef" opacity="0.55"/>
+                  <rect x="27" y="386" width="3" height="20" fill="#f8fafc" opacity="0.5"/>
+                  <rect x="13" y="406" width="36" height="6" fill="#cfe0ef" opacity="0.65"/>
+                  <rect x="13" y="406" width="36" height="2" fill="#f8fafc" opacity="0.75"/>
+                  <rect x="13" y="412" width="36" height="3" fill="#8fa3b8" opacity="0.5"/>
+                </g>
+
+                <!-- click target: coffee ↔ wine -->
+                <g class="avatar__hit-group" data-lab-hit="drink">
+                  <rect class="avatar__hit" x="4" y="346" width="76" height="64"/>
+                  <use class="avatar__spark" href="#avatarSpark" x="40" y="342"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="6" y="352" style="animation-delay: 0.22s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="78" y="356" style="animation-delay: 0.48s"/>
+                  <use class="avatar__spark" href="#avatarSpark" x="4" y="404" style="animation-delay: 0.7s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="80" y="400" style="animation-delay: 0.92s"/>
+                </g>
+              </g>
+            </g>
+
+            <!-- ===== notepad + red ballpoint, front-left of the keyboard ===== -->
+            <g class="avatar__notepad">
+              <rect x="6" y="434" width="66" height="4" fill="#1a2130" opacity="0.5"/>
+              <rect x="4" y="416" width="66" height="20" fill="#c9b894"/>
+              <rect x="4" y="416" width="66" height="16" fill="#f5efdd"/>
+              <rect x="4" y="416" width="66" height="3" fill="#fdf9ee"/>
+              <rect x="4" y="432" width="66" height="2" fill="#e2d7ba"/>
+              <!-- spiral binding down the left edge -->
+              <rect x="4" y="416" width="8" height="20" fill="#8a97ae"/>
+              <rect x="4" y="418" width="8" height="3" fill="#b8c3d4"/>
+              <rect x="4" y="424" width="8" height="3" fill="#b8c3d4"/>
+              <rect x="4" y="430" width="8" height="3" fill="#b8c3d4"/>
+              <!-- margin + ruled lines -->
+              <rect x="15" y="416" width="2" height="16" fill="#dda0a0"/>
+              <rect x="20" y="420" width="32" height="2" fill="#a8bcd8"/>
+              <rect x="20" y="424" width="42" height="2" fill="#a8bcd8"/>
+              <rect x="20" y="428" width="24" height="2" fill="#a8bcd8"/>
+              <!-- red ballpoint lying across the page -->
+              <rect x="12" y="431" width="4" height="5" fill="#7f1d1d"/>
+              <rect x="16" y="430" width="16" height="5" fill="#c81e1e"/>
+              <rect x="16" y="430" width="16" height="2" fill="#ef4444"/>
+              <rect x="32" y="427" width="16" height="5" fill="#c81e1e"/>
+              <rect x="32" y="427" width="16" height="2" fill="#ef4444"/>
+              <rect x="48" y="424" width="12" height="5" fill="#c81e1e"/>
+              <rect x="48" y="424" width="12" height="2" fill="#ef4444"/>
+              <rect x="20" y="428" width="9" height="2" fill="#e5e7eb"/>
+              <rect x="60" y="423" width="5" height="4" fill="#cbd5e1"/>
+              <rect x="65" y="422" width="3" height="3" fill="#94a3b8"/>
+
+              <!-- click target: jump to the Telegram QR and celebrate -->
+              <g class="avatar__hit-group" data-lab-hit="notepad">
+                <rect class="avatar__hit" x="2" y="411" width="70" height="29"/>
+                <use class="avatar__spark" href="#avatarSpark" x="36" y="408"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="2" y="416" style="animation-delay: 0.24s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="74" y="418" style="animation-delay: 0.5s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="8" y="442" style="animation-delay: 0.74s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="66" y="443" style="animation-delay: 0.95s"/>
+              </g>
+            </g>
+
+            <g class="avatar__cheer-fx">
+              <rect x="36" y="212" width="10" height="10" fill="#fde047"/>
+              <rect x="66" y="184" width="6" height="6" fill="#64ffda"/>
+              <rect x="338" y="212" width="10" height="10" fill="#fde047"/>
+              <rect x="312" y="184" width="6" height="6" fill="#64ffda"/>
+            </g>
+
+            <!-- LEFT arm: sleeve → elbow on the desk → forearm → fingers on the keys -->
+            <g class="avatar__arm avatar__arm--l">
+              <rect x="68" y="288" width="36" height="20" fill="#f4f6fa"/>
+              <rect x="68" y="288" width="36" height="4" fill="#ffffff"/>
+              <rect x="76" y="304" width="24" height="100" fill="#f4f6fa"/>
+              <rect x="76" y="304" width="6" height="100" fill="#ffffff"/>
+              <rect x="94" y="304" width="6" height="100" fill="#dde3ec"/>
+              <g class="avatar__elbow">
+                <rect x="68" y="400" width="40" height="18" fill="#f8fafc"/>
+                <rect x="68" y="400" width="40" height="4" fill="#ffffff"/>
+                <rect x="68" y="414" width="40" height="4" fill="#cfd6e2"/>
+                <rect x="100" y="404" width="56" height="16" fill="#eec3a1"/>
+                <rect x="100" y="404" width="56" height="4" fill="#f7dcc3"/>
+                <rect x="100" y="416" width="56" height="4" fill="#d8a683"/>
+                <rect x="120" y="410" width="24" height="2" fill="#e0b491"/>
+                <g class="avatar__hand avatar__hand--l">
+                  <!-- palm -->
+                  <rect x="148" y="402" width="28" height="18" fill="#eec3a1"/>
+                  <rect x="148" y="402" width="28" height="4" fill="#f7dcc3"/>
+                  <rect x="148" y="416" width="28" height="4" fill="#d8a683"/>
+                  <!-- thumb -->
+                  <rect x="140" y="408" width="10" height="8" fill="#eec3a1"/>
+                  <rect x="136" y="412" width="10" height="12" fill="#eec3a1"/>
+                  <rect x="136" y="412" width="10" height="3" fill="#f7dcc3"/>
+                  <!-- fingers: tips land on the key row, clear of the keyboard edge -->
+                  <g class="avatar__fingers avatar__fingers--l">
+                    <rect class="avatar__finger" data-finger="0" x="150" y="415" width="5" height="14" fill="#eec3a1"/>
+                    <rect class="avatar__finger" data-finger="1" x="158" y="413" width="5" height="16" fill="#eec3a1"/>
+                    <rect class="avatar__finger" data-finger="2" x="166" y="415" width="5" height="14" fill="#eec3a1"/>
+                    <rect class="avatar__finger" data-finger="3" x="174" y="417" width="5" height="11" fill="#eec3a1"/>
+                  </g>
+                  <!-- two-finger grip that closes on the mug handle -->
+                  <g class="avatar__grip2">
+                    <rect x="146" y="394" width="8" height="22" fill="#eec3a1"/>
+                    <rect x="146" y="394" width="8" height="3" fill="#f7dcc3"/>
+                    <rect x="136" y="400" width="8" height="20" fill="#eec3a1"/>
+                    <rect x="136" y="400" width="8" height="3" fill="#f7dcc3"/>
+                  </g>
+                </g>
+              </g>
+            </g>
+
+            <!-- RIGHT arm: same chain, this is the one that drinks -->
+            <g class="avatar__arm avatar__arm--r">
+              <rect x="280" y="288" width="36" height="20" fill="#f4f6fa"/>
+              <rect x="280" y="288" width="36" height="4" fill="#ffffff"/>
+              <rect x="284" y="304" width="24" height="100" fill="#f4f6fa"/>
+              <rect x="284" y="304" width="6" height="100" fill="#ffffff"/>
+              <rect x="302" y="304" width="6" height="100" fill="#dde3ec"/>
+              <g class="avatar__elbow">
+                <rect x="276" y="400" width="40" height="18" fill="#f8fafc"/>
+                <rect x="276" y="400" width="40" height="4" fill="#ffffff"/>
+                <rect x="276" y="414" width="40" height="4" fill="#cfd6e2"/>
+                <rect x="228" y="404" width="56" height="16" fill="#eec3a1"/>
+                <rect x="228" y="404" width="56" height="4" fill="#f7dcc3"/>
+                <rect x="228" y="416" width="56" height="4" fill="#d8a683"/>
+                <rect x="240" y="410" width="24" height="2" fill="#e0b491"/>
+                <g class="avatar__hand avatar__hand--r">
+                  <rect x="208" y="402" width="28" height="18" fill="#eec3a1"/>
+                  <rect x="208" y="402" width="28" height="4" fill="#f7dcc3"/>
+                  <rect x="208" y="416" width="28" height="4" fill="#d8a683"/>
+                  <rect x="234" y="408" width="10" height="8" fill="#eec3a1"/>
+                  <rect x="238" y="412" width="10" height="12" fill="#eec3a1"/>
+                  <rect x="238" y="412" width="10" height="3" fill="#f7dcc3"/>
+                  <g class="avatar__fingers avatar__fingers--r">
+                    <rect class="avatar__finger" data-finger="7" x="230" y="415" width="5" height="14" fill="#eec3a1"/>
+                    <rect class="avatar__finger" data-finger="6" x="222" y="413" width="5" height="16" fill="#eec3a1"/>
+                    <rect class="avatar__finger" data-finger="5" x="214" y="415" width="5" height="14" fill="#eec3a1"/>
+                    <rect class="avatar__finger" data-finger="4" x="206" y="417" width="5" height="11" fill="#eec3a1"/>
+                  </g>
+                </g>
+              </g>
+            </g>
+
+            <!-- ===== monitor face redrawn over the arms: any limb crossing the
+                     screen is occluded instead of floating in front of it ===== -->
+            <g class="avatar__monitor-cover">
+              <rect x="184" y="360" width="16" height="36" fill="#334155"/>
+              <rect x="180" y="356" width="24" height="8" fill="#475569"/>
+              <rect x="100" y="252" width="184" height="112" fill="#1e293b"/>
+              <rect x="108" y="260" width="168" height="96" fill="#334155"/>
+              <rect x="100" y="252" width="184" height="6" fill="#475569"/>
+              <rect x="100" y="252" width="6" height="112" fill="#475569"/>
+              <rect x="278" y="252" width="6" height="112" fill="#0f172a"/>
+              <rect x="108" y="356" width="168" height="6" fill="#0f172a"/>
+              <rect x="176" y="268" width="32" height="12" fill="#1e293b"/>
+              <rect x="220" y="260" width="20" height="8" fill="#e2e8f0" opacity="0.55"/>
+            </g>
+
+            <!-- sticky note lives on the front face of the monitor -->
+            <g class="avatar__sticky">
+              <rect x="196" y="272" width="72" height="40" fill="#fde047"/>
+              <rect x="196" y="272" width="72" height="4" fill="#fef08a"/>
+              <rect x="196" y="308" width="72" height="4" fill="#eab308"/>
+              <rect x="256" y="272" width="12" height="8" fill="#facc15"/>
+              <text class="avatar__sticky-text" x="232" y="298" text-anchor="middle" fill="#713f12" font-size="15" font-family="Segoe UI, sans-serif" font-weight="700">call me</text>
+            </g>
+            <g class="avatar__sticky-curl">
+              <rect x="196" y="304" width="72" height="8" fill="#ca8a04"/>
+              <rect x="196" y="302" width="72" height="2" fill="#fef9c3"/>
+            </g>
+
+            <!-- where the glasses end up once they come off: folded on the window sill -->
+            <g class="avatar__glasses-off">
+              <rect x="60" y="236" width="48" height="3" fill="#1c2434" opacity="0.55"/>
+              <rect x="58" y="230" width="52" height="5" fill="#38455a"/>
+              <rect x="56" y="224" width="26" height="12" fill="#1b232f"/>
+              <rect x="84" y="224" width="26" height="12" fill="#1b232f"/>
+              <rect x="59" y="227" width="20" height="6" fill="#26414c"/>
+              <rect x="87" y="227" width="20" height="6" fill="#26414c"/>
+              <rect x="59" y="227" width="7" height="3" fill="#5b8c99" opacity="0.75"/>
+              <rect x="87" y="227" width="7" height="3" fill="#5b8c99" opacity="0.75"/>
+              <rect x="80" y="226" width="6" height="5" fill="#1b232f"/>
+              <!-- click target: put them back on -->
+              <g class="avatar__hit-group" data-lab-hit="glassesSill">
+                <rect class="avatar__hit" x="52" y="219" width="62" height="26"/>
+                <use class="avatar__spark" href="#avatarSpark" x="83" y="215"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="50" y="222" style="animation-delay: 0.25s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="116" y="224" style="animation-delay: 0.5s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="56" y="247" style="animation-delay: 0.75s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="110" y="247" style="animation-delay: 0.95s"/>
+              </g>
+            </g>
+
+            <!-- «победа» by day: confetti from above + a party blower on each side -->
+            <g class="avatar__cheer-day" clip-path="url(#avatarScene)">
+              <g class="avatar__confetti">
+                <rect class="avatar__confetti-bit" x="26" y="-14" width="5" height="5" fill="#ef4444" style="animation-delay: 0s; animation-duration: 1.9s"/>
+                <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="58" y="-20" width="4" height="7" fill="#22c55e" style="animation-delay: 0.32s; animation-duration: 2.3s"/>
+                <rect class="avatar__confetti-bit" x="92" y="-10" width="6" height="4" fill="#3b82f6" style="animation-delay: 0.62s; animation-duration: 1.7s"/>
+                <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="124" y="-24" width="5" height="5" fill="#fbbf24" style="animation-delay: 0.14s; animation-duration: 2.1s"/>
+                <rect class="avatar__confetti-bit" x="156" y="-12" width="4" height="7" fill="#ec4899" style="animation-delay: 0.48s; animation-duration: 2.4s"/>
+                <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="186" y="-18" width="6" height="4" fill="#a855f7" style="animation-delay: 0.05s; animation-duration: 1.8s"/>
+                <rect class="avatar__confetti-bit" x="214" y="-26" width="5" height="5" fill="#14b8a6" style="animation-delay: 0.7s; animation-duration: 2.2s"/>
+                <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="244" y="-12" width="4" height="7" fill="#ef4444" style="animation-delay: 0.24s; animation-duration: 2s"/>
+                <rect class="avatar__confetti-bit" x="272" y="-20" width="6" height="4" fill="#fbbf24" style="animation-delay: 0.56s; animation-duration: 1.75s"/>
+                <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="300" y="-10" width="5" height="5" fill="#3b82f6" style="animation-delay: 0.38s; animation-duration: 2.35s"/>
+                <rect class="avatar__confetti-bit" x="330" y="-22" width="4" height="7" fill="#22c55e" style="animation-delay: 0.1s; animation-duration: 2.05s"/>
+                <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="356" y="-14" width="6" height="4" fill="#ec4899" style="animation-delay: 0.66s; animation-duration: 1.85s"/>
+                <rect class="avatar__confetti-bit" x="42" y="-30" width="4" height="7" fill="#a855f7" style="animation-delay: 0.8s; animation-duration: 2.15s"/>
+                <rect class="avatar__confetti-bit avatar__confetti-bit--b" x="200" y="-34" width="5" height="5" fill="#f97316" style="animation-delay: 0.9s; animation-duration: 1.95s"/>
+              </g>
+
+              <g class="avatar__horn avatar__horn--l">
+                <rect x="0" y="196" width="12" height="18" fill="#db2777"/>
+                <rect x="0" y="196" width="12" height="4" fill="#f9a8d4"/>
+                <rect x="0" y="210" width="12" height="4" fill="#9d174d"/>
+                <g class="avatar__horn-tube">
+                  <rect x="12" y="200" width="58" height="10" fill="#fbbf24"/>
+                  <rect x="12" y="200" width="58" height="3" fill="#fde68a"/>
+                  <rect x="12" y="207" width="58" height="3" fill="#f59e0b"/>
+                  <rect x="26" y="200" width="4" height="10" fill="#f97316"/>
+                  <rect x="44" y="200" width="4" height="10" fill="#f97316"/>
+                  <rect x="70" y="197" width="7" height="16" fill="#ef4444"/>
+                  <rect x="77" y="193" width="4" height="7" fill="#fca5a5"/>
+                  <rect x="77" y="203" width="4" height="7" fill="#fca5a5"/>
+                  <rect x="81" y="199" width="4" height="5" fill="#ef4444"/>
+                </g>
+              </g>
+
+              <g class="avatar__horn avatar__horn--r">
+                <rect x="372" y="196" width="12" height="18" fill="#db2777"/>
+                <rect x="372" y="196" width="12" height="4" fill="#f9a8d4"/>
+                <rect x="372" y="210" width="12" height="4" fill="#9d174d"/>
+                <g class="avatar__horn-tube">
+                  <rect x="314" y="200" width="58" height="10" fill="#fbbf24"/>
+                  <rect x="314" y="200" width="58" height="3" fill="#fde68a"/>
+                  <rect x="314" y="207" width="58" height="3" fill="#f59e0b"/>
+                  <rect x="354" y="200" width="4" height="10" fill="#f97316"/>
+                  <rect x="336" y="200" width="4" height="10" fill="#f97316"/>
+                  <rect x="307" y="197" width="7" height="16" fill="#ef4444"/>
+                  <rect x="303" y="193" width="4" height="7" fill="#fca5a5"/>
+                  <rect x="303" y="203" width="4" height="7" fill="#fca5a5"/>
+                  <rect x="299" y="199" width="4" height="5" fill="#ef4444"/>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+        </figure>
 
         <ul class="socials" aria-label="Profiles">
           <li>
@@ -404,7 +1335,7 @@
             <li><a href="tel:+79258273482">+7 (925) 827-34-82</a></li>
             <li><a class="btn" href="CV%20Sokolov%20Pavel.pdf" download="CV Sokolov Pavel.pdf" data-i18n="cta_pdf">Скачать PDF</a></li>
           </ul>
-          <figure class="qr">
+          <figure class="qr" data-avatar-qr>
             <img src="assets/telegram-qr.png" width="180" height="180" alt="Telegram QR" loading="lazy">
           </figure>
         </div>
@@ -546,6 +1477,7 @@
 
   <script src="i18n.js"></script>
   <script src="theme.js"></script>
+  <script src="avatar.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
