@@ -171,8 +171,10 @@
       b.classList.toggle("is-active", year != null ? y === year : y >= from && y <= to);
     });
     if (focus) document.body.classList.add("is-job-focus");
-    attachLinked(jobEl, { open: openLinked || focus });
+    const open = openLinked || focus;
+    attachLinked(jobEl, { open });
     renderCases(jobEl);
+    if (open) window.avatarNotify?.onCasesOpen?.();
     if (focus) window.avatarNotify?.onJobOpen?.();
     if (scrollTo && (focus || openLinked)) {
       requestAnimationFrame(() => {

@@ -29,7 +29,7 @@
           <a href="#contact" data-nav="contact" data-i18n="nav_contact">Контакты</a>
         </nav>
 
-        <figure class="avatar" data-avatar aria-hidden="true">
+        <figure class="avatar is-note-gone" data-avatar aria-hidden="true">
         <div class="avatar__stage">
           <svg class="avatar__svg" viewBox="0 0 384 448" width="384" height="448" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
             <defs>
@@ -62,6 +62,11 @@
                 <rect x="18" y="368" width="26" height="7"/>
                 <rect x="23" y="375" width="16" height="6"/>
                 <rect x="27" y="381" width="8" height="5"/>
+              </clipPath>
+
+              <!-- monitor glass: keeps the atom inside the screen -->
+              <clipPath id="avatarScreen">
+                <rect x="108" y="260" width="168" height="96"/>
               </clipPath>
 
               <!-- hover sparkles; the rects inherit fill from the <use> that clones them -->
@@ -517,11 +522,15 @@
                 <!-- click target: send the glasses to the window sill -->
                 <g class="avatar__hit-group avatar__hit-group--face" data-lab-hit="glasses">
                   <rect class="avatar__hit" x="124" y="140" width="136" height="48"/>
-                  <use class="avatar__spark" href="#avatarSpark" x="192" y="134"/>
-                  <use class="avatar__spark" href="#avatarSparkS" x="122" y="138" style="animation-delay: 0.25s"/>
-                  <use class="avatar__spark" href="#avatarSparkS" x="262" y="138" style="animation-delay: 0.5s"/>
-                  <use class="avatar__spark" href="#avatarSpark" x="120" y="190" style="animation-delay: 0.7s"/>
-                  <use class="avatar__spark" href="#avatarSparkS" x="264" y="190" style="animation-delay: 0.95s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="140" y="146" style="animation-delay: 0.05s"/>
+                  <use class="avatar__spark" href="#avatarSpark" x="160" y="156" style="animation-delay: 0.2s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="176" y="174" style="animation-delay: 0.35s"/>
+                  <use class="avatar__spark" href="#avatarSpark" x="192" y="152"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="208" y="146" style="animation-delay: 0.45s"/>
+                  <use class="avatar__spark" href="#avatarSpark" x="224" y="156" style="animation-delay: 0.6s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="240" y="174" style="animation-delay: 0.75s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="128" y="162" style="animation-delay: 0.9s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="256" y="162" style="animation-delay: 1.05s"/>
                 </g>
               </g>
 
@@ -594,7 +603,7 @@
               <rect x="180" y="356" width="24" height="8" fill="#475569"/>
               <rect class="avatar__glow" x="108" y="248" width="168" height="4" fill="#64ffda"/>
               <rect x="100" y="252" width="184" height="112" fill="#1e293b"/>
-              <rect x="108" y="260" width="168" height="96" fill="#334155"/>
+              <rect x="108" y="260" width="168" height="96" fill="#1a2740"/>
               <rect x="100" y="252" width="184" height="6" fill="#475569"/>
               <rect x="100" y="252" width="6" height="112" fill="#475569"/>
               <rect x="278" y="252" width="6" height="112" fill="#0f172a"/>
@@ -860,13 +869,52 @@
               <rect x="184" y="360" width="16" height="36" fill="#334155"/>
               <rect x="180" y="356" width="24" height="8" fill="#475569"/>
               <rect x="100" y="252" width="184" height="112" fill="#1e293b"/>
-              <rect x="108" y="260" width="168" height="96" fill="#334155"/>
+              <rect x="108" y="260" width="168" height="96" fill="#1a2740"/>
               <rect x="100" y="252" width="184" height="6" fill="#475569"/>
               <rect x="100" y="252" width="6" height="112" fill="#475569"/>
               <rect x="278" y="252" width="6" height="112" fill="#0f172a"/>
               <rect x="108" y="356" width="168" height="6" fill="#0f172a"/>
               <rect x="176" y="268" width="32" height="12" fill="#1e293b"/>
               <rect x="220" y="260" width="20" height="8" fill="#e2e8f0" opacity="0.55"/>
+              <!-- neon atom: nucleus + 3 orbits, electrons run along the ellipses -->
+              <g class="avatar__atom" clip-path="url(#avatarScreen)">
+                <g transform="translate(192 308)">
+                  <rect class="avatar__atom-pad" x="-30" y="-30" width="60" height="60"/>
+                  <g transform="rotate(90)">
+                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
+                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
+                    <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
+                      <animateMotion dur="2.6s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                    <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.55">
+                      <animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                  </g>
+                  <g transform="rotate(30)">
+                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
+                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
+                    <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
+                      <animateMotion dur="3.2s" begin="-0.5s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                    <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.45">
+                      <animateMotion dur="3.2s" begin="-2.1s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                  </g>
+                  <g transform="rotate(-30)">
+                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
+                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
+                    <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
+                      <animateMotion dur="2.9s" begin="-1.2s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                    <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.5">
+                      <animateMotion dur="2.9s" begin="-0.2s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                  </g>
+                  <rect class="avatar__atom-core-glow" x="-5" y="-5" width="10" height="10"/>
+                  <rect class="avatar__atom-core" x="-3" y="-3" width="6" height="6"/>
+                  <rect class="avatar__atom-core-hot" x="-1" y="-1" width="2" height="2"/>
+                </g>
+              </g>
             </g>
 
             <!-- sticky note lives on the front face of the monitor -->
@@ -1349,7 +1397,6 @@
             <span class="tardis__label">TARDIS</span>
           </button>
         </div>
-        <p class="footer__credit">дизайн Павла Соколова и Курсор 2026</p>
       </footer>
     </main>
   </div>

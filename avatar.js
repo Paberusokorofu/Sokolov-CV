@@ -88,6 +88,7 @@
   let pointer = { x: 0, y: 0 };
   let busy = false;
   let noteGone = false;
+  let casesCheered = false;
   let glassesOff = false;
   let wine = false;
   let qrTimer = 0;
@@ -95,6 +96,8 @@
   let typingStep = 0;
   let typingTimers = [];
   let timers = [];
+  const stickyEl = root.querySelector(".avatar__sticky");
+  const contactBlock = document.getElementById("contact");
 
   function isPaused() {
     return reduceMotion || (!isLab && mobileMq.matches);
@@ -187,12 +190,12 @@
     play("is-nodding", NOD_DURATION);
   }
 
-  // sticker peel-off + fly-away, fired when a visitor first looks at the page
   function noteFly() {
     if (noteGone) return;
     noteGone = true;
     if (isPaused()) {
       root.classList.add("is-note-gone");
+      root.classList.remove("is-note-flying");
       return;
     }
     root.classList.add("is-note-flying");
@@ -205,6 +208,16 @@
   function noteReset() {
     noteGone = false;
     root.classList.remove("is-note-flying", "is-note-gone");
+  }
+
+  function noteShow() {
+    noteReset();
+  }
+
+  function onCasesOpen() {
+    if (casesCheered) return;
+    casesCheered = true;
+    cheer();
   }
 
   // ---- typing: individual fingers, changing patterns --------------------
@@ -460,10 +473,20 @@
     });
   }
 
-  stage.addEventListener("pointerenter", noteFly, { once: true });
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) noteFly();
-  });
+  if (isLab) {
+    stage.addEventListener("pointerenter", noteFly, { once: true });
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) noteFly();
+    });
+  } else {
+    noteGone = true;
+    root.classList.add("is-note-gone");
+    contactBlock?.addEventListener("pointerenter", noteShow);
+    stickyEl?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      noteFly();
+    });
+  }
 
   if (!isLab) {
     mobileMq.addEventListener?.("change", startCycles);
@@ -487,8 +510,11 @@
 
   window.avatarNotify = {
     onJobOpen: nod,
+    onCasesOpen,
     onLang: refreshStickyText,
     onVisitorLook: noteFly,
+    showSticky: noteShow,
+    peelSticky: noteFly,
   };
 
   if (isLab) {

@@ -9,11 +9,23 @@
       --bg: #f6f7f9;
       --ink: #0f172a;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --atom-orbit: #22d3ee;
+      --atom-orbit-glow: #0284c7;
+      --atom-core: #ffffff;
+      --atom-core-glow: #67e8f9;
+      --atom-electron: #e0f7ff;
+      --atom-pad: rgba(8, 14, 26, 0.55);
     }
 
     html[data-theme="dark"] {
       --bg: #0b1220;
       --ink: #e7eef8;
+      --atom-orbit: #67e8f9;
+      --atom-orbit-glow: #22d3ee;
+      --atom-core: #ffffff;
+      --atom-core-glow: #a5f3fc;
+      --atom-electron: #ffffff;
+      --atom-pad: rgba(2, 8, 20, 0.7);
     }
 
     body {
@@ -123,6 +135,60 @@
       opacity: 0.65;
     }
 
+    /* ---------- atom preview (right panel) ---------- */
+
+    .lab__atom-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 0 0 0.6rem;
+      opacity: 0.7;
+    }
+
+    .atom-preview {
+      display: block;
+      width: 100%;
+      padding: 0.4rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+      border-radius: 0.5rem;
+      background: transparent;
+      color: inherit;
+    }
+
+    .atom-preview__stage {
+      display: grid;
+      place-items: center;
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 0.25rem;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(34, 211, 238, 0.18), transparent 42%),
+        #0b1220;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    .atom-preview__stage svg {
+      width: 78%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    .atom-preview span {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 0.35rem;
+      opacity: 0.85;
+    }
+
+    .atom-preview small {
+      display: block;
+      font-size: 0.68rem;
+      opacity: 0.65;
+    }
+
     /* ---------- Telegram QR: the notepad on the desk scrolls here and
        blows it up to 2× for the length of the victory ---------- */
 
@@ -219,6 +285,12 @@
       --wine-deep: #651616;
       --wine-bubble: #e8a3a3;
       --wine-bubble-hi: #f6cfcf;
+      --atom-orbit: #22d3ee;
+      --atom-orbit-glow: #0284c7;
+      --atom-core: #ffffff;
+      --atom-core-glow: #67e8f9;
+      --atom-electron: #e0f7ff;
+      --atom-pad: rgba(8, 14, 26, 0.55);
     }
 
     html[data-theme="dark"] .avatar {
@@ -229,6 +301,12 @@
       --wine-deep: #c9c2a8;
       --wine-bubble: #fffdf3;
       --wine-bubble-hi: #ffffff;
+      --atom-orbit: #67e8f9;
+      --atom-orbit-glow: #22d3ee;
+      --atom-core: #ffffff;
+      --atom-core-glow: #a5f3fc;
+      --atom-electron: #ffffff;
+      --atom-pad: rgba(2, 8, 20, 0.7);
     }
 
     .avatar__stage {
@@ -312,8 +390,6 @@
     .avatar__spark {
       fill: var(--spark-core);
       filter: drop-shadow(0 0 1.5px var(--spark-halo)) drop-shadow(0 0 1.5px var(--spark-halo));
-      transform-box: fill-box;
-      transform-origin: center;
       pointer-events: none;
       opacity: 0;
     }
@@ -734,6 +810,60 @@
       animation: avatar-glow 1.8s steps(3, end) infinite;
     }
 
+    /* ---------- neon atom on the monitor screen ---------- */
+
+    .avatar__atom {
+      pointer-events: none;
+    }
+
+    .avatar__atom-pad {
+      fill: var(--atom-pad);
+    }
+
+    .avatar__atom-orbit {
+      fill: none;
+      stroke: var(--atom-orbit);
+    }
+
+    .avatar__atom-orbit-glow {
+      fill: none;
+      stroke: var(--atom-orbit-glow);
+      opacity: 0.4;
+    }
+
+    .avatar__atom-electron {
+      fill: var(--atom-electron);
+    }
+
+    .avatar__atom-spark {
+      fill: var(--atom-orbit);
+    }
+
+    .avatar__atom-core-glow {
+      fill: var(--atom-core-glow);
+      opacity: 0.55;
+      animation: avatar-atom-pulse 1.4s steps(2, end) infinite;
+    }
+
+    .avatar__atom-core {
+      fill: var(--atom-core);
+      animation: avatar-atom-pulse 1.4s steps(2, end) infinite;
+    }
+
+    .avatar__atom-core-hot {
+      fill: #ecfeff;
+    }
+
+    @keyframes avatar-atom-pulse {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.65;
+      }
+    }
+
     /* ---------- coffee steam: rises to the top of the monitor, thinning out ---------- */
 
     .avatar__steam-group {
@@ -1051,9 +1181,9 @@
     }
 
     @keyframes avatar-spark {
-      0%, 100% { opacity: 0; transform: scale(0.35); }
-      34% { opacity: 1; transform: scale(1); }
-      67% { opacity: 0.5; transform: scale(0.7); }
+      0%, 100% { opacity: 0; }
+      34% { opacity: 1; }
+      67% { opacity: 0.55; }
     }
 
     /* the crest rows are 400 wide with a 64-unit tile, so one tile of travel loops seamlessly */
@@ -1217,6 +1347,11 @@
               <rect x="18" y="368" width="26" height="7"/>
               <rect x="23" y="375" width="16" height="6"/>
               <rect x="27" y="381" width="8" height="5"/>
+            </clipPath>
+
+            <!-- monitor glass: keeps the atom inside the screen -->
+            <clipPath id="avatarScreen">
+              <rect x="108" y="260" width="168" height="96"/>
             </clipPath>
 
             <!-- hover sparkles; the rects inherit fill from the <use> that clones them -->
@@ -1672,11 +1807,15 @@
               <!-- click target: send the glasses to the window sill -->
               <g class="avatar__hit-group avatar__hit-group--face" data-lab-hit="glasses">
                 <rect class="avatar__hit" x="124" y="140" width="136" height="48"/>
-                <use class="avatar__spark" href="#avatarSpark" x="192" y="134"/>
-                <use class="avatar__spark" href="#avatarSparkS" x="122" y="138" style="animation-delay: 0.25s"/>
-                <use class="avatar__spark" href="#avatarSparkS" x="262" y="138" style="animation-delay: 0.5s"/>
-                <use class="avatar__spark" href="#avatarSpark" x="120" y="190" style="animation-delay: 0.7s"/>
-                <use class="avatar__spark" href="#avatarSparkS" x="264" y="190" style="animation-delay: 0.95s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="140" y="146" style="animation-delay: 0.05s"/>
+                <use class="avatar__spark" href="#avatarSpark" x="160" y="156" style="animation-delay: 0.2s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="176" y="174" style="animation-delay: 0.35s"/>
+                <use class="avatar__spark" href="#avatarSpark" x="192" y="152"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="208" y="146" style="animation-delay: 0.45s"/>
+                <use class="avatar__spark" href="#avatarSpark" x="224" y="156" style="animation-delay: 0.6s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="240" y="174" style="animation-delay: 0.75s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="128" y="162" style="animation-delay: 0.9s"/>
+                <use class="avatar__spark" href="#avatarSparkS" x="256" y="162" style="animation-delay: 1.05s"/>
               </g>
             </g>
 
@@ -1749,7 +1888,7 @@
             <rect x="180" y="356" width="24" height="8" fill="#475569"/>
             <rect class="avatar__glow" x="108" y="248" width="168" height="4" fill="#64ffda"/>
             <rect x="100" y="252" width="184" height="112" fill="#1e293b"/>
-            <rect x="108" y="260" width="168" height="96" fill="#334155"/>
+            <rect x="108" y="260" width="168" height="96" fill="#1a2740"/>
             <rect x="100" y="252" width="184" height="6" fill="#475569"/>
             <rect x="100" y="252" width="6" height="112" fill="#475569"/>
             <rect x="278" y="252" width="6" height="112" fill="#0f172a"/>
@@ -2015,13 +2154,52 @@
             <rect x="184" y="360" width="16" height="36" fill="#334155"/>
             <rect x="180" y="356" width="24" height="8" fill="#475569"/>
             <rect x="100" y="252" width="184" height="112" fill="#1e293b"/>
-            <rect x="108" y="260" width="168" height="96" fill="#334155"/>
+            <rect x="108" y="260" width="168" height="96" fill="#1a2740"/>
             <rect x="100" y="252" width="184" height="6" fill="#475569"/>
             <rect x="100" y="252" width="6" height="112" fill="#475569"/>
             <rect x="278" y="252" width="6" height="112" fill="#0f172a"/>
             <rect x="108" y="356" width="168" height="6" fill="#0f172a"/>
             <rect x="176" y="268" width="32" height="12" fill="#1e293b"/>
             <rect x="220" y="260" width="20" height="8" fill="#e2e8f0" opacity="0.55"/>
+            <!-- neon atom: nucleus + 3 orbits, electrons run along the ellipses -->
+            <g class="avatar__atom" clip-path="url(#avatarScreen)">
+              <g transform="translate(192 308)">
+                <rect class="avatar__atom-pad" x="-30" y="-30" width="60" height="60"/>
+                <g transform="rotate(90)">
+                  <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
+                  <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
+                  <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
+                    <animateMotion dur="2.6s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                  </rect>
+                  <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.55">
+                    <animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                  </rect>
+                </g>
+                <g transform="rotate(30)">
+                  <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
+                  <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
+                  <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
+                    <animateMotion dur="3.2s" begin="-0.5s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                  </rect>
+                  <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.45">
+                    <animateMotion dur="3.2s" begin="-2.1s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                  </rect>
+                </g>
+                <g transform="rotate(-30)">
+                  <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
+                  <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
+                  <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
+                    <animateMotion dur="2.9s" begin="-1.2s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                  </rect>
+                  <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.5">
+                    <animateMotion dur="2.9s" begin="-0.2s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                  </rect>
+                </g>
+                <rect class="avatar__atom-core-glow" x="-5" y="-5" width="10" height="10"/>
+                <rect class="avatar__atom-core" x="-3" y="-3" width="6" height="6"/>
+                <rect class="avatar__atom-core-hot" x="-1" y="-1" width="2" height="2"/>
+              </g>
+            </g>
           </g>
 
           <!-- sticky note lives on the front face of the monitor -->
@@ -2134,6 +2312,51 @@
     </div>
 
     <aside class="lab__typing">
+      <h2 class="lab__atom-title">Атом на мониторе</h2>
+      <div class="atom-preview">
+        <div class="atom-preview__stage" aria-hidden="true">
+          <svg viewBox="-70 -70 140 140" width="200" height="200" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+            <g class="avatar__atom">
+              <g transform="rotate(90)">
+                <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="48" ry="18" stroke-width="5"/>
+                <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="48" ry="18" stroke-width="2.5"/>
+                <rect class="avatar__atom-electron" x="-3" y="-3" width="6" height="6">
+                  <animateMotion dur="2.6s" repeatCount="indefinite" path="M48,0 A48,18 0 1,1 -48,0 A48,18 0 1,1 48,0"/>
+                </rect>
+                <rect class="avatar__atom-spark" x="-1.5" y="-1.5" width="3" height="3" opacity="0.55">
+                  <animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite" path="M48,0 A48,18 0 1,1 -48,0 A48,18 0 1,1 48,0"/>
+                </rect>
+              </g>
+              <g transform="rotate(30)">
+                <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="48" ry="18" stroke-width="5"/>
+                <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="48" ry="18" stroke-width="2.5"/>
+                <rect class="avatar__atom-electron" x="-3" y="-3" width="6" height="6">
+                  <animateMotion dur="3.2s" begin="-0.5s" repeatCount="indefinite" path="M48,0 A48,18 0 1,1 -48,0 A48,18 0 1,1 48,0"/>
+                </rect>
+                <rect class="avatar__atom-spark" x="-1.5" y="-1.5" width="3" height="3" opacity="0.45">
+                  <animateMotion dur="3.2s" begin="-2.1s" repeatCount="indefinite" path="M48,0 A48,18 0 1,1 -48,0 A48,18 0 1,1 48,0"/>
+                </rect>
+              </g>
+              <g transform="rotate(-30)">
+                <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="48" ry="18" stroke-width="5"/>
+                <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="48" ry="18" stroke-width="2.5"/>
+                <rect class="avatar__atom-electron" x="-3" y="-3" width="6" height="6">
+                  <animateMotion dur="2.9s" begin="-1.2s" repeatCount="indefinite" path="M48,0 A48,18 0 1,1 -48,0 A48,18 0 1,1 48,0"/>
+                </rect>
+                <rect class="avatar__atom-spark" x="-1.5" y="-1.5" width="3" height="3" opacity="0.5">
+                  <animateMotion dur="2.9s" begin="-0.2s" repeatCount="indefinite" path="M48,0 A48,18 0 1,1 -48,0 A48,18 0 1,1 48,0"/>
+                </rect>
+              </g>
+              <rect class="avatar__atom-core-glow" x="-10" y="-10" width="20" height="20"/>
+              <rect class="avatar__atom-core" x="-6" y="-6" width="12" height="12"/>
+              <rect class="avatar__atom-core-hot" x="-2" y="-2" width="4" height="4"/>
+            </g>
+          </svg>
+        </div>
+        <span>Neon atom</span>
+        <small>ядро + 3 орбиты · электроны по эллипсам · как на мониторе аватара</small>
+      </div>
+
       <h2 class="lab__typing-title">Режим печати · T2</h2>
 
       <div class="typing__card is-active" data-typing="T2" aria-current="true">

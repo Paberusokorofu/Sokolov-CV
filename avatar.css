@@ -18,6 +18,12 @@
   --wine-deep: #651616;
   --wine-bubble: #e8a3a3;
   --wine-bubble-hi: #f6cfcf;
+  --atom-orbit: #22d3ee;
+  --atom-orbit-glow: #0284c7;
+  --atom-core: #ffffff;
+  --atom-core-glow: #67e8f9;
+  --atom-electron: #e0f7ff;
+  --atom-pad: rgba(8, 14, 26, 0.55);
 }
 
 html[data-theme="dark"] .avatar {
@@ -28,6 +34,12 @@ html[data-theme="dark"] .avatar {
   --wine-deep: #c9c2a8;
   --wine-bubble: #fffdf3;
   --wine-bubble-hi: #ffffff;
+  --atom-orbit: #67e8f9;
+  --atom-orbit-glow: #22d3ee;
+  --atom-core: #ffffff;
+  --atom-core-glow: #a5f3fc;
+  --atom-electron: #ffffff;
+  --atom-pad: rgba(2, 8, 20, 0.7);
 }
 
 .avatar__stage {
@@ -111,8 +123,6 @@ html[data-theme="dark"] .avatar {
 .avatar__spark {
   fill: var(--spark-core);
   filter: drop-shadow(0 0 1.5px var(--spark-halo)) drop-shadow(0 0 1.5px var(--spark-halo));
-  transform-box: fill-box;
-  transform-origin: center;
   pointer-events: none;
   opacity: 0;
 }
@@ -509,10 +519,13 @@ html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn--r .avatar__horn
 .avatar__sticky {
   transform-box: view-box;
   transform-origin: 236px 292px;
+  cursor: pointer;
+  pointer-events: all;
 }
 
 .avatar__sticky-curl {
   opacity: 0;
+  pointer-events: none;
 }
 
 .avatar.is-note-flying .avatar__sticky {
@@ -523,7 +536,8 @@ html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn--r .avatar__horn
   animation: avatar-sticky-curl 1.6s steps(2, end) both;
 }
 
-.avatar.is-note-gone .avatar__sticky {
+.avatar.is-note-gone .avatar__sticky,
+.avatar.is-note-gone .avatar__sticky-curl {
   opacity: 0;
   pointer-events: none;
 }
@@ -531,6 +545,60 @@ html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn--r .avatar__horn
 .avatar__glow {
   opacity: 0.55;
   animation: avatar-glow 1.8s steps(3, end) infinite;
+}
+
+/* ---------- neon atom on the monitor screen ---------- */
+
+.avatar__atom {
+  pointer-events: none;
+}
+
+.avatar__atom-pad {
+  fill: var(--atom-pad);
+}
+
+.avatar__atom-orbit {
+  fill: none;
+  stroke: var(--atom-orbit);
+}
+
+.avatar__atom-orbit-glow {
+  fill: none;
+  stroke: var(--atom-orbit-glow);
+  opacity: 0.4;
+}
+
+.avatar__atom-electron {
+  fill: var(--atom-electron);
+}
+
+.avatar__atom-spark {
+  fill: var(--atom-orbit);
+}
+
+.avatar__atom-core-glow {
+  fill: var(--atom-core-glow);
+  opacity: 0.55;
+  animation: avatar-atom-pulse 1.4s steps(2, end) infinite;
+}
+
+.avatar__atom-core {
+  fill: var(--atom-core);
+  animation: avatar-atom-pulse 1.4s steps(2, end) infinite;
+}
+
+.avatar__atom-core-hot {
+  fill: #ecfeff;
+}
+
+@keyframes avatar-atom-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.65;
+  }
 }
 
 /* ---------- coffee steam: rises to the top of the monitor, thinning out ---------- */
@@ -850,9 +918,9 @@ html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn--r .avatar__horn
 }
 
 @keyframes avatar-spark {
-  0%, 100% { opacity: 0; transform: scale(0.35); }
-  34% { opacity: 1; transform: scale(1); }
-  67% { opacity: 0.5; transform: scale(0.7); }
+  0%, 100% { opacity: 0; }
+  34% { opacity: 1; }
+  67% { opacity: 0.55; }
 }
 
 /* the crest rows are 400 wide with a 64-unit tile, so one tile of travel loops seamlessly */

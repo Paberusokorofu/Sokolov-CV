@@ -105,13 +105,15 @@ a:hover {
 
 .layout {
   --layout-max: 72rem;
-  --layout-free: max(0px, calc(100vw - min(100vw - 2rem, var(--layout-max))));
+  --layout-pad: 2rem;
+  --layout-width: min(calc(100% - var(--layout-pad)), var(--layout-max));
+  --layout-free: max(0px, calc(100% - var(--layout-width)));
   --layout-left-gutter: max(0.5rem, calc(var(--layout-free) / 4));
   --layout-right-gutter: calc(var(--layout-free) - var(--layout-left-gutter));
   display: grid;
   grid-template-columns: minmax(16rem, var(--max-aside)) minmax(0, 1fr);
   gap: 0 2.5rem;
-  width: min(100% - 2rem, var(--layout-max));
+  width: var(--layout-width);
   margin: 0;
   margin-left: var(--layout-left-gutter);
   margin-right: auto;
@@ -315,6 +317,12 @@ body.is-job-focus .aside__role {
 .main {
   min-width: 0;
   padding: 1.5rem 0 2rem;
+  overflow: visible;
+}
+
+.section--work,
+.jobs {
+  overflow: visible;
 }
 
 .section {
@@ -455,9 +463,10 @@ body.is-job-focus .aside__role {
 
 .job.is-active:has(.job-linked.is-open) {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.95fr);
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.95fr);
   gap: 0 1rem;
   align-items: stretch;
+  overflow: visible;
 }
 
 @media (min-width: 981px) {
@@ -858,13 +867,6 @@ html[data-theme="dark"] .qr img {
 
 .footer__copy {
   margin: 0;
-}
-
-.footer__credit {
-  margin: 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.02em;
-  opacity: 0.72;
 }
 
 .tardis {
