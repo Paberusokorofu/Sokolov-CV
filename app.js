@@ -219,15 +219,54 @@
   homeLinks.forEach((el) => {
     el.addEventListener("click", (e) => {
       e.preventDefault();
-      collapseHome({ scroll: true });
+      showCvView({ scroll: true, hash: "#intro" });
     });
   });
 
+  const cvView = document.getElementById("cv-view");
+  const autoView = document.getElementById("automation");
+
+  function showAutomationView() {
+    if (cvView) cvView.hidden = true;
+    if (autoView) autoView.hidden = false;
+    document.body.classList.add("is-automation");
+    document.body.classList.remove("is-job-focus");
+    navLinks.forEach((a) => {
+      a.classList.toggle("is-active", a.getAttribute("data-nav") === "automation");
+    });
+    window.ExcelAI?.init?.();
+    if (location.hash !== "#automation") {
+      history.replaceState(null, "", "#automation");
+    }
+  }
+
+  function showCvView({ scroll = false, hash = "" } = {}) {
+    if (cvView) cvView.hidden = false;
+    if (autoView) autoView.hidden = true;
+    document.body.classList.remove("is-automation");
+    if (hash) {
+      history.replaceState(null, "", hash);
+      if (scroll) {
+        const id = hash.replace("#", "");
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }
+
   navLinks.forEach((a) => {
-    a.addEventListener("click", () => {
-      if (a.getAttribute("data-nav") === "intro") collapseHome({ scroll: false });
+    a.addEventListener("click", (e) => {
+      const nav = a.getAttribute("data-nav");
+      if (nav === "automation") {
+        e.preventDefault();
+        showAutomationView();
+        return;
+      }
+      showCvView({ hash: a.getAttribute("href") || "" });
+      if (nav === "intro") collapseHome({ scroll: false });
     });
   });
+
+  if (location.hash === "#automation") showAutomationView();
 
   prevBtn?.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -269,6 +308,7 @@
 
   const spy = new IntersectionObserver(
     (entries) => {
+      if (document.body.classList.contains("is-automation")) return;
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const id = entry.target.id;
