@@ -226,7 +226,7 @@
   const cvView = document.getElementById("cv-view");
   const autoView = document.getElementById("automation");
 
-  function showAutomationView() {
+  function showAutomationView({ syncHash = true } = {}) {
     if (cvView) cvView.hidden = true;
     if (autoView) autoView.hidden = false;
     document.body.classList.add("is-automation");
@@ -235,21 +235,32 @@
       a.classList.toggle("is-active", a.getAttribute("data-nav") === "automation");
     });
     window.ExcelAI?.init?.();
-    if (location.hash !== "#automation") {
-      history.replaceState(null, "", "#automation");
+    if (syncHash && location.hash !== "#automation") {
+      history.pushState(null, "", "#automation");
     }
+    window.scrollTo(0, 0);
   }
 
-  function showCvView({ scroll = false, hash = "" } = {}) {
+  function showCvView({ scroll = false, hash = "", syncHash = true } = {}) {
     if (cvView) cvView.hidden = false;
     if (autoView) autoView.hidden = true;
     document.body.classList.remove("is-automation");
-    if (hash) {
+    if (hash && syncHash) {
       history.replaceState(null, "", hash);
       if (scroll) {
         const id = hash.replace("#", "");
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+    }
+  }
+
+  function syncViewFromHash() {
+    if (location.hash === "#automation") {
+      showAutomationView({ syncHash: false });
+      return;
+    }
+    if (document.body.classList.contains("is-automation")) {
+      showCvView({ syncHash: false });
     }
   }
 
@@ -261,12 +272,20 @@
         showAutomationView();
         return;
       }
-      showCvView({ hash: a.getAttribute("href") || "" });
+      const wasAuto = document.body.classList.contains("is-automation");
+      showCvView({
+        hash: a.getAttribute("href") || "",
+        scroll: wasAuto,
+        syncHash: wasAuto,
+      });
       if (nav === "intro") collapseHome({ scroll: false });
     });
   });
 
-  if (location.hash === "#automation") showAutomationView();
+  window.addEventListener("popstate", syncViewFromHash);
+  window.addEventListener("hashchange", syncViewFromHash);
+
+  if (location.hash === "#automation") showAutomationView({ syncHash: false });
 
   prevBtn?.addEventListener("click", (e) => {
     e.stopPropagation();

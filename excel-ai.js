@@ -9,6 +9,19 @@
     return dict[key] || fallback || key;
   }
 
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function isAllowedFile(file) {
+    const name = (file.name || "").toLowerCase();
+    return /\.(xlsx|xls|csv)$/.test(name);
+  }
+
   function slugify(name, i) {
     const base = String(name || `col_${i + 1}`)
       .trim()
@@ -211,9 +224,10 @@
       const vals = cols.map((c, i) => sqlLiteral(row[i], c.kind)).join(", ");
       return `INSERT INTO ${tableName} (${names}) VALUES (${vals});`;
     });
+    const omitted = rows.length - MAX_INSERT_ROWS;
     const more =
-      rows.length > MAX_INSERT_ROWS
-        ? `\n-- … ещё ${rows.length - MAX_INSERT_ROWS} строк опущено для наглядности`
+      omitted > 0
+        ? `\n-- ${t("auto_sql_more", `… ещё ${omitted} строк опущено для наглядности`).replace("{n}", String(omitted))}`
         : "";
     return `${create}\n\n${inserts.join("\n")}${more}\n`;
   }
@@ -259,8 +273,8 @@
 
   function renderMeta(el, info) {
     el.innerHTML = `
-      <p><strong>${t("auto_meta_file", "Файл")}:</strong> ${info.fileName}</p>
-      <p><strong>${t("auto_meta_sheet", "Лист")}:</strong> ${info.sheetName}</p>
+      <p><strong>${t("auto_meta_file", "Файл")}:</strong> ${escapeHtml(info.fileName)}</p>
+      <p><strong>${t("auto_meta_sheet", "Лист")}:</strong> ${escapeHtml(info.sheetName)}</p>
       <p><strong>${t("auto_meta_size", "Размер")}:</strong> ${(info.bytes / 1024).toFixed(1)} KB</p>
       <p><strong>${t("auto_meta_shape", "Строк × столбцов")}:</strong> ${info.rows} × ${info.cols}</p>
     `;
@@ -276,8 +290,8 @@
       ${cols
         .map(
           (c) => `<tr>
-        <td>${c.header}<br><code>${c.name}</code></td>
-        <td>${c.pg}</td>
+        <td>${escapeHtml(c.header)}<br><code>${escapeHtml(c.name)}</code></td>
+        <td>${escapeHtml(c.pg)}</td>
         <td>${c.nulls}</td>
         <td>${(c.uniqueRatio * 100).toFixed(0)}%</td>
       </tr>`
@@ -348,6 +362,10 @@
     };
     errEl.hidden = true;
     if (!file) return;
+    if (!isAllowedFile(file)) {
+      showErr(t("auto_err_type", "Нужен файл .xlsx, .xls или .csv."));
+      return;
+    }
     if (file.size > MAX_BYTES) {
       showErr(t("auto_err_size", "Файл больше 1 МБ."));
       return;
@@ -355,7 +373,10 @@
     try {
       await ensureLibs();
       const buf = await file.arrayBuffer();
-      const wb = window.XLSX.read(buf, { type: "array", cellDates: true });
+      const isCsv = /\.csv$/i.test(file.name || "");
+      const wb = isCsv
+        ? window.XLSX.read(new TextDecoder("utf-8").decode(buf), { type: "string", raw: false })
+        : window.XLSX.read(buf, { type: "array", cellDates: true });
       const sheetName = wb.SheetNames[0];
       if (!sheetName) {
         showErr(t("auto_err_empty", "В книге нет листов."));

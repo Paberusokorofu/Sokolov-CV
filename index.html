@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap&v=auto1" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=auto1">
+  <link rel="stylesheet" href="styles.css?v=auto2">
   <link rel="stylesheet" href="avatar.css?v=auto1">
 </head>
 <body>
@@ -1517,9 +1517,9 @@
 
         <div class="auto__tool" data-excel-tool>
           <div class="auto-drop" data-excel-drop tabindex="0" role="button" aria-controls="excel-file">
-            <input id="excel-file" type="file" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden data-excel-input>
+            <input id="excel-file" type="file" accept=".xlsx,.xls,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden data-excel-input>
             <p class="auto-drop__title" data-i18n="auto_drop_title">Перетащите Excel сюда</p>
-            <p class="auto-drop__hint" data-i18n="auto_drop_hint">Один лист · до 1 МБ или 100 строк · .xlsx / .xls</p>
+            <p class="auto-drop__hint" data-i18n="auto_drop_hint">Один лист · до 1 МБ или 100 строк · .xlsx / .xls / .csv</p>
             <p class="auto-drop__btn" data-i18n="auto_drop_btn">или выберите файл</p>
           </div>
           <p class="auto-error" data-excel-error hidden></p>
@@ -1685,10 +1685,10 @@
     </article>
   </template>
 
-  <script src="i18n.js"></script>
+  <script src="i18n.js?v=auto2"></script>
   <script src="theme.js"></script>
   <script src="avatar.js"></script>
-  <script src="excel-ai.js"></script>
-  <script src="app.js"></script>
+  <script src="excel-ai.js?v=auto2"></script>
+  <script src="app.js?v=auto2"></script>
 </body>
 </html>
