@@ -12,7 +12,6 @@
   --max-aside: 22rem;
   --max-aside-focus: 13.5rem;
   --font: "IBM Plex Sans", "Segoe UI", sans-serif;
-  --font-display: "Fraunces", Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --radius: 0.55rem;
@@ -161,9 +160,9 @@ body.is-job-focus .aside__role {
 
 .aside__name {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font);
   font-size: clamp(1.85rem, 1.2rem + 2.2vw, 2.7rem);
-  font-weight: 650;
+  font-weight: 600;
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
