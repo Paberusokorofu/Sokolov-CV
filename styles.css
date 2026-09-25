@@ -160,15 +160,18 @@ body.is-job-focus .aside__role {
 
 .aside__name {
   margin: 0;
-  font-family: var(--font);
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   font-size: clamp(1.85rem, 1.2rem + 2.2vw, 2.7rem);
   font-weight: 600;
+  font-style: normal;
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
 
 .aside__name-link {
   color: inherit;
+  font-family: inherit;
+  font-weight: inherit;
   text-decoration: none;
 }
 
