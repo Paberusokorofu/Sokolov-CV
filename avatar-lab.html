@@ -77,6 +77,45 @@
       opacity: 0.7;
     }
 
+    .lab__emo-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 1.1rem 0 0.45rem;
+      opacity: 0.7;
+    }
+
+    .lab__emo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin: 0 0 0.85rem;
+    }
+
+    .lab__emo-list button {
+      font: inherit;
+      font-size: 0.78rem;
+      text-align: left;
+      padding: 0.4rem 0.55rem;
+      border-radius: 0.45rem;
+      border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+      background: color-mix(in srgb, currentColor 4%, transparent);
+      color: inherit;
+      cursor: pointer;
+      line-height: 1.25;
+    }
+
+    .lab__emo-list button:hover {
+      border-color: currentColor;
+      background: color-mix(in srgb, currentColor 8%, transparent);
+    }
+
+    .lab__emo-list button small {
+      display: block;
+      opacity: 0.55;
+      font-size: 0.68rem;
+      margin-top: 0.1rem;
+    }
+
     .typing__card {
       display: block;
       width: 100%;
@@ -532,6 +571,99 @@
       filter: drop-shadow(0 0 5px #64ffda);
     }
 
+    /* ---------- think: right hand to chin, typing pauses ---------- */
+
+    .avatar.is-thinking .avatar__fingers--r {
+      animation: avatar-think-typehide 2.6s steps(1, end) both;
+    }
+
+    .avatar.is-thinking .avatar__arm--r {
+      animation: avatar-think-shoulder-r 2.6s ease-in-out both;
+    }
+
+    .avatar.is-thinking .avatar__arm--r .avatar__elbow {
+      animation: avatar-think-elbow-r 2.6s ease-in-out both;
+    }
+
+    .avatar.is-thinking .avatar__arm--r .avatar__hand {
+      animation: avatar-think-hand-r 2.6s ease-in-out both;
+    }
+
+    .avatar.is-thinking .avatar__head {
+      animation: avatar-think-head 2.6s ease-in-out both;
+    }
+
+    .avatar.is-thinking .avatar__body {
+      animation: avatar-think-body 2.6s ease-in-out both;
+    }
+
+    /* ---------- tired: stretch / yawn ---------- */
+
+    .avatar.is-tired .avatar__fingers {
+      animation: avatar-tired-typehide 2.6s steps(1, end) both;
+    }
+
+    .avatar.is-tired .avatar__arm--l {
+      animation: avatar-tired-shoulder-l 2.6s ease-in-out both;
+    }
+
+    .avatar.is-tired .avatar__arm--r {
+      animation: avatar-tired-shoulder-r 2.6s ease-in-out both;
+    }
+
+    .avatar.is-tired .avatar__arm--l .avatar__elbow {
+      animation: avatar-tired-elbow-l 2.6s ease-in-out both;
+    }
+
+    .avatar.is-tired .avatar__arm--r .avatar__elbow {
+      animation: avatar-tired-elbow-r 2.6s ease-in-out both;
+    }
+
+    .avatar.is-tired .avatar__arm--l .avatar__hand {
+      animation: avatar-tired-hand-l 2.6s ease-in-out both;
+    }
+
+    .avatar.is-tired .avatar__arm--r .avatar__hand {
+      animation: avatar-tired-hand-r 2.6s ease-in-out both;
+    }
+
+    .avatar.is-tired .avatar__body {
+      animation: avatar-tired-body 2.6s ease-in-out both;
+    }
+
+    .avatar.is-tired .avatar__head {
+      animation: avatar-tired-head 2.6s ease-in-out both;
+    }
+
+    .avatar.is-tired .avatar__lids {
+      animation: avatar-tired-lids 2.6s steps(2, end) both;
+    }
+
+    /* ---------- lang switch: blink + slight head turn ---------- */
+
+    .avatar.is-lang-turn .avatar__head {
+      animation: avatar-lang-head 0.85s ease-in-out both;
+    }
+
+    .avatar.is-lang-turn .avatar__lids {
+      animation: avatar-lang-lids 0.85s steps(2, end) both;
+    }
+
+    .avatar__lids {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ---------- lamp flicker (dblclick; does not change theme) ---------- */
+
+    .avatar.is-lamp-flicker .avatar__lamp {
+      animation: avatar-lamp-flicker 0.9s steps(1, end) both;
+    }
+
+    .avatar.is-lamp-flicker .avatar__glow {
+      animation: avatar-lamp-flicker-glow 0.9s steps(1, end) both;
+    }
+
     /* ---------- desk lamp (LEFT) ---------- */
 
     .avatar__lamp-rays,
@@ -811,6 +943,19 @@
     }
 
     /* ---------- neon atom on the monitor screen ---------- */
+
+    .avatar__screens {
+      pointer-events: none;
+    }
+
+    .avatar__screen {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .avatar__screen.is-active {
+      opacity: 1;
+    }
 
     .avatar__atom {
       pointer-events: none;
@@ -1121,6 +1266,146 @@
       0% { opacity: 0; transform: translateY(8px); }
       30%, 70% { opacity: 1; transform: translateY(0); }
       100% { opacity: 0; transform: translateY(-14px); }
+    }
+
+    @keyframes avatar-think-shoulder-r {
+      0%, 100% { transform: rotate(0deg); }
+      16% { transform: rotate(48deg); }
+      28%, 70% { transform: rotate(105deg); }
+      84% { transform: rotate(42deg); }
+    }
+
+    @keyframes avatar-think-elbow-r {
+      0%, 100% { transform: rotate(0deg); }
+      16% { transform: rotate(-12deg); }
+      28%, 70% { transform: rotate(-25deg); }
+      84% { transform: rotate(-10deg); }
+    }
+
+    @keyframes avatar-think-hand-r {
+      0%, 100% { transform: rotate(0deg); }
+      16% { transform: rotate(-90deg); }
+      28%, 70% { transform: rotate(-190deg); }
+      84% { transform: rotate(-80deg); }
+    }
+
+    @keyframes avatar-think-head {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      22%, 68% { transform: translate(3px, 3px) rotate(7deg); }
+      84% { transform: translate(1px, 1px) rotate(2deg); }
+    }
+
+    @keyframes avatar-think-body {
+      0%, 100% { transform: translateY(0); }
+      28%, 70% { transform: translateY(-3px); }
+    }
+
+    @keyframes avatar-think-typehide {
+      0%, 8% { opacity: 1; }
+      12%, 86% { opacity: 0; }
+      92%, 100% { opacity: 1; }
+    }
+
+    @keyframes avatar-tired-shoulder-l {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      20% { transform: translateY(-12px) rotate(8deg); }
+      40%, 62% { transform: translateY(-28px) rotate(16deg); }
+      80% { transform: translateY(-10px) rotate(6deg); }
+    }
+
+    @keyframes avatar-tired-shoulder-r {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      20% { transform: translateY(-12px) rotate(-8deg); }
+      40%, 62% { transform: translateY(-28px) rotate(-16deg); }
+      80% { transform: translateY(-10px) rotate(-6deg); }
+    }
+
+    @keyframes avatar-tired-elbow-l {
+      0%, 100% { transform: rotate(0deg); }
+      20% { transform: rotate(-70deg); }
+      40%, 62% { transform: rotate(-150deg); }
+      80% { transform: rotate(-60deg); }
+    }
+
+    @keyframes avatar-tired-elbow-r {
+      0%, 100% { transform: rotate(0deg); }
+      20% { transform: rotate(70deg); }
+      40%, 62% { transform: rotate(150deg); }
+      80% { transform: rotate(60deg); }
+    }
+
+    @keyframes avatar-tired-hand-l {
+      0%, 100% { transform: rotate(0deg); }
+      40%, 62% { transform: rotate(28deg); }
+      80% { transform: rotate(10deg); }
+    }
+
+    @keyframes avatar-tired-hand-r {
+      0%, 100% { transform: rotate(0deg); }
+      40%, 62% { transform: rotate(-28deg); }
+      80% { transform: rotate(-10deg); }
+    }
+
+    @keyframes avatar-tired-body {
+      0%, 100% { transform: translateY(0); }
+      30%, 58% { transform: translateY(-16px); }
+      78% { transform: translateY(-5px); }
+    }
+
+    @keyframes avatar-tired-head {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-8px) rotate(-8deg); }
+      45%, 60% { transform: translateY(-16px) rotate(-14deg); }
+      78% { transform: translateY(-4px) rotate(-4deg); }
+    }
+
+    @keyframes avatar-tired-lids {
+      0%, 18% { opacity: 0; }
+      28%, 64% { opacity: 1; }
+      78%, 100% { opacity: 0; }
+    }
+
+    @keyframes avatar-tired-typehide {
+      0%, 8% { opacity: 1; }
+      12%, 86% { opacity: 0; }
+      92%, 100% { opacity: 1; }
+    }
+
+    @keyframes avatar-lang-head {
+      0%, 100% { transform: rotate(0deg); }
+      28% { transform: rotate(-9deg); }
+      55% { transform: rotate(6deg); }
+      78% { transform: rotate(-2deg); }
+    }
+
+    @keyframes avatar-lang-lids {
+      0%, 18% { opacity: 0; }
+      28%, 42% { opacity: 1; }
+      52%, 62% { opacity: 0; }
+      70%, 80% { opacity: 1; }
+      90%, 100% { opacity: 0; }
+    }
+
+    @keyframes avatar-lamp-flicker {
+      0%, 100% { filter: brightness(1); }
+      8% { filter: brightness(1.45); }
+      18% { filter: brightness(0.25); }
+      28% { filter: brightness(1.35); }
+      40% { filter: brightness(0.3); }
+      52% { filter: brightness(1.25); }
+      66% { filter: brightness(0.2); }
+      78% { filter: brightness(1.15); }
+    }
+
+    @keyframes avatar-lamp-flicker-glow {
+      0%, 100% { opacity: 0.55; }
+      8% { opacity: 0.95; }
+      18% { opacity: 0.2; }
+      28% { opacity: 0.9; }
+      40% { opacity: 0.25; }
+      52% { opacity: 0.85; }
+      66% { opacity: 0.15; }
+      78% { opacity: 0.7; }
     }
 
     /* peel-off + fly-away: the note lifts on its tape, tears loose, spins away */
@@ -1804,6 +2089,14 @@
               </g>
               </g>
 
+              <!-- blink / yawn lids drawn over lenses and bare eyes -->
+              <g class="avatar__lids">
+                <rect x="140" y="148" width="40" height="32" fill="#f0c9a8"/>
+                <rect x="140" y="148" width="40" height="6" fill="#e0b491"/>
+                <rect x="204" y="148" width="40" height="32" fill="#f0c9a8"/>
+                <rect x="204" y="148" width="40" height="6" fill="#e0b491"/>
+              </g>
+
               <!-- click target: send the glasses to the window sill -->
               <g class="avatar__hit-group avatar__hit-group--face" data-lab-hit="glasses">
                 <rect class="avatar__hit" x="124" y="140" width="136" height="48"/>
@@ -2161,44 +2454,122 @@
             <rect x="108" y="356" width="168" height="6" fill="#0f172a"/>
             <rect x="176" y="268" width="32" height="12" fill="#1e293b"/>
             <rect x="220" y="260" width="20" height="8" fill="#e2e8f0" opacity="0.55"/>
-            <!-- neon atom: nucleus + 3 orbits, electrons run along the ellipses -->
-            <g class="avatar__atom" clip-path="url(#avatarScreen)">
-              <g transform="translate(192 308)">
-                <rect class="avatar__atom-pad" x="-30" y="-30" width="60" height="60"/>
-                <g transform="rotate(90)">
-                  <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
-                  <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
-                  <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
-                    <animateMotion dur="2.6s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
-                  </rect>
-                  <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.55">
-                    <animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
-                  </rect>
+            <!-- monitor screens: atom → chart → code (sticky draws above and can cover) -->
+            <g class="avatar__screens" clip-path="url(#avatarScreen)">
+              <g class="avatar__screen avatar__atom is-active" data-screen="atom" shape-rendering="geometricPrecision">
+                <g transform="translate(192 308)">
+                  <rect class="avatar__atom-pad" x="-30" y="-30" width="60" height="60"/>
+                  <g transform="rotate(90)">
+                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
+                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
+                    <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
+                      <animateMotion dur="2.6s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                    <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.55">
+                      <animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                  </g>
+                  <g transform="rotate(30)">
+                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
+                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
+                    <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
+                      <animateMotion dur="3.2s" begin="-0.5s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                    <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.45">
+                      <animateMotion dur="3.2s" begin="-2.1s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                  </g>
+                  <g transform="rotate(-30)">
+                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
+                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
+                    <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
+                      <animateMotion dur="2.9s" begin="-1.2s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                    <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.5">
+                      <animateMotion dur="2.9s" begin="-0.2s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    </rect>
+                  </g>
+                  <rect class="avatar__atom-core-glow" x="-5" y="-5" width="10" height="10"/>
+                  <rect class="avatar__atom-core" x="-3" y="-3" width="6" height="6"/>
+                  <rect class="avatar__atom-core-hot" x="-1" y="-1" width="2" height="2"/>
                 </g>
-                <g transform="rotate(30)">
-                  <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
-                  <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
-                  <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
-                    <animateMotion dur="3.2s" begin="-0.5s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
-                  </rect>
-                  <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.45">
-                    <animateMotion dur="3.2s" begin="-2.1s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
-                  </rect>
-                </g>
-                <g transform="rotate(-30)">
-                  <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
-                  <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
-                  <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
-                    <animateMotion dur="2.9s" begin="-1.2s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
-                  </rect>
-                  <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.5">
-                    <animateMotion dur="2.9s" begin="-0.2s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
-                  </rect>
-                </g>
-                <rect class="avatar__atom-core-glow" x="-5" y="-5" width="10" height="10"/>
-                <rect class="avatar__atom-core" x="-3" y="-3" width="6" height="6"/>
-                <rect class="avatar__atom-core-hot" x="-1" y="-1" width="2" height="2"/>
               </g>
+              <g class="avatar__screen" data-screen="chart">
+                <rect x="108" y="260" width="168" height="96" fill="#0b1220"/>
+                <rect x="114" y="266" width="156" height="10" fill="#1e293b"/>
+                <rect x="118" y="268" width="28" height="6" fill="#38bdf8"/>
+                <rect x="150" y="269" width="18" height="4" fill="#64748b"/>
+                <rect x="118" y="282" width="36" height="22" fill="#132033"/>
+                <rect x="122" y="286" width="12" height="4" fill="#22d3ee"/>
+                <rect x="122" y="294" width="20" height="4" fill="#334155"/>
+                <rect x="160" y="282" width="36" height="22" fill="#132033"/>
+                <rect x="164" y="286" width="16" height="4" fill="#a78bfa"/>
+                <rect x="164" y="294" width="14" height="4" fill="#334155"/>
+                <rect x="202" y="282" width="36" height="22" fill="#132033"/>
+                <rect x="206" y="286" width="10" height="4" fill="#34d399"/>
+                <rect x="206" y="294" width="22" height="4" fill="#334155"/>
+                <rect x="244" y="282" width="28" height="22" fill="#132033"/>
+                <rect x="248" y="286" width="14" height="4" fill="#fbbf24"/>
+                <rect x="248" y="294" width="10" height="4" fill="#334155"/>
+                <rect x="118" y="312" width="8" height="34" fill="#1e293b"/>
+                <rect x="120" y="328" width="4" height="16" fill="#38bdf8"/>
+                <rect x="132" y="312" width="8" height="34" fill="#1e293b"/>
+                <rect x="134" y="320" width="4" height="24" fill="#22d3ee"/>
+                <rect x="146" y="312" width="8" height="34" fill="#1e293b"/>
+                <rect x="148" y="334" width="4" height="10" fill="#67e8f9"/>
+                <rect x="160" y="312" width="8" height="34" fill="#1e293b"/>
+                <rect x="162" y="318" width="4" height="26" fill="#38bdf8"/>
+                <rect x="174" y="312" width="8" height="34" fill="#1e293b"/>
+                <rect x="176" y="324" width="4" height="20" fill="#0ea5e9"/>
+                <rect x="188" y="312" width="8" height="34" fill="#1e293b"/>
+                <rect x="190" y="316" width="4" height="28" fill="#22d3ee"/>
+                <rect x="210" y="318" width="54" height="28" fill="#132033"/>
+                <rect x="214" y="336" width="10" height="6" fill="#334155"/>
+                <rect x="228" y="328" width="10" height="14" fill="#64748b"/>
+                <rect x="242" y="322" width="10" height="20" fill="#38bdf8"/>
+                <rect x="256" y="330" width="4" height="12" fill="#22d3ee"/>
+              </g>
+              <g class="avatar__screen" data-screen="code">
+                <rect x="108" y="260" width="168" height="96" fill="#071018"/>
+                <rect x="108" y="260" width="22" height="96" fill="#0d1a28"/>
+                <rect x="114" y="268" width="10" height="4" fill="#334155"/>
+                <rect x="114" y="278" width="10" height="4" fill="#334155"/>
+                <rect x="114" y="288" width="10" height="4" fill="#475569"/>
+                <rect x="114" y="298" width="10" height="4" fill="#334155"/>
+                <rect x="114" y="308" width="10" height="4" fill="#334155"/>
+                <rect x="114" y="318" width="10" height="4" fill="#475569"/>
+                <rect x="114" y="328" width="10" height="4" fill="#334155"/>
+                <rect x="114" y="338" width="10" height="4" fill="#334155"/>
+                <rect x="138" y="268" width="18" height="4" fill="#c084fc"/>
+                <rect x="160" y="268" width="40" height="4" fill="#67e8f9"/>
+                <rect x="204" y="268" width="24" height="4" fill="#94a3b8"/>
+                <rect x="138" y="278" width="12" height="4" fill="#64748b"/>
+                <rect x="154" y="278" width="52" height="4" fill="#34d399"/>
+                <rect x="138" y="288" width="12" height="4" fill="#64748b"/>
+                <rect x="154" y="288" width="28" height="4" fill="#fbbf24"/>
+                <rect x="186" y="288" width="36" height="4" fill="#e2e8f0"/>
+                <rect x="138" y="298" width="12" height="4" fill="#64748b"/>
+                <rect x="154" y="298" width="64" height="4" fill="#22d3ee"/>
+                <rect x="138" y="308" width="8" height="4" fill="#c084fc"/>
+                <rect x="150" y="308" width="44" height="4" fill="#67e8f9"/>
+                <rect x="198" y="308" width="20" height="4" fill="#94a3b8"/>
+                <rect x="138" y="318" width="12" height="4" fill="#64748b"/>
+                <rect x="154" y="318" width="48" height="4" fill="#34d399"/>
+                <rect x="138" y="328" width="12" height="4" fill="#64748b"/>
+                <rect x="154" y="328" width="20" height="4" fill="#f472b6"/>
+                <rect x="178" y="328" width="40" height="4" fill="#e2e8f0"/>
+                <rect x="138" y="338" width="6" height="4" fill="#c084fc"/>
+                <rect x="148" y="338" width="32" height="4" fill="#67e8f9"/>
+                <rect x="182" y="338" width="4" height="4" fill="#f8fafc"/>
+              </g>
+            </g>
+            <g class="avatar__hit-group" data-lab-hit="monitor">
+              <rect class="avatar__hit" x="108" y="260" width="168" height="96"/>
+              <use class="avatar__spark" href="#avatarSpark" x="192" y="254"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="112" y="268" style="animation-delay: 0.2s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="264" y="272" style="animation-delay: 0.45s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="120" y="340" style="animation-delay: 0.7s"/>
+              <use class="avatar__spark" href="#avatarSparkS" x="256" y="338" style="animation-delay: 0.95s"/>
             </g>
           </g>
 
@@ -2297,21 +2668,31 @@
     <div class="lab__controls">
       <button type="button" class="theme__btn is-active" data-set-theme="light" aria-pressed="true">☀ день</button>
       <button type="button" class="theme__btn" data-set-theme="dark" aria-pressed="false">☾ ночь</button>
-      <button type="button" data-lab="sigh">вздох</button>
-      <button type="button" data-lab="sip">глоток</button>
-      <button type="button" data-lab="cheer">победа</button>
-      <button type="button" data-lab="nod">кивок</button>
-      <button type="button" data-lab="noteFly">посетитель смотрит</button>
-      <button type="button" data-lab="noteReset">вернуть стикер</button>
-      <button type="button" data-lab="toggleTheme">лампа/тема</button>
-      <button type="button" data-lab="toggleGlasses">очки</button>
-      <button type="button" data-lab="toggleDrink">кофе/вино</button>
-      <button type="button" data-lab="notepad">блокнот → QR</button>
     </div>
 
     </div>
 
     <aside class="lab__typing">
+      <h2 class="lab__emo-title">Все эмоции и действия</h2>
+      <div class="lab__emo-list">
+        <button type="button" data-lab="think">думает<small>рука к подбородку</small></button>
+        <button type="button" data-lab="tired">усталость<small>потягушки + зевок</small></button>
+        <button type="button" data-lab="cheer">победа / PDF cheer<small>руки вверх + конфетти</small></button>
+        <button type="button" data-lab="onPdf">PDF cheer<small>как «Скачать PDF»</small></button>
+        <button type="button" data-lab="sigh">вздох<small>плечи + выдох</small></button>
+        <button type="button" data-lab="sip">глоток<small>кружка ко рту</small></button>
+        <button type="button" data-lab="nod">кивок<small>привет на вакансии</small></button>
+        <button type="button" data-lab="langTurn">RU/EN blink<small>мигание + поворот головы</small></button>
+        <button type="button" data-lab="nextScreen">экран<small>atom → chart → code</small></button>
+        <button type="button" data-lab="toggleTheme">лампа / тема<small>клик = день↔ночь</small></button>
+        <button type="button" data-lab="flickerLamp">мерцание лампы<small>dblclick без смены темы</small></button>
+        <button type="button" data-lab="toggleGlasses">очки<small>снять / надеть</small></button>
+        <button type="button" data-lab="toggleDrink">кофе / вино<small>смена напитка</small></button>
+        <button type="button" data-lab="notepad">блокнот → QR<small>зум QR Telegram</small></button>
+        <button type="button" data-lab="noteFly">стикер улетает<small>посетитель смотрит</small></button>
+        <button type="button" data-lab="noteReset">вернуть стикер<small>сброс записки</small></button>
+      </div>
+
       <h2 class="lab__atom-title">Атом на мониторе</h2>
       <div class="atom-preview">
         <div class="atom-preview__stage" aria-hidden="true">
@@ -2354,33 +2735,14 @@
           </svg>
         </div>
         <span>Neon atom</span>
-        <small>ядро + 3 орбиты · электроны по эллипсам · как на мониторе аватара</small>
+        <small>клик по монитору · atom → chart → code</small>
       </div>
 
       <h2 class="lab__typing-title">Режим печати · T2</h2>
-
       <div class="typing__card is-active" data-typing="T2" aria-current="true">
         <img src="assets/typing-T2.gif?v=1790277170" alt="T2 Офисный" width="512" height="168" loading="eager" decoding="async">
         <span>T2 «Офисный»</span>
-        <small>активный режим аватара · средний темп, одиночные + серии по 2–3 пальца</small>
-      </div>
-
-      <div class="typing__card" data-typing="T1">
-        <img src="assets/typing-T1.gif?v=1790277170" alt="" width="512" height="168" loading="lazy" decoding="async">
-        <span>T1 «Спокойный»</span>
-        <small>референс</small>
-      </div>
-
-      <div class="typing__card" data-typing="T3">
-        <img src="assets/typing-T3.gif?v=1790277170" alt="" width="512" height="168" loading="lazy" decoding="async">
-        <span>T3 «Быстрый набор»</span>
-        <small>референс</small>
-      </div>
-
-      <div class="typing__card" data-typing="T4">
-        <img src="assets/typing-T4.gif?v=1790277170" alt="" width="512" height="168" loading="lazy" decoding="async">
-        <span>T4 «Ритмичный»</span>
-        <small>референс</small>
+        <small>активный режим аватара</small>
       </div>
     </aside>
     </div>
@@ -2394,7 +2756,7 @@
   </div>
 
   <script src="theme.js"></script>
-  <script src="avatar.js?v=1790277170"></script>
+  <script src="avatar.js?v=1790500000"></script>
   <script>
     document.querySelectorAll("[data-lab]").forEach((btn) => {
       btn.addEventListener("click", () => {

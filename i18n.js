@@ -235,7 +235,7 @@ const I18N = {
 
 window.I18N = I18N;
 
-function applyLang(lang) {
+function applyLang(lang, { notify = true } = {}) {
   const dict = I18N[lang] || I18N.ru;
   document.documentElement.lang = lang;
   document.title = dict.name;
@@ -252,7 +252,7 @@ function applyLang(lang) {
     localStorage.setItem("site-lang", lang);
   } catch (_) {}
   if (typeof window.refreshJobStory === "function") window.refreshJobStory();
-  window.avatarNotify?.onLang?.();
+  if (notify) window.avatarNotify?.onLang?.();
 }
 
 document.querySelectorAll("[data-set-lang]").forEach((btn) => {
@@ -263,6 +263,6 @@ let initial = "ru";
 try {
   initial = localStorage.getItem("site-lang") || "ru";
 } catch (_) {}
-applyLang(initial);
+applyLang(initial, { notify: false });
 
 window.applyLang = applyLang;

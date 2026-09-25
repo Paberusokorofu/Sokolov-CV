@@ -265,6 +265,99 @@ html[data-theme="dark"] .avatar__window-night { opacity: 1; }
   filter: drop-shadow(0 0 5px #64ffda);
 }
 
+/* ---------- think: right hand to chin, typing pauses ---------- */
+
+.avatar.is-thinking .avatar__fingers--r {
+  animation: avatar-think-typehide 2.6s steps(1, end) both;
+}
+
+.avatar.is-thinking .avatar__arm--r {
+  animation: avatar-think-shoulder-r 2.6s ease-in-out both;
+}
+
+.avatar.is-thinking .avatar__arm--r .avatar__elbow {
+  animation: avatar-think-elbow-r 2.6s ease-in-out both;
+}
+
+.avatar.is-thinking .avatar__arm--r .avatar__hand {
+  animation: avatar-think-hand-r 2.6s ease-in-out both;
+}
+
+.avatar.is-thinking .avatar__head {
+  animation: avatar-think-head 2.6s ease-in-out both;
+}
+
+.avatar.is-thinking .avatar__body {
+  animation: avatar-think-body 2.6s ease-in-out both;
+}
+
+/* ---------- tired: stretch / yawn ---------- */
+
+.avatar.is-tired .avatar__fingers {
+  animation: avatar-tired-typehide 2.6s steps(1, end) both;
+}
+
+.avatar.is-tired .avatar__arm--l {
+  animation: avatar-tired-shoulder-l 2.6s ease-in-out both;
+}
+
+.avatar.is-tired .avatar__arm--r {
+  animation: avatar-tired-shoulder-r 2.6s ease-in-out both;
+}
+
+.avatar.is-tired .avatar__arm--l .avatar__elbow {
+  animation: avatar-tired-elbow-l 2.6s ease-in-out both;
+}
+
+.avatar.is-tired .avatar__arm--r .avatar__elbow {
+  animation: avatar-tired-elbow-r 2.6s ease-in-out both;
+}
+
+.avatar.is-tired .avatar__arm--l .avatar__hand {
+  animation: avatar-tired-hand-l 2.6s ease-in-out both;
+}
+
+.avatar.is-tired .avatar__arm--r .avatar__hand {
+  animation: avatar-tired-hand-r 2.6s ease-in-out both;
+}
+
+.avatar.is-tired .avatar__body {
+  animation: avatar-tired-body 2.6s ease-in-out both;
+}
+
+.avatar.is-tired .avatar__head {
+  animation: avatar-tired-head 2.6s ease-in-out both;
+}
+
+.avatar.is-tired .avatar__lids {
+  animation: avatar-tired-lids 2.6s steps(2, end) both;
+}
+
+/* ---------- lang switch: blink + slight head turn ---------- */
+
+.avatar.is-lang-turn .avatar__head {
+  animation: avatar-lang-head 0.85s ease-in-out both;
+}
+
+.avatar.is-lang-turn .avatar__lids {
+  animation: avatar-lang-lids 0.85s steps(2, end) both;
+}
+
+.avatar__lids {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- lamp flicker (dblclick; does not change theme) ---------- */
+
+.avatar.is-lamp-flicker .avatar__lamp {
+  animation: avatar-lamp-flicker 0.9s steps(1, end) both;
+}
+
+.avatar.is-lamp-flicker .avatar__glow {
+  animation: avatar-lamp-flicker-glow 0.9s steps(1, end) both;
+}
+
 /* ---------- desk lamp (LEFT) ---------- */
 
 .avatar__lamp-rays,
@@ -548,6 +641,19 @@ html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn--r .avatar__horn
 }
 
 /* ---------- neon atom on the monitor screen ---------- */
+
+.avatar__screens {
+  pointer-events: none;
+}
+
+.avatar__screen {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.avatar__screen.is-active {
+  opacity: 1;
+}
 
 .avatar__atom {
   pointer-events: none;
@@ -860,6 +966,148 @@ html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn--r .avatar__horn
   0% { opacity: 0; transform: translateY(8px); }
   30%, 70% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-14px); }
+}
+
+/* think: right arm folds across so the hand rests on the chin */
+@keyframes avatar-think-shoulder-r {
+  0%, 100% { transform: rotate(0deg); }
+  16% { transform: rotate(48deg); }
+  28%, 70% { transform: rotate(105deg); }
+  84% { transform: rotate(42deg); }
+}
+
+@keyframes avatar-think-elbow-r {
+  0%, 100% { transform: rotate(0deg); }
+  16% { transform: rotate(-12deg); }
+  28%, 70% { transform: rotate(-25deg); }
+  84% { transform: rotate(-10deg); }
+}
+
+@keyframes avatar-think-hand-r {
+  0%, 100% { transform: rotate(0deg); }
+  16% { transform: rotate(-90deg); }
+  28%, 70% { transform: rotate(-190deg); }
+  84% { transform: rotate(-80deg); }
+}
+
+@keyframes avatar-think-head {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  22%, 68% { transform: translate(3px, 3px) rotate(7deg); }
+  84% { transform: translate(1px, 1px) rotate(2deg); }
+}
+
+@keyframes avatar-think-body {
+  0%, 100% { transform: translateY(0); }
+  28%, 70% { transform: translateY(-3px); }
+}
+
+@keyframes avatar-think-typehide {
+  0%, 8% { opacity: 1; }
+  12%, 86% { opacity: 0; }
+  92%, 100% { opacity: 1; }
+}
+
+/* tired: arms lift + stretch out, head tips back, lids close (yawn) */
+@keyframes avatar-tired-shoulder-l {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  20% { transform: translateY(-12px) rotate(8deg); }
+  40%, 62% { transform: translateY(-28px) rotate(16deg); }
+  80% { transform: translateY(-10px) rotate(6deg); }
+}
+
+@keyframes avatar-tired-shoulder-r {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  20% { transform: translateY(-12px) rotate(-8deg); }
+  40%, 62% { transform: translateY(-28px) rotate(-16deg); }
+  80% { transform: translateY(-10px) rotate(-6deg); }
+}
+
+@keyframes avatar-tired-elbow-l {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-70deg); }
+  40%, 62% { transform: rotate(-150deg); }
+  80% { transform: rotate(-60deg); }
+}
+
+@keyframes avatar-tired-elbow-r {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(70deg); }
+  40%, 62% { transform: rotate(150deg); }
+  80% { transform: rotate(60deg); }
+}
+
+@keyframes avatar-tired-hand-l {
+  0%, 100% { transform: rotate(0deg); }
+  40%, 62% { transform: rotate(28deg); }
+  80% { transform: rotate(10deg); }
+}
+
+@keyframes avatar-tired-hand-r {
+  0%, 100% { transform: rotate(0deg); }
+  40%, 62% { transform: rotate(-28deg); }
+  80% { transform: rotate(-10deg); }
+}
+
+@keyframes avatar-tired-body {
+  0%, 100% { transform: translateY(0); }
+  30%, 58% { transform: translateY(-16px); }
+  78% { transform: translateY(-5px); }
+}
+
+@keyframes avatar-tired-head {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-8px) rotate(-8deg); }
+  45%, 60% { transform: translateY(-16px) rotate(-14deg); }
+  78% { transform: translateY(-4px) rotate(-4deg); }
+}
+
+@keyframes avatar-tired-lids {
+  0%, 18% { opacity: 0; }
+  28%, 64% { opacity: 1; }
+  78%, 100% { opacity: 0; }
+}
+
+@keyframes avatar-tired-typehide {
+  0%, 8% { opacity: 1; }
+  12%, 86% { opacity: 0; }
+  92%, 100% { opacity: 1; }
+}
+
+@keyframes avatar-lang-head {
+  0%, 100% { transform: rotate(0deg); }
+  28% { transform: rotate(-9deg); }
+  55% { transform: rotate(6deg); }
+  78% { transform: rotate(-2deg); }
+}
+
+@keyframes avatar-lang-lids {
+  0%, 18% { opacity: 0; }
+  28%, 42% { opacity: 1; }
+  52%, 62% { opacity: 0; }
+  70%, 80% { opacity: 1; }
+  90%, 100% { opacity: 0; }
+}
+
+@keyframes avatar-lamp-flicker {
+  0%, 100% { filter: brightness(1); }
+  8% { filter: brightness(1.45); }
+  18% { filter: brightness(0.25); }
+  28% { filter: brightness(1.35); }
+  40% { filter: brightness(0.3); }
+  52% { filter: brightness(1.25); }
+  66% { filter: brightness(0.2); }
+  78% { filter: brightness(1.15); }
+}
+
+@keyframes avatar-lamp-flicker-glow {
+  0%, 100% { opacity: 0.55; }
+  8% { opacity: 0.95; }
+  18% { opacity: 0.2; }
+  28% { opacity: 0.9; }
+  40% { opacity: 0.25; }
+  52% { opacity: 0.85; }
+  66% { opacity: 0.15; }
+  78% { opacity: 0.7; }
 }
 
 /* peel-off + fly-away: the note lifts on its tape, tears loose, spins away */

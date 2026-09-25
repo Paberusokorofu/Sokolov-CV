@@ -106,8 +106,8 @@ a:hover {
 .layout {
   --layout-max: 72rem;
   --layout-pad: 2rem;
-  --layout-width: min(calc(100% - var(--layout-pad)), var(--layout-max));
-  --layout-free: max(0px, calc(100% - var(--layout-width)));
+  --layout-width: min(calc(100vw - var(--layout-pad)), var(--layout-max));
+  --layout-free: max(0px, calc(100vw - var(--layout-width)));
   --layout-left-gutter: max(0.5rem, calc(var(--layout-free) / 4));
   --layout-right-gutter: calc(var(--layout-free) - var(--layout-left-gutter));
   display: grid;
@@ -488,7 +488,7 @@ body.is-job-focus .socials .icon {
 
 @media (min-width: 981px) {
   .job.is-active:has(.job-linked.is-open) {
-    width: calc(100% + var(--layout-right-gutter));
+    width: calc(100% + (var(--layout-right-gutter) * 0.5));
     max-width: none;
   }
 }

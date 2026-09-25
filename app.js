@@ -126,7 +126,7 @@
       bindCaseMedia(node);
     });
     if (typeof window.applyLang === "function") {
-      window.applyLang(document.documentElement.lang || "ru");
+      window.applyLang(document.documentElement.lang || "ru", { notify: false });
     }
     fillStory(jobEl);
   }
@@ -239,6 +239,20 @@
   });
 
   collapseHome({ scroll: false });
+
+  document.querySelectorAll('a[download][data-i18n="cta_pdf"], a.btn[download]').forEach((link) => {
+    link.addEventListener("click", () => {
+      window.avatarNotify?.onPdf?.();
+    });
+  });
+
+  const aboutNav = document.querySelector('[data-nav="intro"]');
+  aboutNav?.addEventListener("pointerenter", () => {
+    window.avatarNotify?.onAbout?.();
+  });
+  aboutNav?.addEventListener("click", () => {
+    window.avatarNotify?.onAbout?.();
+  });
 
   openArchive?.addEventListener("click", () => {
     if (typeof dialog.showModal === "function") dialog.showModal();

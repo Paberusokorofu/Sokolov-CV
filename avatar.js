@@ -13,6 +13,12 @@
   const FX_EVERY = 4500;
   const NOD_DURATION = 900;
   const NOTE_FLY_DURATION = 1600;
+  const THINK_DURATION = 2600;
+  const TIRED_DURATION = 2600;
+  const LANG_DURATION = 850;
+  const LAMP_FLICKER_DURATION = 900;
+  const LAMP_CLICK_WAIT = 280;
+  const SCREEN_ORDER = ["atom", "chart", "code"];
 
   const svg = root.querySelector(".avatar__svg");
   const stage = root.querySelector(".avatar__stage") || root;
@@ -74,7 +80,9 @@
     glassesSill: root.querySelector('[data-lab-hit="glassesSill"]'),
     drink: root.querySelector('[data-lab-hit="drink"]'),
     notepad: root.querySelector('[data-lab-hit="notepad"]'),
+    monitor: root.querySelector('[data-lab-hit="monitor"]'),
   };
+  const screens = Array.from(root.querySelectorAll(".avatar__screen"));
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   // The lab page always behaves like desktop: no mobile opt-out.
@@ -89,9 +97,18 @@
   let busy = false;
   let noteGone = false;
   let casesCheered = false;
+  let aboutThought = false;
   let glassesOff = false;
   let wine = false;
   let qrTimer = 0;
+  let lampClickTimer = 0;
+  let lampIgnoreClick = false;
+  let screenIdx = Math.max(
+    0,
+    SCREEN_ORDER.indexOf(
+      (screens.find((s) => s.classList.contains("is-active")) || screens[0] || {}).dataset?.screen || "atom"
+    )
+  );
   let typingVariant = TYPING_LOCKED;
   let typingStep = 0;
   let typingTimers = [];
@@ -189,6 +206,56 @@
     });
   }
 
+  function think() {
+    if (isPaused()) return;
+    if (busy) {
+      window.setTimeout(think, 600);
+      return;
+    }
+    busy = true;
+    play("is-thinking", THINK_DURATION, () => {
+      busy = false;
+    });
+  }
+
+  function tired() {
+    if (isPaused()) return;
+    if (busy) {
+      window.setTimeout(tired, 600);
+      return;
+    }
+    busy = true;
+    play("is-tired", TIRED_DURATION, () => {
+      busy = false;
+    });
+  }
+
+  function langTurn() {
+    if (isPaused()) return;
+    play("is-lang-turn", LANG_DURATION);
+  }
+
+  function flickerLamp() {
+    root.classList.remove("is-lamp-flicker");
+    void root.offsetWidth;
+    root.classList.add("is-lamp-flicker");
+    window.setTimeout(() => root.classList.remove("is-lamp-flicker"), LAMP_FLICKER_DURATION);
+  }
+
+  function showScreen(key) {
+    const next = SCREEN_ORDER.includes(key) ? key : SCREEN_ORDER[0];
+    screenIdx = SCREEN_ORDER.indexOf(next);
+    screens.forEach((scene) => {
+      scene.classList.toggle("is-active", scene.dataset.screen === next);
+    });
+    return next;
+  }
+
+  function nextScreen() {
+    const next = SCREEN_ORDER[(screenIdx + 1) % SCREEN_ORDER.length];
+    return showScreen(next);
+  }
+
   function nod() {
     if (isPaused()) return;
     play("is-nodding", NOD_DURATION);
@@ -221,6 +288,21 @@
   function onCasesOpen() {
     if (casesCheered) return;
     casesCheered = true;
+    cheer();
+  }
+
+  function onAbout() {
+    if (aboutThought) return;
+    aboutThought = true;
+    think();
+  }
+
+  function onLang() {
+    refreshStickyText();
+    langTurn();
+  }
+
+  function onPdf() {
     cheer();
   }
 
@@ -270,6 +352,8 @@
     if (!finger) return;
     // the left hand is busy with the mug, and both hands are up on a cheer
     if (root.classList.contains("is-cheering")) return;
+    if (root.classList.contains("is-thinking")) return;
+    if (root.classList.contains("is-tired")) return;
     if (root.classList.contains("is-sipping") && index < 4) return;
 
     const key = keys[index];
@@ -444,8 +528,29 @@
 
   if (hits.lamp) {
     hits.lamp.addEventListener("click", () => {
+      if (lampIgnoreClick) {
+        lampIgnoreClick = false;
+        return;
+      }
+      window.clearTimeout(lampClickTimer);
+      lampClickTimer = window.setTimeout(() => {
+        flashHit(hits.lamp);
+        toggleTheme();
+      }, LAMP_CLICK_WAIT);
+    });
+    hits.lamp.addEventListener("dblclick", (e) => {
+      e.preventDefault();
+      window.clearTimeout(lampClickTimer);
+      lampIgnoreClick = true;
       flashHit(hits.lamp);
-      toggleTheme();
+      flickerLamp();
+    });
+  }
+
+  if (hits.monitor) {
+    hits.monitor.addEventListener("click", () => {
+      flashHit(hits.monitor);
+      nextScreen();
     });
   }
 
@@ -518,10 +623,17 @@
   window.avatarNotify = {
     onJobOpen: nod,
     onCasesOpen,
-    onLang: refreshStickyText,
+    onAbout,
+    onLang,
+    onPdf,
     onVisitorLook: noteFly,
     showSticky: noteShow,
     peelSticky: noteFly,
+    think,
+    tired,
+    cheer,
+    nextScreen,
+    flickerLamp,
   };
 
   if (isLab) {
@@ -529,13 +641,20 @@
       sigh,
       sip,
       cheer,
+      think,
+      tired,
       nod,
       noteFly,
       noteReset,
       toggleTheme,
+      flickerLamp,
       toggleGlasses,
       toggleDrink,
       notepad,
+      nextScreen,
+      langTurn,
+      onPdf,
+      onLang,
       setTyping,
       typingVariants: Object.keys(TYPING).map((key) => ({ key, label: TYPING[key].label })),
     };
