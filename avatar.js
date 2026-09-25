@@ -97,7 +97,11 @@
   let typingTimers = [];
   let timers = [];
   const stickyEl = root.querySelector(".avatar__sticky");
-  const contactBlock = document.getElementById("contact");
+  const contactTriggers = [
+    document.getElementById("contact"),
+    document.getElementById("contacts"),
+    ...document.querySelectorAll('[data-nav="contact"]'),
+  ].filter((el, i, all) => el && all.indexOf(el) === i);
 
   function isPaused() {
     return reduceMotion || (!isLab && mobileMq.matches);
@@ -481,7 +485,10 @@
   } else {
     noteGone = true;
     root.classList.add("is-note-gone");
-    contactBlock?.addEventListener("pointerenter", noteShow);
+    contactTriggers.forEach((el) => {
+      el.addEventListener("pointerenter", noteShow);
+      el.addEventListener("mouseenter", noteShow);
+    });
     stickyEl?.addEventListener("click", (e) => {
       e.stopPropagation();
       noteFly();

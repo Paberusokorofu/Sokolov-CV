@@ -214,24 +214,41 @@ body.is-job-focus .aside__role {
 .socials {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.35rem;
   margin: 0.65rem 0 0;
   padding: 0;
+  width: 100%;
 }
 
 .socials a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.35rem;
-  height: 2.35rem;
+  flex: 0 0 auto;
+  width: 2.05rem;
+  height: 2.05rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--muted);
   text-decoration: none;
   background: var(--bg-elev);
   transition: border-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+body.is-job-focus .socials {
+  gap: 0.28rem;
+}
+
+body.is-job-focus .socials a {
+  width: 1.85rem;
+  height: 1.85rem;
+}
+
+body.is-job-focus .socials .icon {
+  width: 0.95rem;
+  height: 0.95rem;
 }
 
 .socials a:hover {

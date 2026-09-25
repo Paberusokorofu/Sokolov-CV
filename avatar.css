@@ -23,7 +23,7 @@
   --atom-core: #ffffff;
   --atom-core-glow: #67e8f9;
   --atom-electron: #e0f7ff;
-  --atom-pad: rgba(8, 14, 26, 0.55);
+  --atom-pad: rgba(8, 14, 26, 0.35);
 }
 
 html[data-theme="dark"] .avatar {
@@ -39,7 +39,7 @@ html[data-theme="dark"] .avatar {
   --atom-core: #ffffff;
   --atom-core-glow: #a5f3fc;
   --atom-electron: #ffffff;
-  --atom-pad: rgba(2, 8, 20, 0.7);
+  --atom-pad: rgba(2, 8, 20, 0.45);
 }
 
 .avatar__stage {
@@ -551,39 +551,41 @@ html:not([data-theme="dark"]) .avatar.is-cheer-fx .avatar__horn--r .avatar__horn
 
 .avatar__atom {
   pointer-events: none;
+  /* Override root SVG crispEdges — thin ellipse strokes otherwise vanish when scaled down */
+  shape-rendering: geometricPrecision;
 }
 
 .avatar__atom-pad {
-  fill: var(--atom-pad);
+  fill: var(--atom-pad, #0b1220);
 }
 
 .avatar__atom-orbit {
   fill: none;
-  stroke: var(--atom-orbit);
+  stroke: var(--atom-orbit, #67e8f9);
 }
 
 .avatar__atom-orbit-glow {
   fill: none;
-  stroke: var(--atom-orbit-glow);
-  opacity: 0.4;
+  stroke: var(--atom-orbit-glow, #22d3ee);
+  opacity: 0.45;
 }
 
 .avatar__atom-electron {
-  fill: var(--atom-electron);
+  fill: var(--atom-electron, #ffffff);
 }
 
 .avatar__atom-spark {
-  fill: var(--atom-orbit);
+  fill: var(--atom-orbit, #67e8f9);
 }
 
 .avatar__atom-core-glow {
-  fill: var(--atom-core-glow);
+  fill: var(--atom-core-glow, #a5f3fc);
   opacity: 0.55;
   animation: avatar-atom-pulse 1.4s steps(2, end) infinite;
 }
 
 .avatar__atom-core {
-  fill: var(--atom-core);
+  fill: var(--atom-core, #ffffff);
   animation: avatar-atom-pulse 1.4s steps(2, end) infinite;
 }
 

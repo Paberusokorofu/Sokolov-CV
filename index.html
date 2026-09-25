@@ -876,43 +876,43 @@
               <rect x="108" y="356" width="168" height="6" fill="#0f172a"/>
               <rect x="176" y="268" width="32" height="12" fill="#1e293b"/>
               <rect x="220" y="260" width="20" height="8" fill="#e2e8f0" opacity="0.55"/>
-              <!-- neon atom: nucleus + 3 orbits, electrons run along the ellipses -->
-              <g class="avatar__atom" clip-path="url(#avatarScreen)">
+              <!-- neon atom: nucleus + 3 orbits; geometricPrecision so crispEdges SVG doesn't eat strokes -->
+              <g class="avatar__atom" clip-path="url(#avatarScreen)" shape-rendering="geometricPrecision">
                 <g transform="translate(192 308)">
-                  <rect class="avatar__atom-pad" x="-30" y="-30" width="60" height="60"/>
+                  <rect class="avatar__atom-pad" x="-34" y="-34" width="68" height="68" fill="#0b1220"/>
                   <g transform="rotate(90)">
-                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
-                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
-                    <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
-                      <animateMotion dur="2.6s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="28" ry="11" fill="none" stroke="#22d3ee" stroke-width="4" opacity="0.45"/>
+                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="28" ry="11" fill="none" stroke="#67e8f9" stroke-width="2.25"/>
+                    <rect class="avatar__atom-electron" x="-2" y="-2" width="4" height="4" fill="#ffffff">
+                      <animateMotion dur="2.6s" repeatCount="indefinite" path="M28,0 A28,11 0 1,1 -28,0 A28,11 0 1,1 28,0"/>
                     </rect>
-                    <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.55">
-                      <animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    <rect class="avatar__atom-spark" x="-1.25" y="-1.25" width="2.5" height="2.5" fill="#67e8f9" opacity="0.55">
+                      <animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite" path="M28,0 A28,11 0 1,1 -28,0 A28,11 0 1,1 28,0"/>
                     </rect>
                   </g>
                   <g transform="rotate(30)">
-                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
-                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
-                    <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
-                      <animateMotion dur="3.2s" begin="-0.5s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="28" ry="11" fill="none" stroke="#22d3ee" stroke-width="4" opacity="0.45"/>
+                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="28" ry="11" fill="none" stroke="#67e8f9" stroke-width="2.25"/>
+                    <rect class="avatar__atom-electron" x="-2" y="-2" width="4" height="4" fill="#ffffff">
+                      <animateMotion dur="3.2s" begin="-0.5s" repeatCount="indefinite" path="M28,0 A28,11 0 1,1 -28,0 A28,11 0 1,1 28,0"/>
                     </rect>
-                    <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.45">
-                      <animateMotion dur="3.2s" begin="-2.1s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    <rect class="avatar__atom-spark" x="-1.25" y="-1.25" width="2.5" height="2.5" fill="#67e8f9" opacity="0.45">
+                      <animateMotion dur="3.2s" begin="-2.1s" repeatCount="indefinite" path="M28,0 A28,11 0 1,1 -28,0 A28,11 0 1,1 28,0"/>
                     </rect>
                   </g>
                   <g transform="rotate(-30)">
-                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="26" ry="10" stroke-width="3"/>
-                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="26" ry="10" stroke-width="1.5"/>
-                    <rect class="avatar__atom-electron" x="-1.5" y="-1.5" width="3" height="3">
-                      <animateMotion dur="2.9s" begin="-1.2s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    <ellipse class="avatar__atom-orbit-glow" cx="0" cy="0" rx="28" ry="11" fill="none" stroke="#22d3ee" stroke-width="4" opacity="0.45"/>
+                    <ellipse class="avatar__atom-orbit" cx="0" cy="0" rx="28" ry="11" fill="none" stroke="#67e8f9" stroke-width="2.25"/>
+                    <rect class="avatar__atom-electron" x="-2" y="-2" width="4" height="4" fill="#ffffff">
+                      <animateMotion dur="2.9s" begin="-1.2s" repeatCount="indefinite" path="M28,0 A28,11 0 1,1 -28,0 A28,11 0 1,1 28,0"/>
                     </rect>
-                    <rect class="avatar__atom-spark" x="-1" y="-1" width="2" height="2" opacity="0.5">
-                      <animateMotion dur="2.9s" begin="-0.2s" repeatCount="indefinite" path="M26,0 A26,10 0 1,1 -26,0 A26,10 0 1,1 26,0"/>
+                    <rect class="avatar__atom-spark" x="-1.25" y="-1.25" width="2.5" height="2.5" fill="#67e8f9" opacity="0.5">
+                      <animateMotion dur="2.9s" begin="-0.2s" repeatCount="indefinite" path="M28,0 A28,11 0 1,1 -28,0 A28,11 0 1,1 28,0"/>
                     </rect>
                   </g>
-                  <rect class="avatar__atom-core-glow" x="-5" y="-5" width="10" height="10"/>
-                  <rect class="avatar__atom-core" x="-3" y="-3" width="6" height="6"/>
-                  <rect class="avatar__atom-core-hot" x="-1" y="-1" width="2" height="2"/>
+                  <rect class="avatar__atom-core-glow" x="-6" y="-6" width="12" height="12" fill="#a5f3fc"/>
+                  <rect class="avatar__atom-core" x="-3.5" y="-3.5" width="7" height="7" fill="#ffffff"/>
+                  <rect class="avatar__atom-core-hot" x="-1.5" y="-1.5" width="3" height="3" fill="#ecfeff"/>
                 </g>
               </g>
             </g>
@@ -1062,8 +1062,7 @@
           Линейно руковожу аналитикой; разработку и QA координирую на уровне проекта.
         </p>
         <p class="intro__more" data-i18n="intro_p2">
-          Сейчас ищу роль, где важны параллельный портфель, зрелые процессы и измеримый результат —
-          в доменах госсектора, банка, нефтегаза и энергетики. Английский B2 · PMP в процессе · Six Sigma Green Belt.
+          Сейчас ищу роль, по полноценному управлению жизненным циклом проекта, в установленные сроки, в рамках бюджета и высокого качества — в доменах госсектора, банка, нефтегаза и энергетики.
         </p>
       </section>
 
