@@ -234,7 +234,12 @@
     navLinks.forEach((a) => {
       a.classList.toggle("is-active", a.getAttribute("data-nav") === "automation");
     });
-    window.ExcelAI?.init?.();
+    (window.AutomationAI || window.ExcelAI)?.init?.();
+    requestAnimationFrame(() => {
+      document.querySelectorAll("[data-auto-tool], [data-excel-tool]").forEach((root) => {
+        root._knzRedraw?.();
+      });
+    });
     if (syncHash && location.hash !== "#automation") {
       history.pushState(null, "", "#automation");
     }

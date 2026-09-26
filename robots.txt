@@ -1,0 +1,14 @@
+# Automated harvesting of this site’s content for commercial reuse is not allowed.
+# Normal search indexing of the public CV is welcome; sample docs and lab pages are off-limits to crawlers.
+
+User-agent: *
+Allow: /
+Disallow: /assets/excel/
+Disallow: /assets/docs/
+Disallow: /avatar-lab.html
+Disallow: /avatar-lab-A-auto.html
+Disallow: /avatar-lab-B-opus.html
+Disallow: /avatar-compare.html
+Disallow: /avatar-lamp-approve.html
+Disallow: /avatar-motion-pick.html
+Crawl-delay: 10

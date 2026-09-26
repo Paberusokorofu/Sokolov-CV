@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap&v=auto1" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=auto2">
+  <link rel="stylesheet" href="styles.css?v=mai4">
   <link rel="stylesheet" href="avatar.css?v=auto1">
 </head>
 <body>
@@ -1480,75 +1480,85 @@
       <section class="auto-view" id="automation" hidden aria-labelledby="auto-title">
         <header class="auto__head">
           <p class="auto__badge" data-i18n="auto_badge">В разработке</p>
-          <h2 id="auto-title" data-i18n="auto_title">Автоматизация с AI</h2>
-          <p class="auto__lead" data-i18n="auto_lead">Первый из трёх кейсов: Excel → анализ → SQL PostgreSQL → идея графика. Всё в браузере, файл никуда не уходит.</p>
+          <h2 id="auto-title" data-i18n="auto_title">Modern AI company</h2>
+          <p class="auto__lead" data-i18n="auto_lead">Три документа «Сделка+» → слоты → AI Хаб. Перетащите в любой пустой слот; клик — превью; при 3/3 — сводный бриф и кнопки Хаба.</p>
         </header>
 
-        <div class="auto__cases" role="list">
-          <article class="auto-case is-active" role="listitem" data-auto-case="excel">
-            <p class="auto-case__tag" data-i18n="auto_case1_tag">Кейс 1</p>
-            <h3 data-i18n="auto_case1_title">Excel → Postgres SQL</h3>
-            <p data-i18n="auto_case1_body">Загрузите таблицу: разберём столбцы, предложим primary key, CREATE + INSERT и тип диаграммы.</p>
-          </article>
-          <article class="auto-case is-soon" role="listitem" aria-disabled="true">
-            <p class="auto-case__tag" data-i18n="auto_case2_tag">Кейс 2</p>
-            <h3 data-i18n="auto_case2_title">Скоро</h3>
-            <p data-i18n="auto_case2_body">Второй сценарий автоматизации — в планах.</p>
-          </article>
-          <article class="auto-case is-soon" role="listitem" aria-disabled="true">
-            <p class="auto-case__tag" data-i18n="auto_case3_tag">Кейс 3</p>
-            <h3 data-i18n="auto_case3_title">Скоро</h3>
-            <p data-i18n="auto_case3_body">Третий сценарий автоматизации — в планах.</p>
-          </article>
-        </div>
+        <div class="auto__tool" data-auto-tool data-excel-tool>
+          <div class="knz-stage" data-knz-stage>
+            <svg class="knz-wires" data-knz-wires aria-hidden="true"></svg>
 
-        <div class="auto__about">
-          <h3 data-i18n="auto_about_title">Что делает</h3>
-          <p data-i18n="auto_about_body">Парсит первый лист Excel в браузере (SheetJS), угадывает типы колонок, собирает черновик SQL для PostgreSQL и предлагает простую диаграмму по данным.</p>
-          <h3 data-i18n="auto_benefits_title">Зачем загружать</h3>
-          <ul class="auto__list">
-            <li data-i18n="auto_benefit_1">Быстрый черновик схемы таблицы без ручного набора DDL</li>
-            <li data-i18n="auto_benefit_2">Файл остаётся на устройстве — удобно для демо и чувствительных выгрузок</li>
-            <li data-i18n="auto_benefit_3">Сразу видно, как данные лягут в БД и какой график имеет смысл</li>
-          </ul>
-          <h3 data-i18n="auto_next_title">Как улучшить дальше</h3>
-          <p data-i18n="auto_next_body">Следующий шаг — локальная LLM или готовый API: умные имена колонок, нормализация типов и более точный выбор PK. Сейчас — эвристики на клиенте (вариант A).</p>
-        </div>
-
-        <div class="auto__tool" data-excel-tool>
-          <div class="auto-drop" data-excel-drop tabindex="0" role="button" aria-controls="excel-file">
-            <input id="excel-file" type="file" accept=".xlsx,.xls,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden data-excel-input>
-            <p class="auto-drop__title" data-i18n="auto_drop_title">Перетащите Excel сюда</p>
-            <p class="auto-drop__hint" data-i18n="auto_drop_hint">Один лист · до 1 МБ или 100 строк · .xlsx / .xls / .csv</p>
-            <p class="auto-drop__btn" data-i18n="auto_drop_btn">или выберите файл</p>
-          </div>
-          <p class="auto-error" data-excel-error hidden></p>
-
-          <div class="auto-result" data-excel-result hidden>
-            <section class="auto-block">
-              <h3 data-i18n="auto_analysis_title">Анализ загрузки</h3>
-              <div class="auto-meta" data-excel-meta></div>
-              <div class="auto-cols" data-excel-cols></div>
-            </section>
-            <section class="auto-block">
-              <h3 data-i18n="auto_pk_title">Primary key — предложение</h3>
-              <p class="auto-suggest" data-excel-pk></p>
-            </section>
-            <section class="auto-block">
-              <div class="auto-block__row">
-                <h3 data-i18n="auto_sql_title">SQL для PostgreSQL</h3>
-                <button type="button" class="btn btn--ghost" data-excel-copy data-i18n="auto_sql_copy">Копировать</button>
+            <div class="knz-rail" data-knz-rail>
+              <div class="knz-files" data-knz-files>
+                <article class="knz-file" data-file-id="deals" draggable="true" tabindex="0" role="button">
+                  <span class="knz-file__icon knz-file__icon--xls" aria-hidden="true">XLS</span>
+                  <div class="knz-file__body">
+                    <strong class="knz-file__name">deals_q1_2026.xlsx</strong>
+                    <span class="knz-file__meta" data-i18n="auto_file_deals">Отчёт по сделкам · 14 строк</span>
+                  </div>
+                </article>
+                <article class="knz-file" data-file-id="roadmap" draggable="true" tabindex="0" role="button">
+                  <span class="knz-file__icon knz-file__icon--doc" aria-hidden="true">DOC</span>
+                  <div class="knz-file__body">
+                    <strong class="knz-file__name">roadmap_sdelka_plus.docx</strong>
+                    <span class="knz-file__meta" data-i18n="auto_file_roadmap">Дорожная карта · эпики E1–E5</span>
+                  </div>
+                </article>
+                <article class="knz-file" data-file-id="goals" draggable="true" tabindex="0" role="button">
+                  <span class="knz-file__icon knz-file__icon--pdf" aria-hidden="true">PDF</span>
+                  <div class="knz-file__body">
+                    <strong class="knz-file__name">product_goals_2026.pdf</strong>
+                    <span class="knz-file__meta" data-i18n="auto_file_goals">Цели продукта · G1–G5</span>
+                  </div>
+                </article>
               </div>
-              <pre class="auto-sql" data-excel-sql></pre>
-            </section>
-            <section class="auto-block">
-              <h3 data-i18n="auto_chart_title">Диаграмма — предложение</h3>
-              <p class="auto-suggest" data-excel-chart-note></p>
-              <div class="auto-chart-wrap">
-                <canvas data-excel-chart width="640" height="280" aria-label="Chart preview"></canvas>
+
+              <div class="knz-hub" data-knz-hub>
+                <p class="knz-hub__title" data-i18n="auto_hub_title">AI Хаб</p>
+                <div class="knz-hub__actions" data-hub-actions>
+                  <button type="button" class="knz-hub-card knz-hub-card--primary" data-hub-action="jira" hidden disabled data-i18n="auto_hub_jira">Сформировать задачи Jira</button>
+                  <button type="button" class="knz-hub-card" data-hub-action="strategy" hidden disabled data-i18n="auto_hub_strategy">Стратегия развития на квартал</button>
+                  <button type="button" class="knz-hub-card" data-hub-action="board" hidden disabled data-i18n="auto_hub_board">Презентация для совета директоров</button>
+                  <button type="button" class="knz-hub-card" data-hub-action="approve" hidden disabled data-i18n="auto_hub_approve_pkg">Пакет согласования изменений</button>
+                  <button type="button" class="knz-hub-card" data-hub-action="playbook" hidden disabled data-i18n="auto_hub_playbook">Операционный playbook внедрения AI</button>
+                  <button type="button" class="knz-hub-card" data-hub-action="agent" hidden disabled data-i18n="auto_hub_agent">Дать команду AI-агенту отслеживать прогресс</button>
+                </div>
               </div>
-            </section>
+
+              <div class="knz-slots" data-knz-slots>
+                <div class="knz-slot" data-slot="0" data-empty="true">
+                  <span class="knz-slot__label" data-i18n="auto_slot_empty">Пустой слот</span>
+                  <button type="button" class="knz-slot__clear" data-slot-clear hidden aria-label="Убрать">×</button>
+                </div>
+                <div class="knz-slot" data-slot="1" data-empty="true">
+                  <span class="knz-slot__label" data-i18n="auto_slot_empty">Пустой слот</span>
+                  <button type="button" class="knz-slot__clear" data-slot-clear hidden aria-label="Убрать">×</button>
+                </div>
+                <div class="knz-slot" data-slot="2" data-empty="true">
+                  <span class="knz-slot__label" data-i18n="auto_slot_empty">Пустой слот</span>
+                  <button type="button" class="knz-slot__clear" data-slot-clear hidden aria-label="Убрать">×</button>
+                </div>
+              </div>
+            </div>
+
+            <aside class="knz-preview" data-knz-preview>
+              <div class="knz-preview__head">
+                <h3 data-preview-title data-i18n="auto_preview_title">Превью документа</h3>
+                <p class="knz-preview__file" data-preview-name data-i18n="auto_preview_empty">Кликните файл или заполните слоты</p>
+              </div>
+              <div class="knz-preview__sheet" data-preview-table>
+                <p class="knz-preview__placeholder" data-i18n="auto_preview_hint">Превью появится здесь</p>
+              </div>
+            </aside>
           </div>
+
+          <section class="auto-block knz-artifact-panel" data-artifact-panel hidden>
+            <div class="auto-block__row">
+              <h3 data-artifact-title>Артефакт</h3>
+              <button type="button" class="btn btn--ghost" data-artifact-close data-i18n="auto_artifact_close">Закрыть</button>
+            </div>
+            <div class="knz-artifact-body" data-artifact-body></div>
+          </section>
         </div>
       </section>
 
@@ -1560,6 +1570,7 @@
             <span class="tardis__label">TARDIS</span>
           </button>
         </div>
+        <p class="footer__note" data-i18n="footer_no_scrape">Автоматический сбор данных с сайта запрещён.</p>
       </footer>
     </main>
   </div>
@@ -1685,10 +1696,10 @@
     </article>
   </template>
 
-  <script src="i18n.js?v=auto2"></script>
+  <script src="i18n.js?v=mai4"></script>
   <script src="theme.js"></script>
   <script src="avatar.js"></script>
-  <script src="excel-ai.js?v=auto2"></script>
-  <script src="app.js?v=auto2"></script>
+  <script src="automation-ai.js?v=mai4"></script>
+  <script src="app.js?v=mai4"></script>
 </body>
 </html>
