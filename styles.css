@@ -523,16 +523,12 @@ body.is-job-focus .socials .icon {
   margin-bottom: 0;
 }
 
-.intro__also {
-  margin: 1rem 0 0;
-  max-width: none;
-  width: 100%;
-  color: var(--muted);
+.intro__tabs {
+  margin: 0 0 1rem;
 }
 
-.intro__also-sep {
-  margin: 0 0.15em;
-  color: var(--muted);
+body.is-automation .intro__tabs {
+  display: none;
 }
 
 .section--intro {
