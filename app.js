@@ -235,13 +235,16 @@
       a.classList.toggle("is-active", a.getAttribute("data-nav") === "automation");
     });
     (window.AutomationAI || window.ExcelAI)?.init?.();
+    window.LeanVSM?.init?.();
     requestAnimationFrame(() => {
       document.querySelectorAll("[data-auto-tool], [data-excel-tool]").forEach((root) => {
         root._knzRedraw?.();
       });
     });
     if (syncHash && location.hash !== "#automation") {
-      history.pushState(null, "", "#automation");
+      const tab = new URLSearchParams(location.search).get("tab");
+      const q = tab === "lean" || tab === "lean-ai" ? "?tab=lean" : "";
+      history.pushState(null, "", q + "#automation");
     }
     window.scrollTo(0, 0);
   }

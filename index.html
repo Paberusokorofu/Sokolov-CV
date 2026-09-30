@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap&v=auto1" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=mai4">
+  <link rel="stylesheet" href="styles.css?v=lean13">
   <link rel="stylesheet" href="avatar.css?v=auto1">
 </head>
 <body>
@@ -27,7 +27,7 @@
           <a href="#cases" data-nav="cases" data-i18n="nav_cases">Кейсы</a>
           <a href="#education" data-nav="education" data-i18n="nav_education">Обучение</a>
           <a href="#contact" data-nav="contact" data-i18n="nav_contact">Контакты</a>
-          <a href="#automation" data-nav="automation" data-i18n="nav_automation">Автоматизация с AI</a>
+          <a href="#automation" class="aside__nav-attn" data-nav="automation" data-i18n="nav_automation">Автоматизация с AI</a>
         </nav>
 
         <figure class="avatar is-note-gone" data-avatar aria-hidden="true">
@@ -1135,8 +1135,8 @@
             <button type="button" class="lang__btn" data-set-lang="en" aria-pressed="false">EN</button>
           </div>
           <div class="theme" role="group" aria-label="Theme">
-            <button type="button" class="theme__btn is-active" data-set-theme="light" aria-pressed="true" title="Light">☀</button>
-            <button type="button" class="theme__btn" data-set-theme="dark" aria-pressed="false" title="Dark">☾</button>
+            <button type="button" class="theme__btn" data-set-theme="light" aria-pressed="false" title="Light">☀</button>
+            <button type="button" class="theme__btn is-active" data-set-theme="dark" aria-pressed="true" title="Dark">☾</button>
           </div>
         </div>
       </div>
@@ -1477,13 +1477,26 @@
       </section>
       </div>
 
-      <section class="auto-view" id="automation" hidden aria-labelledby="auto-title">
+      <section class="auto-view" id="automation" hidden aria-labelledby="auto-title" data-auto-root>
         <header class="auto__head">
-          <p class="auto__badge" data-i18n="auto_badge">В разработке</p>
-          <h2 id="auto-title" data-i18n="auto_title">Modern AI company</h2>
-          <p class="auto__lead" data-i18n="auto_lead">Три документа «Сделка+» → слоты → AI Хаб. Перетащите в любой пустой слот; клик — превью; при 3/3 — сводный бриф и кнопки Хаба.</p>
+          <div class="auto__tabs" role="tablist" aria-label="Automation demos">
+            <button type="button" class="auto__tab is-active" role="tab" id="auto-tab-modern" aria-selected="true" aria-controls="auto-panel-modern" data-auto-tab="modern" data-i18n="auto_tab_modern">Modern AI company</button>
+            <button type="button" class="auto__tab" role="tab" id="auto-tab-lean" aria-selected="false" aria-controls="auto-panel-lean" data-auto-tab="lean" data-i18n="auto_tab_lean">Lean+AI</button>
+          </div>
+          <div class="auto__title-row">
+            <h2 id="auto-title" data-auto-title data-i18n="auto_title">Modern AI company</h2>
+            <p class="auto__process" data-auto-process data-i18n="lean_domain" hidden>Процесс: согласование изменения IT-регламента / запуск внутреннего сервиса</p>
+          </div>
+          <p class="auto__lead" data-auto-lead data-i18n="auto_lead">Три документа «Сделка+» → слоты → AI Хаб. Перетащите в любой пустой слот; клик — превью; при 3/3 — сводный бриф и кнопки Хаба.</p>
+          <div class="auto__lead auto__lead--lean" data-auto-lead-lean hidden>
+            <p data-i18n="lean_p1">Согласования IT-изменений тянутся месяцами: заявка застревает в очередях, а команда теряет время на ожидание.</p>
+            <p data-i18n="lean_p2">Знания о регламентах и прецедентах живут в головах экспертов, а не в общем контуре.</p>
+            <p data-i18n="lean_p3">Регламенты, договоры и акты часто лежат сканами, PDF и вложениями — пакет собирают, перерывая десятки файлов и рукописных пометок.</p>
+            <p data-i18n="lean_p4">Всё это можно упростить и закрыть связкой современных AI-инструментов (OCR, RAG, агенты) и Lean-практик (5S, poka-yoke, сокращение ожидания).</p>
+          </div>
         </header>
 
+        <div class="auto__panel" id="auto-panel-modern" role="tabpanel" aria-labelledby="auto-tab-modern" data-auto-panel="modern">
         <div class="auto__tool" data-auto-tool data-excel-tool>
           <div class="knz-stage" data-knz-stage>
             <svg class="knz-wires" data-knz-wires aria-hidden="true"></svg>
@@ -1559,6 +1572,211 @@
             </div>
             <div class="knz-artifact-body" data-artifact-body></div>
           </section>
+        </div>
+        </div>
+
+        <div class="auto__panel" id="auto-panel-lean" role="tabpanel" aria-labelledby="auto-tab-lean" data-auto-panel="lean" hidden>
+          <div class="lean-vsm" data-lean-vsm data-lean-mode="asis">
+            <div class="lean-vsm__metrics" data-lean-metrics>
+              <div class="lean-metric">
+                <span class="lean-metric__label" data-i18n="lean_m_lead">Lead time</span>
+                <span class="lean-metric__value" data-lean-m="lead" data-i18n="lean_m_lead_v">47 → 6 дн.</span>
+              </div>
+              <div class="lean-metric">
+                <span class="lean-metric__label" data-i18n="lean_m_queue">Очередь согласований</span>
+                <span class="lean-metric__value" data-lean-m="queue" data-i18n="lean_m_queue_v">18 → 2 дн.</span>
+              </div>
+              <div class="lean-metric">
+                <span class="lean-metric__label" data-i18n="lean_m_search">Поиск информации</span>
+                <span class="lean-metric__value" data-lean-m="search" data-i18n="lean_m_search_v">6 ч/нед → 20 мин</span>
+              </div>
+              <div class="lean-metric">
+                <span class="lean-metric__label" data-i18n="lean_m_ca">%C/A (с первого раза)</span>
+                <span class="lean-metric__value" data-lean-m="ca" data-i18n="lean_m_ca_v">62% → 94%</span>
+              </div>
+            </div>
+
+            <div class="lean-funnel lean-funnel--main" data-lean-funnel="main" aria-hidden="false">
+              <p class="lean-funnel__sr" data-i18n="lean_funnel_aria">Воронка согласования: арки — ворота процесса, фигурки — заявки, мишень — релиз</p>
+            </div>
+
+            <div class="lean-vsm__cta-row">
+              <button type="button" class="lean-vsm__cta" data-lean-toggle data-i18n="lean_cta_tobe">Показать To-Be с AI</button>
+              <p class="lean-vsm__hint" data-i18n="lean_cta_hint">Нажмите кнопку — поток To-Be: OCR→RAG, агенты, 5S и poka-yoke на входе.</p>
+            </div>
+
+            <div class="lean-stream lean-stream--asis" data-lean-stream="asis">
+              <div class="lean-stream__head">
+                <h3 data-i18n="lean_asis_title">As-Is · текущий поток</h3>
+                <p data-i18n="lean_asis_sub">Ожидание, повторные заходы, «знание в головах», нечитаемые сканы</p>
+              </div>
+              <ol class="lean-steps">
+                <li class="lean-step lean-step--wait" data-waste="motion">
+                  <span class="lean-step__n">1</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_s1_t">Заявка · инициатор собирает пакет</strong>
+                    <span class="lean-step__meta" data-i18n="lean_s1_m">PT 2д · Wait — · %C/A 55%</span>
+                    <span class="lean-step__note" data-i18n="lean_s1_d">Боль: пакет собирают вручную — сканы, вложения писем, рукописные пометки; прецеденты ищут часами.</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_search">waste: motion / overprocessing</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_tribal">tribal knowledge</span>
+                  </div>
+                </li>
+                <li class="lean-step lean-step--wait" data-waste="waiting">
+                  <span class="lean-step__n">2</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_s2_t">ИБ · согласование безопасности</strong>
+                    <span class="lean-step__meta" data-i18n="lean_s2_m">PT 1д · Wait 12д · %C/A 48%</span>
+                    <span class="lean-step__note" data-i18n="lean_s2_d">Боль: заявка неделями в очереди; контекст размазан по переписке, уточнения идут кругами.</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_wait">waste: waiting</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_queue">очередь месяцев</span>
+                  </div>
+                </li>
+                <li class="lean-step lean-step--wait" data-waste="rework">
+                  <span class="lean-step__n">3</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_s3_t">Архитектура · повторные правки</strong>
+                    <span class="lean-step__meta" data-i18n="lean_s3_m">PT 1д · Wait 8д · re-entry ×2–3</span>
+                    <span class="lean-step__note" data-i18n="lean_s3_d">Боль: нет единого brief и читаемого корпуса — возвраты на доработку 2–3 раза.</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_rework">waste: rework</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_tribal">tribal knowledge</span>
+                  </div>
+                </li>
+                <li class="lean-step lean-step--wait" data-waste="waiting">
+                  <span class="lean-step__n">4</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_s4_t">Юристы · compliance</strong>
+                    <span class="lean-step__meta" data-i18n="lean_s4_m">PT 0.5д · Wait 10д</span>
+                    <span class="lean-step__note" data-i18n="lean_s4_d">Боль: ждут сканы договоров и актов; сверка клаузул и виз — вручную по PDF.</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_wait">waste: waiting</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_search">waste: motion / overprocessing</span>
+                  </div>
+                </li>
+                <li class="lean-step lean-step--wait" data-waste="waiting">
+                  <span class="lean-step__n">5</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_s5_t">ЛПР · утверждение</strong>
+                    <span class="lean-step__meta" data-i18n="lean_s5_m">PT 0.5д · Wait 14д · очередь 18д</span>
+                    <span class="lean-step__note" data-i18n="lean_s5_d">Боль: непрозрачная очередь; decision pack собирают в последний момент из разрозненных файлов.</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_wait">waste: waiting</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_queue">очередь месяцев</span>
+                  </div>
+                </li>
+                <li class="lean-step lean-step--wait" data-waste="motion">
+                  <span class="lean-step__n">6</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_s6_t">Внедрение · рассылка</strong>
+                    <span class="lean-step__meta" data-i18n="lean_s6_m">PT 2д · стандарт работы размыт</span>
+                    <span class="lean-step__note" data-i18n="lean_s6_d">Боль: после релиза знания снова уходят в головы; онбординг новых согласующих медленный.</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_tribal">tribal knowledge</span>
+                    <span class="lean-step__tag" data-i18n="lean_waste_search">waste: motion / overprocessing</span>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            <div class="lean-stream lean-stream--tobe" data-lean-stream="tobe" hidden>
+              <div class="lean-stream__head">
+                <h3 data-i18n="lean_tobe_title">To-Be · поток с Lean + AI</h3>
+                <p data-i18n="lean_tobe_sub">Скан → OCR → chunk/index → RAG · 5S корпуса · poka-yoke · агенты на ожиданиях</p>
+              </div>
+              <p class="lean-vsm__pipe" data-i18n="lean_tobe_pipe">Цепочка OCR→RAG: скан / PDF / вложение → OCR (в т.ч. рукопись) → чанки и индекс → ответы RAG согласующим и агентам</p>
+              <ol class="lean-steps">
+                <li class="lean-step lean-step--ai">
+                  <span class="lean-step__n">1</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_t1_t">OCR + 5S: сканы и вложения в корпус</strong>
+                    <span class="lean-step__meta" data-i18n="lean_t1_m">PT 1–2ч · договоры / PDF / бумажные согласования → текст</span>
+                    <span class="lean-step__note" data-i18n="lean_t1_d">Практика: OCR · 5S корпуса · AI-агент собирает пакет по шаблону</span>
+                    <span class="lean-step__tag lean-step__tag--ai" data-i18n="lean_tag_ocr">OCR</span>
+                    <span class="lean-step__tag lean-step__tag--lean" data-i18n="lean_tag_5s">5S</span>
+                    <span class="lean-step__tag lean-step__tag--ai" data-i18n="lean_tag_ai">AI agent</span>
+                  </div>
+                </li>
+                <li class="lean-step lean-step--ai">
+                  <span class="lean-step__n">2</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_t2_t">Chunk / index → RAG: прецеденты за минуты</strong>
+                    <span class="lean-step__meta" data-i18n="lean_t2_m">PT 20 мин · visual management · единый источник правды</span>
+                    <span class="lean-step__note" data-i18n="lean_t2_d">Практика: OCR→RAG — ответы по проиндексированным сканам регламентов и кейсов</span>
+                    <span class="lean-step__tag lean-step__tag--ai" data-i18n="lean_tag_ocr">OCR</span>
+                    <span class="lean-step__tag lean-step__tag--ai" data-i18n="lean_tag_rag">RAG</span>
+                  </div>
+                </li>
+                <li class="lean-step lean-step--ai">
+                  <span class="lean-step__n">3</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_t3_t">Poka-yoke: проверка пакета и клаузул</strong>
+                    <span class="lean-step__meta" data-i18n="lean_t3_m">%C/A 94% · блок неполных заявок · меньше re-submit</span>
+                    <span class="lean-step__note" data-i18n="lean_t3_d">Практика: poka-yoke + RAG по OCR-тексту — нет обязательных пунктов / подписей</span>
+                    <span class="lean-step__tag lean-step__tag--lean" data-i18n="lean_tag_poka">poka-yoke</span>
+                    <span class="lean-step__tag lean-step__tag--ai" data-i18n="lean_tag_rag">RAG</span>
+                  </div>
+                </li>
+                <li class="lean-step lean-step--ai">
+                  <span class="lean-step__n">4</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_t4_t">Параллельные ревью ИБ / арх / legal</strong>
+                    <span class="lean-step__meta" data-i18n="lean_t4_m">Wait 1–2д · RAG-бриф для согласующего</span>
+                    <span class="lean-step__note" data-i18n="lean_t4_d">Практика: AI-агент + RAG — контекст и цитаты из сканов/регламентов у ревьюера</span>
+                    <span class="lean-step__tag lean-step__tag--ai" data-i18n="lean_tag_ai">AI agent</span>
+                    <span class="lean-step__tag lean-step__tag--ai" data-i18n="lean_tag_rag">RAG</span>
+                    <span class="lean-step__tag lean-step__tag--lean" data-i18n="lean_tag_pull">pull / standard work</span>
+                  </div>
+                </li>
+                <li class="lean-step lean-step--ai">
+                  <span class="lean-step__n">5</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_t5_t">ЛПР: короткий decision pack</strong>
+                    <span class="lean-step__meta" data-i18n="lean_t5_m">Очередь 2д · lead time 6д · audit trail готов</span>
+                    <span class="lean-step__note" data-i18n="lean_t5_d">Практика: AI-агент — сжатый пакет с ссылками на проиндексированные источники</span>
+                    <span class="lean-step__tag lean-step__tag--ai" data-i18n="lean_tag_ai">AI agent</span>
+                  </div>
+                </li>
+                <li class="lean-step lean-step--ai">
+                  <span class="lean-step__n">6</span>
+                  <div class="lean-step__body">
+                    <strong data-i18n="lean_t6_t">Авто-внедрение + уведомления</strong>
+                    <span class="lean-step__meta" data-i18n="lean_t6_m">PT 4ч · стандарт работы · онбординг быстрее</span>
+                    <span class="lean-step__note" data-i18n="lean_t6_d">Практика: standard work · 5S — единый корпус после релиза, без «знаний в головах»</span>
+                    <span class="lean-step__tag lean-step__tag--lean" data-i18n="lean_tag_std">standard work</span>
+                    <span class="lean-step__tag lean-step__tag--lean" data-i18n="lean_tag_5s">5S</span>
+                  </div>
+                </li>
+              </ol>
+
+              <aside class="lean-result" aria-labelledby="lean-result-title">
+                <h4 id="lean-result-title" data-i18n="lean_result_title">Результат для компании</h4>
+                <ul>
+                  <li data-i18n="lean_result_1">Регламенты, сканы договоров и актов — searchable; один источник правды вместо папок и почты</li>
+                  <li data-i18n="lean_result_2">First-pass approval ↑ (≈62% → 94%), меньше возвратов и повторных кругов</li>
+                  <li data-i18n="lean_result_3">Lead time 47 → 6 дней; очередь ЛПР 18 → 2 дня</li>
+                  <li data-i18n="lean_result_4">Поиск по базе: часы в неделю → минуты; онбординг новых согласующих быстрее</li>
+                  <li data-i18n="lean_result_5">Poka-yoke на входе: нет «потерянных» клаузул и неполных пакетов</li>
+                  <li data-i18n="lean_result_6">Прозрачный audit trail: кто что утвердил и на каком OCR/RAG-контексте</li>
+                </ul>
+              </aside>
+            </div>
+
+            <aside class="lean-ocr-cases" aria-labelledby="lean-ocr-title">
+              <h4 id="lean-ocr-title" data-i18n="lean_ocr_title">Типовые кейсы OCR + RAG</h4>
+              <ul>
+                <li data-i18n="lean_ocr_1">Сканы договоров / PDF / бумажные листы согласования → OCR → индекс → ответы согласующим</li>
+                <li data-i18n="lean_ocr_2">Рукописные пометки на формах и визах — в текст, затем в RAG-контекст заявки</li>
+                <li data-i18n="lean_ocr_3">Устаревшие регламенты как картинки/фото страниц — в searchable корпус (5S)</li>
+                <li data-i18n="lean_ocr_4">Сканы счетов и актов → в базу знаний для агентов и сверки с заявкой</li>
+                <li data-i18n="lean_ocr_5">Вложения писем (сканы, TIFF, «плоский» PDF) — без ручного перепечатывания</li>
+                <li data-i18n="lean_ocr_6">Poka-yoke: RAG по OCR-корпусу ловит отсутствующие обязательные пункты до старта ревью</li>
+              </ul>
+            </aside>
+
+            <ul class="lean-legend" aria-label="Legend">
+              <li><span class="lean-legend__swatch lean-legend__swatch--ai"></span><span data-i18n="lean_leg_ai">AI agent</span></li>
+              <li><span class="lean-legend__swatch lean-legend__swatch--ocr"></span><span data-i18n="lean_leg_ocr">OCR → RAG</span></li>
+              <li><span class="lean-legend__swatch lean-legend__swatch--5s"></span><span data-i18n="lean_leg_5s">5S · база знаний</span></li>
+              <li><span class="lean-legend__swatch lean-legend__swatch--poka"></span><span data-i18n="lean_leg_poka">poka-yoke</span></li>
+              <li><span class="lean-legend__swatch lean-legend__swatch--waste"></span><span data-i18n="lean_leg_waste">потери (waiting / rework)</span></li>
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -1646,7 +1864,7 @@
     <article class="case" data-case="rag-ml">
       <p class="case__tag">ML / LLM</p>
       <h3 data-i18n="case_rag_title">RAG 10 ГБ + ML 78%</h3>
-      <p data-i18n="case_rag_body">База знаний RAG/LLM. Прогноз электропотребления (Python).</p>
+      <p data-i18n="case_rag_body">База знаний RAG/LLM (в т.ч. OCR сканов → индекс). Прогноз электропотребления (Python).</p>
       <p><a href="https://github.com/Paberusokorofu/energy-predict" rel="noopener noreferrer" target="_blank">energy-predict</a></p>
     </article>
     <article class="case" data-case="change-sap">
@@ -1696,10 +1914,11 @@
     </article>
   </template>
 
-  <script src="i18n.js?v=mai4"></script>
-  <script src="theme.js"></script>
+  <script src="i18n.js?v=lean10"></script>
+  <script src="theme.js?v=dark1"></script>
   <script src="avatar.js"></script>
   <script src="automation-ai.js?v=mai4"></script>
-  <script src="app.js?v=mai4"></script>
+  <script src="lean-vsm.js?v=lean10"></script>
+  <script src="app.js?v=lean4"></script>
 </body>
 </html>

@@ -19,9 +19,9 @@
     btn.addEventListener("click", () => applyTheme(btn.getAttribute("data-set-theme")));
   });
 
-  let initial = "light";
+  let initial = "dark";
   try {
-    initial = localStorage.getItem("site-theme") || "light";
+    initial = localStorage.getItem("site-theme") || "dark";
   } catch (_) {}
   applyTheme(initial);
   window.applyTheme = applyTheme;
