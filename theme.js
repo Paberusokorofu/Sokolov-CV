@@ -16,13 +16,12 @@
   }
 
   buttons.forEach((btn) => {
-    btn.addEventListener("click", () => applyTheme(btn.getAttribute("data-set-theme")));
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-set-theme");
+      if (target === "light" || target === "dark") applyTheme(target);
+    });
   });
 
-  let initial = "dark";
-  try {
-    initial = localStorage.getItem("site-theme") || "dark";
-  } catch (_) {}
-  applyTheme(initial);
+  applyTheme("dark");
   window.applyTheme = applyTheme;
 })();

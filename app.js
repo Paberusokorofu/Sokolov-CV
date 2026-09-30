@@ -226,7 +226,7 @@
   const cvView = document.getElementById("cv-view");
   const autoView = document.getElementById("automation");
 
-  function showAutomationView({ syncHash = true } = {}) {
+  function showAutomationView({ syncHash = true, tab } = {}) {
     if (cvView) cvView.hidden = true;
     if (autoView) autoView.hidden = false;
     document.body.classList.add("is-automation");
@@ -236,15 +236,23 @@
     });
     (window.AutomationAI || window.ExcelAI)?.init?.();
     window.LeanVSM?.init?.();
+    if (tab) {
+      window.LeanVSM?.setTab?.(autoView, tab, { syncUrl: false });
+    }
     requestAnimationFrame(() => {
       document.querySelectorAll("[data-auto-tool], [data-excel-tool]").forEach((root) => {
         root._knzRedraw?.();
       });
     });
-    if (syncHash && location.hash !== "#automation") {
-      const tab = new URLSearchParams(location.search).get("tab");
-      const q = tab === "lean" || tab === "lean-ai" ? "?tab=lean" : "";
-      history.pushState(null, "", q + "#automation");
+    if (syncHash) {
+      const active =
+        tab ||
+        new URLSearchParams(location.search).get("tab") ||
+        "";
+      const q = active === "lean" || active === "lean-ai" ? "?tab=lean" : "";
+      if (location.hash !== "#automation" || location.search !== q) {
+        history.pushState(null, "", q + "#automation");
+      }
     }
     window.scrollTo(0, 0);
   }
@@ -287,6 +295,13 @@
         syncHash: wasAuto,
       });
       if (nav === "intro") collapseHome({ scroll: false });
+    });
+  });
+
+  document.querySelectorAll("[data-auto-open]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      showAutomationView({ tab: a.getAttribute("data-auto-open") || "modern" });
     });
   });
 

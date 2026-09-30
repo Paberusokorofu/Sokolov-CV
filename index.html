@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap&v=auto1" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=lean13">
-  <link rel="stylesheet" href="avatar.css?v=auto1">
+  <link rel="stylesheet" href="styles.css?v=intro1">
+  <link rel="stylesheet" href="avatar.css?v=celestial1">
 </head>
 <body>
   <a class="skip" href="#content" data-i18n="skip">К содержанию</a>
@@ -147,7 +147,7 @@
                 <rect x="58" y="32" width="268" height="100" fill="#8ed0ec"/>
                 <rect x="58" y="32" width="268" height="34" fill="#abdff4"/>
                 <rect x="58" y="66" width="268" height="16" fill="#9bd7f0"/>
-                <!-- sun -->
+                <!-- sun: click → dark theme -->
                 <rect x="78" y="48" width="16" height="4" fill="#ffe08a"/>
                 <rect x="74" y="52" width="24" height="4" fill="#ffe08a"/>
                 <rect x="72" y="56" width="28" height="12" fill="#ffe08a"/>
@@ -155,6 +155,12 @@
                 <rect x="78" y="72" width="16" height="4" fill="#ffe08a"/>
                 <rect x="78" y="56" width="16" height="12" fill="#fff5cc"/>
                 <rect x="82" y="52" width="8" height="4" fill="#fff5cc"/>
+                <g class="avatar__hit-group" data-lab-hit="sun" role="button" tabindex="0" aria-label="Тёмная тема">
+                  <rect class="avatar__hit" x="70" y="46" width="34" height="32"/>
+                  <use class="avatar__spark" href="#avatarSpark" x="86" y="44"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="68" y="56" style="animation-delay: 0.25s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="100" y="58" style="animation-delay: 0.5s"/>
+                </g>
                 <!-- clouds -->
                 <rect x="276" y="52" width="40" height="8" fill="#eaf6fd"/>
                 <rect x="284" y="46" width="24" height="6" fill="#f6fbfe"/>
@@ -190,7 +196,7 @@
                 <rect x="58" y="32" width="268" height="100" fill="#0e1e3a"/>
                 <rect x="58" y="32" width="268" height="34" fill="#0a1830"/>
                 <rect x="58" y="100" width="268" height="32" fill="#14284a"/>
-                <!-- moon, right pane -->
+                <!-- moon, right pane: click → light theme -->
                 <rect x="290" y="48" width="16" height="4" fill="#dfe8f4"/>
                 <rect x="286" y="52" width="24" height="4" fill="#e8eff8"/>
                 <rect x="284" y="56" width="28" height="12" fill="#eef4fb"/>
@@ -198,6 +204,12 @@
                 <rect x="290" y="72" width="16" height="4" fill="#dfe8f4"/>
                 <rect x="296" y="58" width="6" height="6" fill="#c6d3e4"/>
                 <rect x="290" y="66" width="4" height="4" fill="#c6d3e4"/>
+                <g class="avatar__hit-group" data-lab-hit="moon" role="button" tabindex="0" aria-label="Светлая тема">
+                  <rect class="avatar__hit" x="282" y="46" width="34" height="32"/>
+                  <use class="avatar__spark" href="#avatarSpark" x="298" y="44"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="280" y="56" style="animation-delay: 0.25s"/>
+                  <use class="avatar__spark" href="#avatarSparkS" x="312" y="58" style="animation-delay: 0.5s"/>
+                </g>
                 <!-- stars -->
                 <rect class="avatar__star" x="66" y="92" width="3" height="3" fill="#f1f5f9"/>
                 <rect class="avatar__star avatar__star--2" x="108" y="44" width="3" height="3" fill="#e2e8f0"/>
@@ -1135,8 +1147,12 @@
             <button type="button" class="lang__btn" data-set-lang="en" aria-pressed="false">EN</button>
           </div>
           <div class="theme" role="group" aria-label="Theme">
-            <button type="button" class="theme__btn" data-set-theme="light" aria-pressed="false" title="Light">☀</button>
-            <button type="button" class="theme__btn is-active" data-set-theme="dark" aria-pressed="true" title="Dark">☾</button>
+            <button type="button" class="theme__btn" data-set-theme="light" aria-pressed="false" title="Светлая тема" aria-label="Светлая тема">
+              <svg class="theme__icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8 1.5v2.2M8 12.3v2.2M1.5 8h2.2M12.3 8h2.2M3.4 3.4l1.6 1.6M11 11l1.6 1.6M12.6 3.4L11 5M5 11L3.4 12.6"/></g></svg>
+            </button>
+            <button type="button" class="theme__btn is-active" data-set-theme="dark" aria-pressed="true" title="Тёмная тема" aria-label="Тёмная тема">
+              <svg class="theme__icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M11.2 10.6A5.2 5.2 0 0 1 5.4 4.8 4.8 4.8 0 1 0 11.2 10.6z"/></svg>
+            </button>
           </div>
         </div>
       </div>
@@ -1151,6 +1167,10 @@
         </p>
         <p class="intro__more" data-i18n="intro_p2">
           Сейчас ищу роль, по полноценному управлению жизненным циклом проекта, в установленные сроки, в рамках бюджета и высокого качества — в доменах госсектора, банка, нефтегаза и энергетики.
+        </p>
+        <p class="intro__also">
+          <span data-i18n="intro_also">Смотрите также:</span>
+          <a href="#automation" data-auto-open="modern" data-i18n="auto_tab_modern">Modern AI company</a><span class="intro__also-sep" aria-hidden="true"> · </span><a href="?tab=lean#automation" data-auto-open="lean" data-i18n="auto_tab_lean">Lean+AI</a>
         </p>
       </section>
 
@@ -1914,11 +1934,11 @@
     </article>
   </template>
 
-  <script src="i18n.js?v=lean10"></script>
-  <script src="theme.js?v=dark1"></script>
-  <script src="avatar.js"></script>
+  <script src="i18n.js?v=intro1"></script>
+  <script src="theme.js?v=darkalways1"></script>
+  <script src="avatar.js?v=celestial1"></script>
   <script src="automation-ai.js?v=mai4"></script>
   <script src="lean-vsm.js?v=lean10"></script>
-  <script src="app.js?v=lean4"></script>
+  <script src="app.js?v=intro1"></script>
 </body>
 </html>

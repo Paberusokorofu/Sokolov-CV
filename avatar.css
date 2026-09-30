@@ -221,6 +221,7 @@ html[data-theme="dark"] .avatar {
 .avatar__window-day,
 .avatar__window-night {
   transition: opacity 0.4s linear;
+  pointer-events: none;
 }
 
 .avatar__window-day { opacity: 1; }
@@ -228,6 +229,13 @@ html[data-theme="dark"] .avatar {
 
 html[data-theme="dark"] .avatar__window-day { opacity: 0; }
 html[data-theme="dark"] .avatar__window-night { opacity: 1; }
+
+/* celestial body: only the visible pane's sun/moon receives clicks */
+html:not([data-theme="dark"]) .avatar__window-day [data-lab-hit="sun"],
+html[data-theme="dark"] .avatar__window-night [data-lab-hit="moon"] {
+  pointer-events: all;
+  cursor: pointer;
+}
 
 .avatar__star {
   animation: avatar-star 3.4s steps(2, end) infinite;

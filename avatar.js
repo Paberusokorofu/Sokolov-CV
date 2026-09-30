@@ -76,6 +76,8 @@
 
   const hits = {
     lamp: root.querySelector('[data-lab-hit="lamp"]'),
+    sun: root.querySelector('[data-lab-hit="sun"]'),
+    moon: root.querySelector('[data-lab-hit="moon"]'),
     glasses: root.querySelector('[data-lab-hit="glasses"]'),
     glassesSill: root.querySelector('[data-lab-hit="glassesSill"]'),
     drink: root.querySelector('[data-lab-hit="drink"]'),
@@ -416,13 +418,17 @@
     window.setTimeout(() => node.classList.remove("is-hit-flash"), HIT_FLASH);
   }
 
-  // the lamp shade is the light switch: light ↔ dark
-  function toggleTheme() {
-    const current = document.documentElement.getAttribute("data-theme");
-    const next = current === "dark" ? "light" : "dark";
+  function setTheme(theme) {
+    const next = theme === "dark" ? "dark" : "light";
     if (typeof window.applyTheme === "function") window.applyTheme(next);
     else document.documentElement.setAttribute("data-theme", next);
     return next;
+  }
+
+  // the lamp shade is the light switch: light ↔ dark
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute("data-theme");
+    return setTheme(current === "dark" ? "light" : "dark");
   }
 
   function setGlasses(off) {
@@ -544,6 +550,21 @@
       lampIgnoreClick = true;
       flashHit(hits.lamp);
       flickerLamp();
+    });
+  }
+
+  // window celestial body: sun (day) → dark, moon (night) → light
+  if (hits.sun) {
+    hits.sun.addEventListener("click", () => {
+      flashHit(hits.sun);
+      setTheme("dark");
+    });
+  }
+
+  if (hits.moon) {
+    hits.moon.addEventListener("click", () => {
+      flashHit(hits.moon);
+      setTheme("light");
     });
   }
 
