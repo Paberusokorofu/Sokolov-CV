@@ -394,7 +394,7 @@
     } else {
       if (titleEl) {
         titleEl.setAttribute("data-i18n", "auto_title");
-        titleEl.textContent = d.auto_title || "Modern AI company";
+        titleEl.textContent = d.auto_title || "A modern AI company";
       }
       if (leadEl) {
         leadEl.hidden = false;
