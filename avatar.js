@@ -2,11 +2,8 @@
   const root = document.querySelector("[data-avatar]");
   if (!root) return;
 
-  const SIGH_EVERY = 10000;
   const SIGH_DURATION = 1200;
-  const SIP_EVERY = 20000;
   const SIP_DURATION = 4200;
-  const CHEER_EVERY = 30000;
   const CHEER_DURATION = 1800;
   // confetti / salute keep falling a little past the end of the pose
   const CHEER_FX_DURATION = 2700;
@@ -506,6 +503,36 @@
     }, offset);
   }
 
+  // Idle moods run one after another, never on top of each other:
+  // wait → sigh → wait → sip → wait → cheer → back to sigh.
+  // `wait` is counted from the end of the previous mood.
+  const IDLE_SEQUENCE = [
+    { wait: 10000, run: sigh, duration: SIGH_DURATION },
+    { wait: 20000, run: sip, duration: SIP_DURATION },
+    { wait: 30000, run: cheer, duration: CHEER_DURATION },
+  ];
+
+  function idleChain() {
+    const token = { id: 0 };
+    timers.push(token);
+    let step = 0;
+    const schedule = (delay) => {
+      token.id = window.setTimeout(fire, delay);
+    };
+    const fire = () => {
+      // a reaction (think / nod / cheer on PDF…) is playing: wait for it
+      if (busy) {
+        schedule(600);
+        return;
+      }
+      const current = IDLE_SEQUENCE[step];
+      current.run();
+      step = (step + 1) % IDLE_SEQUENCE.length;
+      schedule(current.duration + IDLE_SEQUENCE[step].wait);
+    };
+    schedule(IDLE_SEQUENCE[0].wait);
+  }
+
   function startCycles() {
     stopCycles();
     if (isPaused()) {
@@ -515,9 +542,7 @@
     }
     // already running: leave the rhythm alone instead of restarting it
     if (!typingTimers.length) startTyping();
-    cycle(sigh, SIGH_EVERY, SIGH_EVERY);
-    cycle(sip, SIP_EVERY, SIP_EVERY + 3000);
-    cycle(cheer, CHEER_EVERY, CHEER_EVERY + 7000);
+    idleChain();
     if (!glassesOff) cycle(nextFx, FX_EVERY, FX_EVERY);
     else aimPupils();
   }
